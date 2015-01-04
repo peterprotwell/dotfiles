@@ -1,30 +1,20 @@
 #!/usr/bin/env bash
 
 function make_symlink {
-  if [ -L ~/"$1" ] ; then
+  if [ -L ~/"$1" ]; then
     rm ~/"$1"
+  elif [ -e ~/"$1" ]; then
+    echo "$1" already exists.
+    return
   fi
 
   ln -s ~/dotfiles/"$1" ~
 }
 
-# emacs
-make_symlink .emacs
-make_symlink .emacs.d
+local links=".emacs .emacs.d .zprofile .zshrc .bash_profile .bashrc .gitconfig .irbrc .gemrc"
 
-# zsh
-make_symlink .zprofile
-make_symlink .zshrc
-
-# bash
-make_symlink .bash_profile
-make_symlink .bashrc
-
-# git
-make_symlink .gitconfig
-
-# ruby
-make_symlink .irbrc
-make_symlink .gemrc
+for link in $links; do
+  make_symlink "$link"
+done
 
 echo "Symlinks created."

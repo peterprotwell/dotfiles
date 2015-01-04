@@ -422,6 +422,9 @@
 
 ;; shell
 (setq sh-indentation 2)
+(add-hook 'sh-mode-hook
+          (lambda ()
+            (setq sh-basic-offset 2) ))
 
 ;; erb
 (add-hook 'html-erb-mode-hook
