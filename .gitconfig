@@ -1,0 +1,45 @@
+[user]
+  email = mykphyre@yahoo.com
+  name = Mike Nichols
+
+[alias]
+  b = branch
+  br = branch
+  branch-name = rev-parse --abbrev-ref HEAD
+  ci = commit
+  cam = commit -am
+  c = checkout
+  co = checkout
+  com = checkout master
+  cop2 = checkout @{-2}
+  cop3 = checkout @{-3}
+  cop4 = checkout @{-4}
+  cop5 = checkout @{-5}
+  cop6 = checkout @{-6}
+  cp = cherry-pick
+  cpx = cherry-pick -x
+  d = diff
+  dc = diff --cached
+  kb = reset --hard HEAD~1
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+  mm = merge master
+  mmours = merge -s recursive -X ours master
+  oops = commit --amend -C HEAD
+  pirg = push -u origin head
+  phm = push heroku master
+  poh = push -u origin HEAD
+  pr = pull --rebase
+  rb = reset --mixed HEAD~1
+  rbm = rebase master
+  rpo = remote prune origin
+  s = status
+  st = status
+  sp = stash pop
+  tc = commit -am temp_commit
+  up = rev-parse --abbrev-ref --symbolic-full-name @{u}
+
+[color]
+  ui = auto
+
+[push]
+  default = simple
