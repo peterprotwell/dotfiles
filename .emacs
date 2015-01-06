@@ -15,8 +15,12 @@
 
 ;; (if window-system (set-exec-path-from-shell-PATH))
 
-(setenv "PATH" (concat (getenv "HOME") "/.rbenv/shims:" (getenv "HOME") "/.rbenv/bin:" (getenv "PATH")))
-(setq exec-path (cons (concat (getenv "HOME") "/.rbenv/shims") (cons (concat (getenv "HOME") "/.rbenv/bin") exec-path)))
+(setenv "PATH" (concat (getenv "HOME") "/.rbenv/shims:"
+                       (getenv "HOME") "/.rbenv/bin:"
+                       (getenv "PATH") ))
+(setq exec-path
+      (cons (concat (getenv "HOME") "/.rbenv/shims")
+            (cons (concat (getenv "HOME") "/.rbenv/bin") exec-path) ))
 
 ;;------------------------------------------------------------------------------
 ;; Packages
@@ -118,7 +122,6 @@
 
 ;; Scrolling
 (setq scroll-preserve-screen-position t)
-;; Scroll smoothly
 (setq mouse-wheel-progressive-speed nil)
 
 ;; Highlight current line
@@ -146,6 +149,8 @@
 
 (require 'uniquify)
 (setq-default uniquify-buffer-name-style 'post-forward)
+
+(global-set-key (kbd "C-x C-u" ) 'browse-url)
 
 ;;------------------------------------------------------------------------------
 ;; Autocomplete/auto-complete
@@ -209,7 +214,7 @@
 ;;------------------------------------------------------------------------------
 ;; Projectile
 
-;; Projectile fuzzy file search like sublime text
+;; Projectile because fuzzy file search
 (projectile-global-mode)
 
 (recentf-mode)
@@ -550,8 +555,6 @@
        ((< (display-pixel-height) 1000) "11")
        (t "16") ))
 (set-face-attribute 'default nil :font (concat "Inconsolata-" mike-font-size))
-;; To bump the font size really easily
-;; (set-face-attribute 'default nil :font (concat "Inconsolata-18"))
 
 ;;------------------------------------------------------------------------------
 ;; Buffer functions and keybindings
@@ -768,10 +771,7 @@ the character typed."
 
 (global-set-key (kbd "C-c o") 'vim-open-line-above)
 (global-set-key (kbd "C-c C-o") 'vim-open-line-above)
-;; (global-set-key (kbd "C-x o") 'vim-open-line-above)
-;; (global-set-key (kbd "C-x C-o") 'vim-open-line-above)
 
-;; vim-open-line-below is just C-eC-j; same number of keystrokes
 (defun vim-open-line-below ()
   (interactive)
   (end-of-line)
@@ -860,10 +860,6 @@ the character typed."
 
 (global-set-key (kbd "C-c C-e") 'eval-last-sexp)
 
-;; Jump to matching XML tag
-;; (global-set-key (kbd "<M-up>") 'sgml-skip-tag-backward)
-;; (global-set-key (kbd "<M-down>") 'sgml-skip-tag-forward)
-
 ;; Is this from cedet?
 ;; (global-set-key [f5] 'eassist-list-methods)
 
@@ -910,6 +906,7 @@ the character typed."
 ;;------------------------------------------------------------------------------
 ;; Server
 
+;; for using `emacsclient` in the shell
 (server-start)
 
 ;;------------------------------------------------------------------------------
