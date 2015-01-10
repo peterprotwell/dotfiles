@@ -168,8 +168,11 @@ alias ack="ag"
 
 alias un7zip="7z x"
 
+alias g="git"
 alias gi="git icdiff"
 alias gx="gitx &"
+
+alias pwdp="pwd -P"
 
 #-------------------------------------------------------------------------------
 # machine-specific setup

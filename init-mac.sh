@@ -14,7 +14,7 @@ brew upgrade
 #-------------------------------------------------------------------------------
 # Packages
 
-packages="ag bash cloc coreutils ctags emacs git rbenv rename ruby-build shellcheck tree zsh"
+packages="ag bash cloc coreutils ctags emacs git icdiff rbenv rename ruby-build shellcheck tree zsh"
 
 for package in $packages; do
   brew install "$package"

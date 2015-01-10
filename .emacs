@@ -549,12 +549,11 @@
 ;;------------------------------------------------------------------------------
 ;; font size / text size
 
-(setq mike-font-size
-      (cond
-       ((< (display-pixel-height) 1400) "16")
-       ((< (display-pixel-height) 1000) "11")
-       (t "16") ))
-(set-face-attribute 'default nil :font (concat "Inconsolata-" mike-font-size))
+(let ((mike/font-size (cond
+                       ((< (display-pixel-height) 1000) "11")
+                       ((< (display-pixel-height) 1440) "16")
+                       (t "16") )))
+  (set-face-attribute 'default nil :font (concat "Inconsolata-" mike/font-size)) )
 
 ;;------------------------------------------------------------------------------
 ;; Buffer functions and keybindings
