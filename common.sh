@@ -140,6 +140,7 @@ fi
 # alias fuckit="sudo \$(history 1 | cut -d ' ' -f7)"
 
 # cd aliases
+alias cdA="cd /Applications"
 alias cdb="cd ~/books"
 alias cdc="cd ~/code"
 alias cdcc="cd ~/code/c"
@@ -179,7 +180,7 @@ alias pwdp="pwd -P"
 
 if [ "$(whoami)" = "mike" ]; then
   source ~/dotfiles/home.sh
-elif [ "$(whoami)" = "mnichols" ]; then
+elif [ "$(whoami)" = "mikenichols" ]; then
   source ~/dotfiles/work.sh
 fi
 

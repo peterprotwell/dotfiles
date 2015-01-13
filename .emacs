@@ -150,7 +150,7 @@
 (require 'uniquify)
 (setq-default uniquify-buffer-name-style 'post-forward)
 
-(global-set-key (kbd "C-x C-u" ) 'browse-url)
+(global-set-key (kbd "C-x C-u") 'browse-url)
 
 ;;------------------------------------------------------------------------------
 ;; Autocomplete/auto-complete
