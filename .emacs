@@ -828,6 +828,14 @@ the character typed."
 
 (global-set-key (kbd "M-;") 'comment-dwim-line)
 
+(defun comment-dwim-line-and-move-down (&optional arg)
+  "Comment the current line and move to the next line"
+  (interactive)
+  (comment-dwim-line arg)
+  (next-line) )
+
+(global-set-key (kbd "C-M-;") 'comment-dwim-line-and-move-down)
+
 ;;------------------------------------------------------------------------------
 ;; Custom keybindings
 
