@@ -10,6 +10,7 @@
   cam = commit -am
   c = checkout
   co = checkout
+  cod = checkout develop
   com = checkout master
   cop2 = checkout @{-2}
   cop3 = checkout @{-3}
@@ -20,17 +21,19 @@
   cpx = cherry-pick -x
   d = diff
   dc = diff --cached
+  f = fetch
   kb = reset --hard HEAD~1
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
   mm = merge master
   mmours = merge -s recursive -X ours master
   oops = commit --amend -C HEAD
-  pirg = push -u origin head
+  pirg = push -u origin HEAD
   phm = push heroku master
   poh = push -u origin HEAD
   pr = pull --rebase
   rb = reset --mixed HEAD~1
   rbm = rebase master
+  rbd = rebase develop
   rpo = remote prune origin
   s = status
   st = status

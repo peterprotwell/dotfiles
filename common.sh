@@ -104,28 +104,37 @@ alias sc="shellcheck"
 
 alias underscore2dash='rename "s/_/-/g" ./*'
 
-# Ruby
+# ruby
 alias rubyupgrade="rbenv install && gem install bundler && bundle"
 alias rubyupdate="rubyupgrade"
 
-# Rails stuff
 alias b="bundle"
 alias be="bundle exec"
 alias ber="bundle exec rake"
 alias bers="bundle exec rspec"
 alias beru="bundle exec ruby"
 
+# rails stuff
+alias ret="RAILS_ENV=test"
+alias red="RAILS_ENV=development"
+
 alias taildev="tail -f log/development*"
 
+# rake aliases
 alias mst="bundle exec rake db:migrate:status"
+alias tmst="RAILS_ENV=test bundle exec rake db:migrate:status"
 
 alias dcl="bundle exec rake db:drop db:create db:schema:load"
-alias dclm="bundle exec rake db:drop db:create db:schema:load db:migrate"
 alias dcls="bundle exec rake db:drop db:create db:schema:load db:seed"
 
-# test versions
+alias dcm="bundle exec rake db:drop db:create db:migrate"
+alias dcms="bundle exec rake db:drop db:create db:migrate db:seed"
+
 alias tdcl="RAILS_ENV=test bundle exec rake db:drop db:create db:schema:load"
-alias tdclm="RAILS_ENV=test bundle exec rake db:drop db:create db:schema:load db:migrate"
+alias tdcls="RAILS_ENV=test bundle exec rake db:drop db:create db:schema:load db:seed"
+
+alias tdcm="RAILS_ENV=test bundle exec rake db:drop db:create db:migrate"
+alias tdcms="RAILS_ENV=test bundle exec rake db:drop db:create db:migrate db:seed"
 
 # postgresql
 if type postgres > /dev/null; then
