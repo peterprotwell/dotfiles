@@ -62,6 +62,7 @@
     projectile-rails
     rainbow-mode
     rbenv
+    rubocop
     ruby-end
     ruby-hash-syntax
     rspec-mode
