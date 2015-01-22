@@ -168,6 +168,7 @@ alias cde="cd ~/.emacs.d"
 alias cdM="cd ~/Movies"
 alias cdp="cd ~/Pictures"
 alias cdpm="cd ~/code/rails/programmer-mike"
+alias cdrw="cd ~/code/rails/recursewords"
 alias cdt="cd ~/thoughts"
 
 # Java command line
