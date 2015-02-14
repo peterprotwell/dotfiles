@@ -581,7 +581,6 @@
 ;; Previously bound to C-x C-b
 (global-set-key "\C-x\C-l" 'list-buffers)
 
-
 ;;------------------------------------------------------------------------------
 ;; Until the dolphin flies and parrots live at sea
 
@@ -839,6 +838,33 @@ the character typed."
   (next-line) )
 
 (global-set-key (kbd "C-M-;") 'comment-dwim-line-and-move-down)
+
+(defun mike/toggle-quotes ()
+  "Toggle single quoted string to double or vice versa, and
+  flip the internal quotes as well.  Best to run on the first
+  character of the string."
+  (interactive)
+  (save-excursion
+    (move-beginning-of-line nil)
+    (re-search-forward "[\"']")
+    (backward-char 1)
+    (let* ((start (point))
+           (old-c (char-after start))
+           new-c)
+      (setq new-c (case old-c
+                    (?\" "'")
+                    (?\' "\"")))
+      (setq old-c (char-to-string old-c))
+      (delete-char 1)
+      (insert new-c)
+      (re-search-forward old-c)
+      (backward-char 1)
+      (let ((end (point)))
+        (delete-char 1)
+        (insert new-c)
+        (replace-string new-c old-c nil (1+ start) end)))))
+
+(global-set-key (kbd "C-c C-t") 'mike/toggle-quotes)
 
 ;;------------------------------------------------------------------------------
 ;; Custom keybindings
