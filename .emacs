@@ -589,25 +589,17 @@
 (global-set-key "\C-x\C-l" 'list-buffers)
 
 ;;------------------------------------------------------------------------------
-;; Until the dolphin flies and parrots live at sea
+;; Until the dolphin flies and parrots live at sea - shell config
+
+(setq explicit-shell-file-name "/usr/local/bin/zsh")
 
 (defun switch-to-buffer-shell ()
   "Switches to the shell in the current buffer, starting a new shell if needed."
   (interactive)
-  (if (get-buffer "*shell*")
-    (switch-to-buffer "*shell*")
-    (switch-to-buffer (shell)) ))
+  (if (get-buffer "*ansi-term*")
+      (switch-to-buffer "*ansi-term*")
+    (switch-to-buffer (ansi-term explicit-shell-file-name)) ))
 (global-set-key "\C-x\M-s" 'switch-to-buffer-shell)
-
-(defun switch-to-buffer-shell-other-window ()
-  "Swithes to the shell in the other buffer, starting a new shell if needed."
-  (interactive)
-  (if (get-buffer "*shell*")
-    (switch-to-buffer-other-window "*shell*")
-    (progn
-      (switch-to-buffer-other-window nil)
-      (shell))))
-(global-set-key "\C-c\M-s" 'switch-to-buffer-shell-other-window)
 
 ;;------------------------------------------------------------------------------
 ;; Window functions and keybindings

@@ -77,7 +77,7 @@ fi
 
 if [[ -n ${INSIDE_EMACS} ]]; then
   # This shell runs inside an Emacs *shell*/*term* buffer.
-  unsetopt zle
+  # unsetopt zle
 fi
 
 #-------------------------------------------------------------------------------
