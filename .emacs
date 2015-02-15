@@ -102,6 +102,18 @@
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 
+(setq make-backup-files nil)
+(setq ring-bell-function 'ignore)
+
+;; Disable some annoying prompts
+(fset 'yes-or-no-p 'y-or-n-p)
+(setq confirm-nonexistent-file-or-buffer nil)
+(setq ido-create-new-buffer 'always)
+
+(setq kill-buffer-query-functions
+      (remq 'process-kill-buffer-query-function
+            kill-buffer-query-functions))
+
 ;; Line numbers
 (autoload 'linum-mode "linum" "toggle line numbers on/off" t)
 (global-set-key (kbd "C-<f5>") 'linum-mode)
@@ -116,10 +128,6 @@
 (setq-default blink-cursor-blinks 0)
 
 (setq-default completion-ignore-case 1)
-
-(setq make-backup-files nil)
-
-(setq ring-bell-function 'ignore)
 
 ;; Scrolling
 (setq scroll-preserve-screen-position t)
@@ -136,8 +144,6 @@
 
 ;; ...and I know it!
 (smex-initialize)
-
-(setq-default fill-column 90)
 
 (global-set-key (kbd "H-s") 'isearch-forward-regexp)
 (global-set-key (kbd "H-r") 'isearch-backward-regexp)
@@ -514,6 +520,8 @@
 
 ;;------------------------------------------------------------------------------
 ;; paragraph
+
+(setq-default fill-column 90)
 
 (defun endless/forward-paragraph (&optional n)
   "Advance just past next blank line."
