@@ -144,8 +144,8 @@
 ;; ...and I know it!
 (smex-initialize)
 
-(global-set-key (kbd "H-s") 'isearch-forward-regexp)
-(global-set-key (kbd "H-r") 'isearch-backward-regexp)
+(global-set-key (kbd "s-s") 'isearch-forward-regexp)
+(global-set-key (kbd "s-r") 'isearch-backward-regexp)
 
 ;; (setq path-to-ctags "/usr/local/bin/ctags")
 
@@ -170,13 +170,9 @@
 ;;------------------------------------------------------------------------------
 ;; OS settings
 
-(cond
- ((eq system-type 'darwin)
-   (setq mac-command-modifier 'meta)
-   (setq mac-option-modifier 'hyper))
- ((eq system-type 'gnu/linux)
- ;;   (setq x-meta-keysym 'hyper)
-   (setq x-super-keysym 'hyper) ))
+(when (eq system-type 'darwin)
+  (setq mac-command-modifier 'meta)
+  (setq mac-option-modifier 'super) )
 
 ;;------------------------------------------------------------------------------
 ;; Color themes
@@ -265,7 +261,7 @@
 ;; multiple cursors
 
 (require 'multiple-cursors)
-(global-set-key (kbd "H-SPC") 'set-rectangular-region-anchor)
+(global-set-key (kbd "s-SPC") 'set-rectangular-region-anchor)
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-?") 'mc/mark-more-like-this-extended)
@@ -372,7 +368,7 @@
                    (file-exists-p (concat (projectile-project-root) "Gemfile")) )
                   (projectile-rails-mode) ))))
 
-(global-set-key (kbd "H-M-t") 'projectile-find-implementation-or-test-other-window)
+(global-set-key (kbd "M-s-t") 'projectile-find-implementation-or-test-other-window)
 
 ;; erb files
 (require 'mmm-mode)
@@ -502,8 +498,8 @@
 (global-set-key "\C-ci" 'indent-region)
 
 (require 'expand-region)
-(global-set-key (kbd "H-<up>") 'er/expand-region)
-(global-set-key (kbd "H-<down>") 'er/contract-region)
+(global-set-key (kbd "s-<up>") 'er/expand-region)
+(global-set-key (kbd "s-<down>") 'er/contract-region)
 
 ;; Delete region when you start typing
 (pending-delete-mode t)
@@ -605,22 +601,18 @@
 ;; Window functions and keybindings
 
 ;; Move cursor to other window
-(global-set-key (kbd "H-M-h") 'windmove-left)
-(global-set-key (kbd "H-M-j") 'windmove-down)
-(global-set-key (kbd "H-M-k") 'windmove-up)
-(global-set-key (kbd "H-M-l") 'windmove-right)
+(global-set-key (kbd "M-s-h") 'windmove-left)
+(global-set-key (kbd "M-s-j") 'windmove-down)
+(global-set-key (kbd "M-s-k") 'windmove-up)
+(global-set-key (kbd "M-s-l") 'windmove-right)
 
 ;; Move buffer to other window
 (when (require 'buffer-move nil 'noerror)
-  (global-set-key (kbd "H-M-<left>") 'buf-move-left)
-  (global-set-key (kbd "H-M-<down>") 'buf-move-down)
-  (global-set-key (kbd "H-M-<up>") 'buf-move-up)
-  (global-set-key (kbd "H-M-<right>") 'buf-move-right)
+  (global-set-key (kbd "M-s-<left>") 'buf-move-left)
+  (global-set-key (kbd "M-s-<down>") 'buf-move-down)
+  (global-set-key (kbd "M-s-<up>") 'buf-move-up)
+  (global-set-key (kbd "M-s-<right>") 'buf-move-right)
 )
-
-;; window splitting
-(global-set-key [f12] 'split-window-horizontally)
-(global-set-key [f11] 'split-window-vertically)
 
 ;; Window resizing
 (defun mike-window-taller () (interactive) (enlarge-window 2))
@@ -628,10 +620,10 @@
 (defun mike-window-wider () (interactive) (enlarge-window 2 t))
 (defun mike-window-narrower () (interactive) (enlarge-window -2 t))
 
-(global-set-key (kbd "C-H-k") 'mike-window-taller)
-(global-set-key (kbd "C-H-j") 'mike-window-shorter)
-(global-set-key (kbd "C-H-l") 'mike-window-wider)
-(global-set-key (kbd "C-H-h") 'mike-window-narrower)
+(global-set-key (kbd "C-s-k") 'mike-window-taller)
+(global-set-key (kbd "C-s-j") 'mike-window-shorter)
+(global-set-key (kbd "C-s-l") 'mike-window-wider)
+(global-set-key (kbd "C-s-h") 'mike-window-narrower)
 
 ;;------------------------------------------------------------------------------
 ;; Functions that should exist already
