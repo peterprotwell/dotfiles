@@ -91,6 +91,8 @@
   (add-path "lisp")
   (add-path "themes") )
 
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+
 ;;------------------------------------------------------------------------------
 ;; global settings/modes
 
@@ -183,13 +185,15 @@
 (color-theme-initialize)
 (load-library "color-theme-mike")
 (load-library "color-theme-molokai")
-(load-library "color-theme-railscasts")
+;; (load-library "color-theme-railscasts")
 
-(color-theme-railscasts)
+;; (color-theme-railscasts)
+(load-theme 'railscasts t nil)
 
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
-            (if (string-match "color-theme-*" (buffer-name))
+            (if (or (string-match "color-theme-*" (buffer-name))
+                    (string-match "*-theme.el" (buffer-name)))
                 (rainbow-mode) )))
 
 ;;------------------------------------------------------------------------------
