@@ -184,7 +184,6 @@
 (load-library "color-theme-mike")
 (load-library "color-theme-molokai")
 (load-library "color-theme-railscasts")
-(load-library "color-theme-twilight")
 
 (color-theme-railscasts)
 
