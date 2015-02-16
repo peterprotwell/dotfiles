@@ -555,11 +555,12 @@
 ;;------------------------------------------------------------------------------
 ;; font size / text size
 
-(let ((mike/font-size (cond
-                       ((< (display-pixel-height) 1000) "11")
-                       ((<= (display-pixel-height) 1200) "18")
-                       ((<= (display-pixel-height) 1440) "16")
-                       (t "18") )))
+(let ((mike/font-size
+       (cond
+        ((<= (display-pixel-height) 800) "14")
+        ((<= (display-pixel-height) 1200) "18")
+        ((<= (display-pixel-height) 1440) "16")
+        (t "18") )))
   (set-face-attribute 'default nil :font (concat "Inconsolata-" mike/font-size)) )
 
 ;;------------------------------------------------------------------------------
