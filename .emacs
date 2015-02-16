@@ -8,13 +8,6 @@
 ;;------------------------------------------------------------------------------
 ;; Fix the PATH variable
 
-;; (defun set-exec-path-from-shell-PATH ()
-;;   (let ((path-from-shell (shell-command-to-string "TERM=vt100 $SHELL -i -c 'echo $PATH'")))
-;;     (setenv "PATH" path-from-shell)
-;;     (setq exec-path (split-string path-from-shell path-separator)) ))
-
-;; (if window-system (set-exec-path-from-shell-PATH))
-
 (setenv "PATH" (concat (getenv "HOME") "/.rbenv/shims:"
                        (getenv "HOME") "/.rbenv/bin:"
                        (getenv "PATH") ))
@@ -399,12 +392,6 @@
 ;; Always spaces, always 2
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
-
-;; (setq-default electric-indent-mode t)
-;; (c-set-offset 'substatement-open 0)
-;; (c-set-offset 'inline-open 0)
-;; (setq c-default-style "linux")
-;; (setq c-basic-offset 4)
 
 ;; elisp
 (add-hook 'emacs-lisp-mode-hook
@@ -851,6 +838,19 @@ the character typed."
 
 (global-set-key (kbd "C-c C-t") 'mike/toggle-quotes)
 
+(defun save-macro (name)
+  "save a macro. Take a name as argument
+     and save the last defined macro under
+     this name at the end of your .emacs"
+  (interactive "SName of the macro :")  ; ask for the name of the macro
+  (kmacro-name-last-macro name)         ; use this name for the macro
+  (find-file user-init-file)            ; open ~/.emacs or other user init file
+  (goto-char (point-max))               ; go to the end of the .emacs
+  (newline)                             ; insert a newline
+  (insert-kbd-macro name)               ; copy the macro
+  (newline)                             ; insert a newline
+  (switch-to-buffer nil))               ; return to the initial buffer
+
 ;;------------------------------------------------------------------------------
 ;; Custom keybindings
 
@@ -881,9 +881,6 @@ the character typed."
 (global-set-key "\M-`" 'other-frame)
 
 (global-set-key (kbd "C-c C-e") 'eval-last-sexp)
-
-;; Is this from cedet?
-;; (global-set-key [f5] 'eassist-list-methods)
 
 ;;------------------------------------------------------------------------------
 ;; Abbrev. Definitions
