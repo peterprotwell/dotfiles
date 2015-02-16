@@ -36,6 +36,7 @@
     coffee-mode
     color-theme
     color-theme-monokai
+    discover
     drag-stuff
     emr
     enh-ruby-mode
@@ -151,6 +152,9 @@
 (setq-default uniquify-buffer-name-style 'post-forward)
 
 (global-set-key (kbd "C-x C-u") 'browse-url)
+
+(require 'discover)
+(global-discover-mode 1)
 
 ;;------------------------------------------------------------------------------
 ;; Autocomplete/auto-complete
@@ -917,7 +921,7 @@ the character typed."
   '(("clog" "" clog-skel 0)))
 
 (define-skeleton clog-skel
-  "Javaascript standard console.log statement."
+  "Javascript standard console.log statement."
   ""
   > "console.log(\"" _ "\");")
 
