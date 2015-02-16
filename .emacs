@@ -566,15 +566,8 @@
 ;;------------------------------------------------------------------------------
 ;; Buffer functions and keybindings
 
-(defun kill-other-buffer ()
-  "Kills the buffer in the other window, leaving point in the current buffer."
-  (interactive)
-  (progn
-    (other-window 1)
-    (kill-buffer nil)
-    (other-window 1) ))
-(global-set-key "\C-ck" 'kill-other-buffer)
-(global-set-key "\C-c\C-k" 'kill-other-buffer)
+(global-set-key "\C-ck" 'kill-buffer-and-window)
+(global-set-key "\C-c\C-k" 'kill-buffer-and-window)
 
 (global-set-key "\C-cb" 'switch-to-buffer-other-window)
 (global-set-key "\C-c\C-b" 'switch-to-buffer-other-window)
