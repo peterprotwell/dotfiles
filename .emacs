@@ -25,6 +25,7 @@
 (require 'package)
 (setq package-enable-at-startup nil) ;; To avoid initializing twice
 (package-initialize)
+(package-refresh-contents)
 
 (defvar my-packages
   '(ag
@@ -35,7 +36,6 @@
     clojure-mode
     coffee-mode
     color-theme
-    color-theme-monokai
     discover
     drag-stuff
     emr
@@ -50,6 +50,8 @@
     magit
     markdown-mode
     mmm-mode
+    molokai-theme
+    monokai-theme
     multi-term
     multiple-cursors
     projectile
@@ -64,12 +66,14 @@
     scss-mode
     slim-mode
     smex
+    solarized-theme
     sr-speedbar
     swift-mode
     visual-regexp
     workgroups
     xkcd
     yaml-mode
+    zenburn-theme
     zygospore ))
 
 (dolist (p my-packages)
