@@ -119,8 +119,13 @@
 
      (rbenv-active-ruby-face ((t (:foreground "#CC3838"))))
 
+     (term-color-red ((t (:foreground "#d83b31"))))
+     (term-color-green ((t (:foreground "#8cf900"))))
+     (term-color-blue ((t (:foreground "#76a8f0"))))
+     (term-color-yellow ((t (:foreground "#ffee9c"))))
+
      (underline ((t (:underline t))))
-     (minibuffer-prompt ((t (:bold t :foreground "#FF6600")))))))
+     (minibuffer-prompt ((t (:bold t :foreground "#FF6600")))) )))
 
 
 (provide 'color-theme-railscasts)
