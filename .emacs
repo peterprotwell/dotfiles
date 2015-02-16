@@ -67,7 +67,8 @@
     visual-regexp
     workgroups
     xkcd
-    yaml-mode ))
+    yaml-mode
+    zygospore ))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
@@ -193,9 +194,7 @@
 ;; (setq wg-query-for-save-on-emacs-exit nil)
 ;; (add-hook 'kill-emacs-query-functions '(wg-save "~/.emacs.d/workgroups/temp"))
 
-;; This is how you safe require
-(when (require 'pants-party nil 'noerror)
-  (global-set-key (kbd "C-x C-m") Find-file) )
+(global-set-key (kbd "C-x 1") 'zygospore-toggle-delete-other-windows)
 
 ;;------------------------------------------------------------------------------
 ;; Saving
@@ -262,7 +261,7 @@
 ;;------------------------------------------------------------------------------
 ;; Speedbar
 
-;; sr-speedbar
+;; sr-speedbar (safe require)
 (when (require 'sr-speedbar nil 'noerror)
   (setq sr-speedbar-right-side nil)
   (setq sr-speedbar-skip-other-window-p t)
