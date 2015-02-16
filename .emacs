@@ -277,16 +277,16 @@
   ;; I want stuff ignored a la carte
   (setq speedbar-directory-unshown-regexp "^\\(\\.\\.?\\|.idea\\)$")
 
-  (defun mike-buffer-directory ()
+  (defun mike/buffer-directory ()
     (if (buffer-file-name) (file-name-directory (buffer-file-name))
       (getenv "HOME") ))
 
   ;; Pulled these functions from projectile-speedbar.el
-  (defun mike-find-project-root ()
+  (defun mike/find-project-root ()
     (if (projectile-project-p) (projectile-project-root)
-      (mike-buffer-directory) ))
+      (mike/buffer-directory) ))
 
-  (defun mike-speedbar-project-refresh (root-dir)
+  (defun mike/speedbar-project-refresh (root-dir)
     "Refresh the context of speedbar based on project root"
     (if (and (not (equal root-dir sr-speedbar-last-refresh-dictionary))
              (not (sr-speedbar-window-p)))
@@ -294,7 +294,7 @@
     (setq default-directory root-dir)
     (speedbar-refresh) )
 
-  (defun mike-open-current-project-in-speedbar (root-dir)
+  (defun mike/open-current-project-in-speedbar (root-dir)
     "Refresh speedbar to show current project in tree"
     (when (not (sr-speedbar-exist-p))
       (while (windmove-find-other-window 'left)
@@ -302,38 +302,38 @@
       (while (windmove-find-other-window 'up)
         (windmove-up) ))
     (sr-speedbar-toggle)
-    (mike-speedbar-project-refresh root-dir) )
+    (mike/speedbar-project-refresh root-dir) )
 
   ;; This opens the directory where the calling buffer lives
-  (defun mike-speedbar-expand-line-list (&optional arg)
+  (defun mike/speedbar-expand-line-list (&optional arg)
     (when arg
       (re-search-forward (concat " " (car arg) "$"))
       (speedbar-expand-line (car arg))
       (speedbar-next 1)
-      (mike-speedbar-expand-line-list (cdr arg)) ))
+      (mike/speedbar-expand-line-list (cdr arg)) ))
 
-  (defun mike-speedbar-open-current-buffer-in-tree ()
+  (defun mike/speedbar-open-current-buffer-in-tree ()
     (interactive)
-    (let* ((root-dir (mike-find-project-root))
-           (prev-buffer-directory (mike-buffer-directory))
+    (let* ((root-dir (mike/find-project-root))
+           (prev-buffer-directory (mike/buffer-directory))
            (relative-buffer-path (car (cdr (split-string prev-buffer-directory root-dir))))
            (parents (butlast (split-string relative-buffer-path "/")))
            (prev-buffer (buffer-name)) )
       (save-excursion
-        (mike-open-current-project-in-speedbar root-dir)
+        (mike/open-current-project-in-speedbar root-dir)
         (select-window (get-buffer-window speedbar-buffer))
         (beginning-of-buffer)
-        (mike-speedbar-expand-line-list parents)
+        (mike/speedbar-expand-line-list parents)
         (unless (string= prev-buffer "*SPEEDBAR*")
           (switch-to-buffer  prev-buffer) ))))
 
-  (defun mike-speedbar ()
+  (defun mike/speedbar ()
     (interactive)
     (if (sr-speedbar-exist-p)
         (sr-speedbar-toggle)
-      (mike-speedbar-open-current-buffer-in-tree) ))
+      (mike/speedbar-open-current-buffer-in-tree) ))
 
-  (global-set-key [f8] 'mike-speedbar)
+  (global-set-key [f8] 'mike/speedbar)
 )
 
 ;;------------------------------------------------------------------------------
@@ -345,7 +345,7 @@
 ;;------------------------------------------------------------------------------
 ;; Rails settings
 
-(setq mike-rails-file-types
+(setq mike/rails-file-types
   '(;; Ruby
     ruby-mode-hook enh-ruby-mode-hook
     ;; JavaScript / CoffeeScript
@@ -356,7 +356,7 @@
     html-mode-hook html-erb-mode-hook slim-mode-hook haml-mode-hook yaml-mode-hook))
 
 ;; Turn on projectile-rails-mode if we're in a rails project
-(dolist (hook mike-rails-file-types)
+(dolist (hook mike/rails-file-types)
   (add-hook hook
             (lambda ()
               (if (and
@@ -599,15 +599,15 @@
 )
 
 ;; Window resizing
-(defun mike-window-taller () (interactive) (enlarge-window 2))
-(defun mike-window-shorter () (interactive) (enlarge-window -2))
-(defun mike-window-wider () (interactive) (enlarge-window 2 t))
-(defun mike-window-narrower () (interactive) (enlarge-window -2 t))
+(defun mike/window-taller () (interactive) (enlarge-window 2))
+(defun mike/window-shorter () (interactive) (enlarge-window -2))
+(defun mike/window-wider () (interactive) (enlarge-window 2 t))
+(defun mike/window-narrower () (interactive) (enlarge-window -2 t))
 
-(global-set-key (kbd "C-s-k") 'mike-window-taller)
-(global-set-key (kbd "C-s-j") 'mike-window-shorter)
-(global-set-key (kbd "C-s-l") 'mike-window-wider)
-(global-set-key (kbd "C-s-h") 'mike-window-narrower)
+(global-set-key (kbd "C-s-k") 'mike/window-taller)
+(global-set-key (kbd "C-s-j") 'mike/window-shorter)
+(global-set-key (kbd "C-s-l") 'mike/window-wider)
+(global-set-key (kbd "C-s-h") 'mike/window-narrower)
 
 ;;------------------------------------------------------------------------------
 ;; Functions that should exist already
