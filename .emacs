@@ -50,6 +50,7 @@
     magit
     markdown-mode
     mmm-mode
+    multi-term
     multiple-cursors
     projectile
     projectile-rails
@@ -571,15 +572,44 @@
 ;;------------------------------------------------------------------------------
 ;; Until the dolphin flies and parrots live at sea - shell config
 
-(setq explicit-shell-file-name "/usr/local/bin/zsh")
-
-(defun switch-to-buffer-shell ()
-  "Switches to the shell in the current buffer, starting a new shell if needed."
+(defun mike/switch-to-or-create-shell-buffer (index)
+  "Switches to *terminal<index>* if it exists, or creates a new terminal."
   (interactive)
-  (if (get-buffer "*ansi-term*")
-      (switch-to-buffer "*ansi-term*")
-    (switch-to-buffer (ansi-term explicit-shell-file-name)) ))
-(global-set-key "\C-x\M-s" 'switch-to-buffer-shell)
+  (let ((term-name (concat "*terminal<" index ">*")))
+    (if (get-buffer term-name)
+        (switch-to-buffer term-name)
+      (switch-to-buffer (multi-term)) )))
+
+;; TODO: learn some metaprogramming and make this shit easier
+(defun mike/shell-1 () (interactive) (mike/switch-to-or-create-shell-buffer "1"))
+(global-set-key (kbd "M-s-1") 'mike/shell-1)
+
+(defun mike/shell-2 () (interactive) (mike/switch-to-or-create-shell-buffer "2"))
+(global-set-key (kbd "M-s-2") 'mike/shell-2)
+
+(defun mike/shell-3 () (interactive) (mike/switch-to-or-create-shell-buffer "3"))
+(global-set-key (kbd "M-s-3") 'mike/shell-3)
+
+(defun mike/shell-4 () (interactive) (mike/switch-to-or-create-shell-buffer "4"))
+(global-set-key (kbd "M-s-4") 'mike/shell-4)
+
+(defun mike/shell-5 () (interactive) (mike/switch-to-or-create-shell-buffer "5"))
+(global-set-key (kbd "M-s-5") 'mike/shell-5)
+
+(defun mike/shell-6 () (interactive) (mike/switch-to-or-create-shell-buffer "6"))
+(global-set-key (kbd "M-s-6") 'mike/shell-6)
+
+(defun mike/shell-7 () (interactive) (mike/switch-to-or-create-shell-buffer "7"))
+(global-set-key (kbd "M-s-7") 'mike/shell-7)
+
+(defun mike/shell-8 () (interactive) (mike/switch-to-or-create-shell-buffer "8"))
+(global-set-key (kbd "M-s-8") 'mike/shell-8)
+
+(defun mike/shell-9 () (interactive) (mike/switch-to-or-create-shell-buffer "9"))
+(global-set-key (kbd "M-s-9") 'mike/shell-9)
+
+(defun mike/shell-10 () (interactive) (mike/switch-to-or-create-shell-buffer "10"))
+(global-set-key (kbd "M-s-0") 'mike/shell-10)
 
 ;;------------------------------------------------------------------------------
 ;; Window functions and keybindings
