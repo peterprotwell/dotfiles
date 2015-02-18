@@ -44,11 +44,11 @@
 
 ;;; Code:
 
-(deftheme railscasts
+(deftheme mike-railscasts
   "Railscasts color theme for GNU Emacs")
 
 (custom-theme-set-faces
- 'railscasts
+ 'mike-railscasts
 
  '(default ((t (:background "#232323" :foreground "#E6E1DC"))))
 
@@ -117,6 +117,6 @@
   (add-to-list 'custom-theme-load-path
                (file-name-as-directory (file-name-directory load-file-name))))
 
-(provide-theme 'railscasts)
+(provide-theme 'mike-railscasts)
 
 ;;; railscasts-theme.el ends here

@@ -188,7 +188,7 @@
 ;; (load-library "color-theme-railscasts")
 
 ;; (color-theme-railscasts)
-(load-theme 'railscasts t nil)
+(load-theme 'mike-railscasts t nil)
 
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
