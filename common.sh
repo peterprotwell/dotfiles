@@ -201,11 +201,6 @@ elif [ "$(uname)" = "linux-gnu" -o "$(uname)" = "Linux" ]; then
 fi
 
 #-------------------------------------------------------------------------------
-# homebrew github api token
-
-export HOMEBREW_GIHUB_API_TOKEN="ea28a82b75aa61b2d36d2c3a647695a11e896bfd"
-
-#-------------------------------------------------------------------------------
 
 # Nicer colors for emacs in terminal
 export TERM=xterm-256color

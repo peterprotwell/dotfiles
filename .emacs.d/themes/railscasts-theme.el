@@ -5,7 +5,7 @@
 ;; Copyright (C) 2009 Oleg Shaldybin <oleg.shaldybin@gmail.com>
 
 ;; Author: Oleg Shaldybin
-;; Adapted-By: Yesudeep Mangalapilly, Yuichi TANIKAWA, Mike Nichols
+;; Adapted-By: Yesudeep Mangalapilly, Mike Nichols
 ;; Keywords: railscasts color theme
 ;; URL: https://github.com/itiut/railscasts-theme
 ;; Requires: GNU Emacs 24
@@ -68,22 +68,23 @@
  '(font-lock-reference-face ((t (:foreground "LightSteelBlue"))))
  '(font-lock-string-face ((t (:foreground "#A5C261"))))
  '(enh-ruby-string-delimiter-face ((t (:foreground "#A5C261"))))
- '(font-lock-type-face ((t (:foreground "#6D9CBE")))) ;; changed from #F2777A
- '(font-lock-variable-name-face ((t (:foreground "LightSteelBlue")))) ;; previously C8C8FF
+ '(font-lock-type-face ((t (:foreground "#6D9CBE"))))
+ '(font-lock-variable-name-face ((t (:foreground "LightSteelBlue"))))
  '(font-lock-warning-face ((t (:foreground "Pink"))))
  '(paren-face-match-light ((t (:foreground "#FFC66D" :background "#555577"))))
  '(show-paren-match ((t (:foreground nil :background "#3070FF"))))
  '(show-paren-mismatch ((t (:foreground "#00FF00" :background "#FF00FF"))))
- '(highlight ((t (:background "#2a2a2a")))) ;; changed from olive green
+ '(highlight ((t (:background "#2a2a2a"))))
  '(italic ((t (:italic t))))
- '(mode-line ((t (:background "#A5BAF1" :foreground "black" :box nil)))) ;; added :box nil
+ '(mode-line ((t (:background "#CDCDCD" :foreground "black" :box nil))))
  '(modeline-buffer-id ((t (:background "#A5BAF1" :foreground "black"))))
  '(modeline-mousable ((t (:background "#A5BAF1" :foreground "black"))))
  '(modeline-mousable-minor-mode ((t (:background "#A5BAF1" :foreground "black"))))
- '(region ((t (:background "#555577"))))
+ '(region ((t (:foreground "#e0e0e0" :background "#555577"))))
  '(primary-selection ((t (:background "#555577"))))
  '(secondary-selection ((t (:background "DarkSlateBlue"))))
  '(zmacs-region ((t (:background "#555577"))))
+
  '(flymake-errline ((t (:background "LightSalmon" :foreground "black"))))
  '(flymake-warnline ((t (:background "LightSteelBlue" :foreground "black"))))
 
@@ -106,7 +107,7 @@
  '(term-color-red ((t (:foreground "#d83b31"))))
  '(term-color-green ((t (:foreground "#8cf900"))))
  '(term-color-blue ((t (:foreground "#76a8f0"))))
- '(term-color-yellow ((t (:foreground "#ffee9c"))))
+ '(term-color-yellow ((t (:foreground "#ffdc40"))))
 
  '(underline ((t (:underline t))))
  '(minibuffer-prompt ((t (:bold t :foreground "#FF6600")))))

@@ -192,8 +192,7 @@
 
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
-            (if (or (string-match "color-theme-*" (buffer-name))
-                    (string-match "*-theme.el" (buffer-name)))
+            (if (string-match ".*theme.*" (buffer-name))
                 (rainbow-mode) )))
 
 ;;------------------------------------------------------------------------------
