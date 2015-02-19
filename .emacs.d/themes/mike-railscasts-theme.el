@@ -5,9 +5,9 @@
 ;; Copyright (C) 2009 Oleg Shaldybin <oleg.shaldybin@gmail.com>
 
 ;; Author: Oleg Shaldybin
-;; Adapted-By: Yesudeep Mangalapilly, Mike Nichols
+;; Adapted-By: Yesudeep Mangalapilly, Yuichi TANIKAWA, Mike Nichols
 ;; Keywords: railscasts color theme
-;; URL: https://github.com/itiut/railscasts-theme
+;; URL: https://github.com/mikenichols/railscasts-theme
 ;; Requires: GNU Emacs 24
 
 ;; This file is NOT a part of GNU Emacs.
@@ -65,16 +65,17 @@
  '(font-lock-keyword-face ((t (:foreground "#CC7833"))))
  '(font-lock-preprocessor-face ((t (:foreground "#CC7833"))))
  '(enh-ruby-op-face ((t (:foreground "#CC7833"))))
- '(font-lock-reference-face ((t (:foreground "LightSteelBlue"))))
+ '(font-lock-reference-face ((t (:foreground "#C8C8FF"))))
  '(font-lock-string-face ((t (:foreground "#A5C261"))))
  '(enh-ruby-string-delimiter-face ((t (:foreground "#A5C261"))))
  '(font-lock-type-face ((t (:foreground "#6D9CBE"))))
- '(font-lock-variable-name-face ((t (:foreground "LightSteelBlue"))))
+ '(font-lock-variable-name-face ((t (:foreground "#C8C8FF"))))
  '(font-lock-warning-face ((t (:foreground "Pink"))))
  '(paren-face-match-light ((t (:foreground "#FFC66D" :background "#555577"))))
  '(show-paren-match ((t (:foreground nil :background "#3070FF"))))
  '(show-paren-mismatch ((t (:foreground "#00FF00" :background "#FF00FF"))))
  '(highlight ((t (:background "#2a2a2a"))))
+ '(hl-line ((t (:foreground nil :background "#2a2a2a"))))
  '(italic ((t (:italic t))))
  '(mode-line ((t (:background "#CDCDCD" :foreground "black" :box nil))))
  '(modeline-buffer-id ((t (:background "#A5BAF1" :foreground "black"))))
@@ -86,10 +87,13 @@
  '(zmacs-region ((t (:background "#555577"))))
 
  '(flymake-errline ((t (:background "LightSalmon" :foreground "black"))))
- '(flymake-warnline ((t (:background "LightSteelBlue" :foreground "black"))))
+ '(flymake-warnline ((t (:background "#C8C8FF" :foreground "black"))))
 
  '(isearch ((t (:foreground "#333333" :background "#22EEEE"))))
  '(lazy-highlight ((t (:foreground "#333333" :background "#f6e05c"))))
+
+ '(ahs-face ((t (:foreground nil :background "#38383f"))))
+ '(ahs-plugin-defalt-face ((t (:foreground nil :background "#604050"))))
 
  '(speedbar-button-face ((t (:foreground "#e0e0e0"))))
  '(speedbar-directory-face ((t (:foreground "#50B0FF"))))
@@ -105,9 +109,9 @@
  '(rbenv-active-ruby-face ((t (:foreground "#CC3838"))))
 
  '(term-color-red ((t (:foreground "#d83b31"))))
- '(term-color-green ((t (:foreground "#8cf900"))))
+ '(term-color-green ((t (:foreground "#8cf960"))))
  '(term-color-blue ((t (:foreground "#76a8f0"))))
- '(term-color-yellow ((t (:foreground "#ffdc40"))))
+ '(term-color-yellow ((t (:foreground "#ffe870"))))
 
  '(underline ((t (:underline t))))
  '(minibuffer-prompt ((t (:bold t :foreground "#FF6600")))))
