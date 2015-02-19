@@ -457,6 +457,7 @@
 (setq scss-compile-at-save nil)
 
 ;; Ruby
+(setq ruby-end-insert-newline nil)
 (add-to-list 'auto-mode-alist
              '("\\.\\(?:gemspec\\|irbrc\\|gemrc\\|rake\\|rb\\|ru\\|thor\\)\\'" . enh-ruby-mode))
 (add-to-list 'auto-mode-alist
