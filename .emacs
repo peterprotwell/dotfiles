@@ -54,8 +54,10 @@
     monokai-theme
     multi-term
     multiple-cursors
+    neotree
     projectile
     projectile-rails
+    railscasts-theme
     rainbow-mode
     rbenv
     rubocop
@@ -182,18 +184,15 @@
 ;;------------------------------------------------------------------------------
 ;; Color themes
 
-(color-theme-initialize)
-(load-library "color-theme-mike")
-(load-library "color-theme-molokai")
-;; (load-library "color-theme-railscasts")
-
-;; (color-theme-railscasts)
-(load-theme 'mike-railscasts t nil)
+(load-theme 'railscasts t nil)
 
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
             (if (string-match ".*theme.*" (buffer-name))
                 (rainbow-mode) )))
+
+(color-theme-initialize)
+(load-library "color-theme-mike")
 
 ;;------------------------------------------------------------------------------
 ;; Window management
@@ -342,6 +341,8 @@
 
   (global-set-key [f8] 'mike/speedbar)
 )
+
+(global-set-key [f7] 'neotree-toggle)
 
 ;;------------------------------------------------------------------------------
 ;; Refactoring

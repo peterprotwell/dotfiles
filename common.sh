@@ -185,6 +185,8 @@ alias gx="gitx &"
 
 alias pwdp="pwd -P"
 
+alias rmtrash="rm -rf ~/.Trash/*"
+
 #-------------------------------------------------------------------------------
 # machine-specific setup
 
