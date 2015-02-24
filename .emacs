@@ -586,6 +586,8 @@
 ;;------------------------------------------------------------------------------
 ;; Until the dolphin flies and parrots live at sea - shell config
 
+(require 'multi-term)
+
 (defun mike/switch-to-or-create-shell-buffer (index)
   "Switches to *terminal<index>* if it exists, or creates a new terminal."
   (interactive)
@@ -639,8 +641,7 @@
   (global-set-key (kbd "M-s-<left>") 'buf-move-left)
   (global-set-key (kbd "M-s-<down>") 'buf-move-down)
   (global-set-key (kbd "M-s-<up>") 'buf-move-up)
-  (global-set-key (kbd "M-s-<right>") 'buf-move-right)
-)
+  (global-set-key (kbd "M-s-<right>") 'buf-move-right) )
 
 ;; Window resizing
 (defun mike/window-taller () (interactive) (enlarge-window 2))
@@ -652,6 +653,11 @@
 (global-set-key (kbd "C-s-j") 'mike/window-shorter)
 (global-set-key (kbd "C-s-l") 'mike/window-wider)
 (global-set-key (kbd "C-s-h") 'mike/window-narrower)
+
+(dolist (key-command
+         '(("M-<backspace>" . term-send-backward-kill-word)
+           ("M-d" . term-send-forward-kill-word)))
+  (add-to-list 'term-bind-key-alist key-command))
 
 ;;------------------------------------------------------------------------------
 ;; Functions that should exist already
