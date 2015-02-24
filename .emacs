@@ -386,6 +386,12 @@
 (add-to-list 'auto-mode-alist '("\\.jst'"  . html-erb-mode))
 
 ;;------------------------------------------------------------------------------
+;; magit
+
+(global-set-key (kbd "C-c g") 'magit-status)
+(global-set-key (kbd "C-c C-g") 'magit-status)
+
+;;------------------------------------------------------------------------------
 ;; rspec
 
 (defadvice rspec-compile (around rspec-compile-around)
