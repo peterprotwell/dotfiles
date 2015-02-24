@@ -4,11 +4,9 @@
 
 [alias]
   b = branch
-  br = branch
   branch-name = rev-parse --abbrev-ref HEAD
   ci = commit
   cam = commit -am
-  c = checkout
   co = checkout
   cod = checkout develop
   com = checkout master
@@ -36,7 +34,7 @@
   rbd = rebase develop
   rpo = remote prune origin
   s = status
-  st = status
+  st = stash
   sp = stash pop
   tc = commit -am temp_commit
   up = rev-parse --abbrev-ref --symbolic-full-name @{u}
@@ -46,3 +44,7 @@
 
 [push]
   default = simple
+
+[rerere]
+  enabled = true
+  autoupdate = true
