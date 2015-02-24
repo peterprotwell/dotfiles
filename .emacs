@@ -627,6 +627,11 @@
 (defun mike/shell-10 () (interactive) (mike/switch-to-or-create-shell-buffer "10"))
 (global-set-key (kbd "M-s-0") 'mike/shell-10)
 
+(dolist (key-command
+         '(("M-<backspace>" . term-send-backward-kill-word)
+           ("M-d" . term-send-forward-kill-word)))
+  (add-to-list 'term-bind-key-alist key-command))
+
 ;;------------------------------------------------------------------------------
 ;; Window functions and keybindings
 
@@ -653,11 +658,6 @@
 (global-set-key (kbd "C-s-j") 'mike/window-shorter)
 (global-set-key (kbd "C-s-l") 'mike/window-wider)
 (global-set-key (kbd "C-s-h") 'mike/window-narrower)
-
-(dolist (key-command
-         '(("M-<backspace>" . term-send-backward-kill-word)
-           ("M-d" . term-send-forward-kill-word)))
-  (add-to-list 'term-bind-key-alist key-command))
 
 ;;------------------------------------------------------------------------------
 ;; Functions that should exist already
