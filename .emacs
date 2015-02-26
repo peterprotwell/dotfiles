@@ -889,6 +889,7 @@ the character typed."
         (insert new-c)
         (replace-string new-c old-c nil (1+ start) end)))))
 
+(global-set-key (kbd "C-c t") 'mike/toggle-quotes)
 (global-set-key (kbd "C-c C-t") 'mike/toggle-quotes)
 
 (defun save-macro (name)

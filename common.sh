@@ -88,6 +88,19 @@ function agi {
   ag $(echo "$*" | sed 's/ / --ignore /g')
 }
 
+function emacs2 {
+  if [ -e /opt/homebrew-cask/Caskroom/emacs/*/Emacs.app/Contents/MacOS/Emacs ]; then
+    local emacs_path='/opt/homebrew-cask/Caskroom/emacs/*/Emacs.app/Contents/MacOS/Emacs'
+  elif [ -e '/Applications/Emacs.app/Contents/MacOS/Emacs' ]; then
+    local emacs_path='/Applications/Emacs.app/Contents/MacOS/Emacs'
+  else
+    echo 'You have no emacs installed.'
+    return 1
+  fi
+
+  $($emacs_path "$@" &)
+}
+
 #-------------------------------------------------------------------------------
 # aliases
 
