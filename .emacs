@@ -908,14 +908,8 @@ the character typed."
 ;;------------------------------------------------------------------------------
 ;; Custom keybindings
 
-;; Find file
-(global-set-key "\C-xf" 'find-file)
-;; Find file other window
-(global-set-key "\C-cf" 'find-file-other-window)
-(global-set-key "\C-c\C-f" 'find-file-other-window)
-
 ;; Align text by regex
-(global-set-key (kbd "C-c \\") 'align-regexp)
+(global-set-key (kbd "C-x \\") 'align-regexp)
 
 ;; Replaces M-x to run commands. I work out!
 (global-set-key (kbd "C-x m") 'smex)
@@ -923,16 +917,16 @@ the character typed."
 
 ;; Another Yegge binding
 ;; (global-set-key "\C-x\M-r" 'query-replace-regexp)
-(global-set-key "\C-x\M-r" 'vr/query-replace)
+(global-set-key (kbd "C-x M-r") 'vr/query-replace)
 
 ;; Also bound to C-x +
-(global-set-key "\C-x=" 'balance-windows)
+(global-set-key (kbd "C-x =") 'balance-windows)
 
-(global-set-key "\C-c\C-a" 'calendar)
+(global-set-key (kbd "C-c C-a") 'calendar)
 
-(global-set-key "\M-g" 'goto-line)
+(global-set-key (kbd "M-g") 'goto-line)
 
-(global-set-key "\M-`" 'other-frame)
+(global-set-key (kbd "M-`") 'other-frame)
 
 (global-set-key (kbd "C-c C-e") 'eval-last-sexp)
 
