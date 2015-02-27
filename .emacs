@@ -643,10 +643,10 @@
 
 ;; Move buffer to other window
 (when (require 'buffer-move nil 'noerror)
-  (global-set-key (kbd "M-s-<left>") 'buf-move-left)
-  (global-set-key (kbd "M-s-<down>") 'buf-move-down)
-  (global-set-key (kbd "M-s-<up>") 'buf-move-up)
-  (global-set-key (kbd "M-s-<right>") 'buf-move-right) )
+  (global-set-key (kbd "C-s-h") 'buf-move-left)
+  (global-set-key (kbd "C-s-j") 'buf-move-down)
+  (global-set-key (kbd "C-s-k") 'buf-move-up)
+  (global-set-key (kbd "C-s-l") 'buf-move-right) )
 
 ;; Window resizing
 (defun mike/window-taller () (interactive) (enlarge-window 2))
@@ -654,10 +654,10 @@
 (defun mike/window-wider () (interactive) (enlarge-window 2 t))
 (defun mike/window-narrower () (interactive) (enlarge-window -2 t))
 
-(global-set-key (kbd "C-s-k") 'mike/window-taller)
-(global-set-key (kbd "C-s-j") 'mike/window-shorter)
-(global-set-key (kbd "C-s-l") 'mike/window-wider)
-(global-set-key (kbd "C-s-h") 'mike/window-narrower)
+(global-set-key (kbd "M-s-<left>") 'mike/window-narrower)
+(global-set-key (kbd "M-s-<down>") 'mike/window-shorter)
+(global-set-key (kbd "M-s-<up>") 'mike/window-taller)
+(global-set-key (kbd "M-s-<right>") 'mike/window-wider)
 
 ;;------------------------------------------------------------------------------
 ;; Functions that should exist already
