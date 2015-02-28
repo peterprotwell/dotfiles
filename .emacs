@@ -70,7 +70,6 @@
     smex
     solarized-theme
     sr-speedbar
-    swift-mode
     visual-regexp
     workgroups
     xkcd
@@ -339,10 +338,10 @@
         (sr-speedbar-toggle)
       (mike/speedbar-open-current-buffer-in-tree) ))
 
-  (global-set-key [f8] 'mike/speedbar)
+  (global-set-key [f7] 'mike/speedbar)
 )
 
-(global-set-key [f7] 'neotree-toggle)
+(global-set-key [f8] 'neotree-toggle)
 
 ;;------------------------------------------------------------------------------
 ;; Refactoring
@@ -384,12 +383,6 @@
 
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . html-erb-mode))
 (add-to-list 'auto-mode-alist '("\\.jst'"  . html-erb-mode))
-
-;;------------------------------------------------------------------------------
-;; magit
-
-(global-set-key (kbd "C-c g") 'magit-status)
-(global-set-key (kbd "C-c C-g") 'magit-status)
 
 ;;------------------------------------------------------------------------------
 ;; rspec
@@ -487,6 +480,12 @@
 (add-hook 'java-mode-hook
   (lambda ()
     (setq tab-width 4)))
+
+;; Markdown
+(add-hook 'markdown-mode-hook
+  (lambda ()
+    (global-set-key (kbd "M-s-p") 'previous-line-five)
+    (global-set-key (kbd "M-s-n") 'next-line-five)))
 
 ;;------------------------------------------------------------------------------
 ;; ediff setup
