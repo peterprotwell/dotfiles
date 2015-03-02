@@ -34,7 +34,7 @@
   rbd = rebase develop
   rpo = remote prune origin
   s = status
-  st = stash
+  st = !(echo 'Use g s for status')
   sp = stash pop
   tc = commit -am temp_commit
   up = rev-parse --abbrev-ref --symbolic-full-name @{u}

@@ -89,16 +89,14 @@ function agi {
 }
 
 function emacs2 {
-  if [ -e /opt/homebrew-cask/Caskroom/emacs/*/Emacs.app/Contents/MacOS/Emacs ]; then
-    local emacs_path='/opt/homebrew-cask/Caskroom/emacs/*/Emacs.app/Contents/MacOS/Emacs'
-  elif [ -e '/Applications/Emacs.app/Contents/MacOS/Emacs' ]; then
-    local emacs_path='/Applications/Emacs.app/Contents/MacOS/Emacs'
+  if [ -e /opt/homebrew-cask/Caskroom/emacs/24.4/Emacs.app/Contents/MacOS/Emacs ]; then
+    /opt/homebrew-cask/Caskroom/emacs/24.4/Emacs.app/Contents/MacOS/Emacs &
+  elif [ -e /Applications/Emacs.app/Contents/MacOS/Emacs ]; then
+    /Applications/Emacs.app/Contents/MacOS/Emacs &
   else
     echo 'You have no emacs installed.'
     return 1
   fi
-
-  $($emacs_path "$@" &)
 }
 
 #-------------------------------------------------------------------------------
@@ -177,7 +175,8 @@ alias cdcrd="cd ~/code/rails/depot"
 alias cdd="cd ~/Downloads"
 alias cdD="cd ~/Desktop"
 alias cd.="cd ~/dotfiles"
-alias cde="cd ~/.emacs.d"
+alias cde="cd ~/thoughts/emacs"
+alias cdeb="cd ~/emacs-book"
 alias cdM="cd ~/Movies"
 alias cdp="cd ~/Pictures"
 alias cdpm="cd ~/code/rails/programmer-mike"
