@@ -232,6 +232,11 @@
 (setq ido-enable-flex-matching t)
 (setq ido-use-faces nil)
 
+(add-hook 'minibuffer-inactive-mode-hook
+          (lambda ()
+            (global-set-key (kbd "C-.") 'ido-next-match)
+            (global-set-key (kbd "C-,") 'ido-prev-match) ))
+
 ;; From: http://endlessparentheses.com/Ido-Bury-Buffer.html
 (add-hook 'ido-setup-hook
           (defun endless/define-ido-bury-key ()
