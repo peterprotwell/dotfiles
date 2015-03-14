@@ -148,13 +148,11 @@ alias tdcm="RAILS_ENV=test bundle exec rake db:drop db:create db:migrate"
 alias tdcms="RAILS_ENV=test bundle exec rake db:drop db:create db:migrate db:seed"
 
 # postgresql
-if type postgres > /dev/null; then
-  alias pginit="initdb /usr/local/var/postgres -E utf8 -U mike"
-  alias pgstart="pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start"
-  alias pgstop="pg_ctl -D /usr/local/var/postgres stop -s -m fast"
-  alias pgstatus="pg_ctl -D /usr/local/var/postgres status"
-  alias pg="psql -h localhost -d postgres"
-fi
+alias pginit="initdb /usr/local/var/postgres -E utf8 -U mike"
+alias pgstart="pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start"
+alias pgstop="pg_ctl -D /usr/local/var/postgres stop -s -m fast"
+alias pgstatus="pg_ctl -D /usr/local/var/postgres status"
+alias pg="psql -h localhost -d postgres"
 
 # Doesn't work
 # alias fuckit="sudo \$(history 1 | cut -d ' ' -f7)"

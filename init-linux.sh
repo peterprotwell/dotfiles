@@ -39,7 +39,7 @@ sudo /usr/share/doc/libdvdread4/install-css.sh
 sudo cp /usr/share/applications/vlc.desktop /usr/share/applications/totem.desktop
 
 # music
-"$install-command" ffmpeg libavcodec-extra-52 youtube-dl
+"$install-command" ffmpeg libavcodec-extra-54 youtube-dl
 sudo youtube-dl -U
 sudo youtube-dl -U
 
