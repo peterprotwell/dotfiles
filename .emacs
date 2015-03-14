@@ -193,6 +193,13 @@
 (color-theme-initialize)
 (load-library "color-theme-mike")
 
+;; (defun override-theme (theme)
+;;   "Clear out the active themes and load a theme freshly"
+;;   (interactive "sOverride with custom theme: ")
+;;   (while custom-enabled-themes
+;;     (disable-theme (car custom-enabled-themes)))
+;;   (load-theme theme t nil))
+
 ;;------------------------------------------------------------------------------
 ;; Window management
 
@@ -224,6 +231,11 @@
 
 ;;------------------------------------------------------------------------------
 ;; Fuzzy file find
+
+;; (require 'helm)
+;; (require 'helm-config)
+;; (helm-mode 1)
+;; (setq helm-split-window-in-side-p t)
 
 (ido-mode 1)
 (ido-ubiquitous-mode)
@@ -973,6 +985,20 @@ the character typed."
   "Javascript standard console.log statement."
   ""
   > "console.log(\"" _ "\");")
+
+;;------------------------------------------------------------------------------
+;; Key binding overrides
+
+;; (defvar mike/keys-minor-mode-map (make-keymap) "mike/keys-minor-mode keymap.")
+
+;; (define-key mike/keys-minor-mode-map (kbd "M-n") 'next-line-five)
+;; (define-key mike/keys-minor-mode-map (kbd "M-p") 'previous-line-five)
+
+;; (define-minor-mode mike/keys-minor-mode
+;;   "A minor mode so that my key settings override annoying major modes."
+;;   t " mike/keys" 'mike/keys-minor-mode-map)
+
+;; (mike/keys-minor-mode 1)
 
 ;;------------------------------------------------------------------------------
 ;; Server

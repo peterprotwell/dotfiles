@@ -215,6 +215,7 @@ elif [ "$(uname)" = "linux-gnu" -o "$(uname)" = "Linux" ]; then
 fi
 
 #-------------------------------------------------------------------------------
+# Misc.
 
 # Nicer colors for emacs in terminal
 export TERM=xterm-256color
