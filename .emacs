@@ -126,6 +126,7 @@
 
 (show-paren-mode 1)
 
+(set-cursor-color "#ffffff")
 (setq-default cursor-type 'bar)
 (setq-default blink-cursor-blinks 0)
 
@@ -580,7 +581,7 @@
        (cond
         ((<= (display-pixel-height) 800) "14")
         ((<= (display-pixel-height) 1200) "18")
-        ((<= (display-pixel-height) 1440) "16")
+        ((<= (display-pixel-height) 1440) "14")
         (t "18") )))
   (set-face-attribute 'default nil :font (concat "Inconsolata-" mike/font-size)) )
 
