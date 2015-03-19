@@ -126,7 +126,6 @@
 
 (show-paren-mode 1)
 
-(set-cursor-color "#ffffff")
 (setq-default cursor-type 'bar)
 (setq-default blink-cursor-blinks 0)
 
@@ -193,6 +192,9 @@
 
 (color-theme-initialize)
 (load-library "color-theme-mike")
+
+;; TODO: figure out why this happens
+(set-cursor-color "#ffffff")
 
 ;; (defun override-theme (theme)
 ;;   "Clear out the active themes and load a theme freshly"
@@ -579,7 +581,7 @@
 
 (let ((mike/font-size
        (cond
-        ((<= (display-pixel-height) 800) "14")
+        ((<= (display-pixel-height) 800) "12")
         ((<= (display-pixel-height) 1200) "18")
         ((<= (display-pixel-height) 1440) "14")
         (t "18") )))
