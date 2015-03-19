@@ -197,6 +197,9 @@ alias pwdp="pwd -P"
 
 alias rmtrash="rm -rf ~/.Trash/*"
 
+alias normal-scrolling="xmodmap ~/dotfiles/.xmodmap-mouse"
+alias reverse-scrolling="xmodmap ~/dotfiles/.xmodmap"
+
 #-------------------------------------------------------------------------------
 # machine-specific setup
 
