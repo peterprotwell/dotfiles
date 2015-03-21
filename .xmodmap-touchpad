@@ -1,0 +1,6 @@
+! Flip vertical scroll direction
+pointer = 1 2 3 5 4 6 7 8 9 10 11 12
+
+! Caps lock => Control
+remove Lock = Caps_Lock
+keycode 66 = Control_L
