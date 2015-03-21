@@ -36,7 +36,6 @@ fi
 # vlc
 "$install-command" vlc libdvdread4
 sudo /usr/share/doc/libdvdread4/install-css.sh
-sudo cp /usr/share/applications/vlc.desktop /usr/share/applications/totem.desktop
 
 # music
 "$install-command" ffmpeg libavcodec-extra-54 youtube-dl
@@ -50,3 +49,8 @@ sudo youtube-dl -U
 "$install-command" build-essential bison openssl libreadline6 \
   libreadline6-dev curl zlib1g zlib1g-dev libssl-dev libyaml-dev \
   libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev libcurl4-gnutls-dev
+
+# flux
+sudo add-apt-repository ppa:kilian/f.lux
+sudo apt-get update
+sudo apt-get install fluxgui

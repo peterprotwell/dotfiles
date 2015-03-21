@@ -200,6 +200,8 @@ alias rmtrash="rm -rf ~/.Trash/*"
 alias normal-scrolling="xmodmap ~/dotfiles/.xmodmap-mouse"
 alias reverse-scrolling="xmodmap ~/dotfiles/.xmodmap"
 
+alias ynab="/home/mike/.wine_YNAB4/drive_c/Program\ Files/YNAB\ 4/YNAB\ 4.exe"
+
 #-------------------------------------------------------------------------------
 # machine-specific setup
 
