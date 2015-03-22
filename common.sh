@@ -197,8 +197,8 @@ alias pwdp="pwd -P"
 
 alias rmtrash="rm -rf ~/.Trash/*"
 
-alias normal-scrolling="xmodmap ~/dotfiles/.xmodmap"
-alias reverse-scrolling="xmodmap ~/dotfiles/.xmodmap-touchpad"
+alias normal-scrolling="xmodmap ~/dotfiles/.Xmodmap"
+alias reverse-scrolling="xmodmap ~/dotfiles/.Xmodmap-touchpad"
 
 alias ynab="/home/mike/.wine_YNAB4/drive_c/Program\ Files/YNAB\ 4/YNAB\ 4.exe"
 
@@ -214,7 +214,12 @@ fi
 if [ "$(uname)" = "Darwin" ]; then
   source ~/dotfiles/common-mac.sh
 elif [ "$(uname)" = "linux-gnu" -o "$(uname)" = "Linux" ]; then
-  echo "you're on linux"
+  if [ -f ~/dotfiles/.Xmodmap ]; then
+    if [ "$XMODMAP_LOADED" = "" ]; then
+      xmodmap ~/dotfiles/.Xmodmap
+      export XMODMAP_LOADED="1"
+    fi
+  fi
 fi
 
 #-------------------------------------------------------------------------------
