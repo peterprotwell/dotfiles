@@ -4,3 +4,4 @@ pointer = 1 2 3 4 5 6 7 8 9 10 11 12
 ! Caps lock => Control
 remove Lock = Caps_Lock
 keycode 66 = Control_L
+add Control = Control_L
