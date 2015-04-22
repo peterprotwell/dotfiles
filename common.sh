@@ -99,6 +99,18 @@ function emacs2 {
   fi
 }
 
+# requires node and http-server:
+#   npm install http-server -g
+function serve {
+  local port=8080
+
+  if [ "$1" ]; then
+    port="$1"
+  fi
+
+  http-server ./ -p ${port}
+}
+
 #-------------------------------------------------------------------------------
 # aliases
 
@@ -178,6 +190,7 @@ alias cdeb="cd ~/emacs-book"
 alias cdM="cd ~/Movies"
 alias cdp="cd ~/Pictures"
 alias cdpm="cd ~/code/rails/programmer-mike"
+alias cdr="cd ~/code/ruby"
 alias cdrw="cd ~/code/rails/recursewords"
 alias cdt="cd ~/thoughts"
 
@@ -201,6 +214,8 @@ alias normal-scrolling="xmodmap ~/dotfiles/.Xmodmap"
 alias reverse-scrolling="xmodmap ~/dotfiles/.Xmodmap-touchpad"
 
 alias ynab="/home/mike/.wine_YNAB4/drive_c/Program\ Files/YNAB\ 4/YNAB\ 4.exe"
+
+alias killspring="ps aux | egrep 'spring (app|server)' | tr -s ' ' | cut -d' ' -f2 | xargs kill -9"
 
 #-------------------------------------------------------------------------------
 # machine-specific setup
