@@ -169,14 +169,10 @@
 	<true/>
 	<key>MaxVertically</key>
 	<false/>
-	<key>NSColorPanelMode</key>
-	<string>6</string>
-	<key>NSFontPanelAttributes</key>
-	<string>1, 4</string>
-	<key>NSNavBrowserPreferedColumnContentWidth</key>
-	<real>186</real>
 	<key>NSNavLastRootDirectory</key>
-	<string>~</string>
+	<string>~/dotfiles/oh-my-zsh</string>
+	<key>NSNavPanelExpandedSizeForOpenMode</key>
+	<string>{712, 448}</string>
 	<key>NSQuotedKeystrokeBinding</key>
 	<string></string>
 	<key>NSRepeatCountBinding</key>
@@ -194,37 +190,23 @@
 		BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU1N0cmluZwGEhAhOU09iamVjdACF
 		hAErATGG
 		</data>
-		<string>198</string>
+		<string>302</string>
 	</array>
 	<key>NSTableView Hidden Columns KeyBingingTable</key>
 	<array/>
 	<key>NSTableView Sort Ordering KeyBingingTable</key>
 	<array/>
-	<key>NSToolbar Configuration Terminal Toolbar</key>
+	<key>NSToolbar Configuration com.apple.NSColorPanel</key>
 	<dict>
-		<key>TB Display Mode</key>
-		<integer>1</integer>
-		<key>TB Icon Size Mode</key>
-		<integer>1</integer>
 		<key>TB Is Shown</key>
-		<integer>0</integer>
-		<key>TB Size Mode</key>
 		<integer>1</integer>
 	</dict>
-	<key>NSWindow Frame NSColorPanel</key>
-	<string>427 356 214 309 0 0 1920 1058 </string>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>972 390 445 270 0 0 1920 1058 </string>
+	<string>416 116 651 290 0 0 1280 777 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>239 196 924 485 0 0 1280 778 </string>
-	<key>NSWindow Frame UKCrashReporter</key>
-	<string>155 474 592 584 0 0 1920 1058 </string>
+	<string>208 135 924 485 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>419 177 1672 1098 0 0 2560 1418 </string>
-	<key>NSWindow Frame iTerm Window 1</key>
-	<string>638 205 638 573 0 0 1280 778 </string>
-	<key>NSWindow Frame iTerm Window 2</key>
-	<string>173 0 730 573 0 0 1280 778 </string>
+	<string>516 289 585 473 0 0 2560 1417 </string>
 	<key>NeverWarnAboutShortLivedSessions_6907D920-2D28-4444-87AC-FC1343BC3E85</key>
 	<true/>
 	<key>New Bookmarks</key>
@@ -248,11 +230,11 @@
 			<key>Ansi 1 Color</key>
 			<dict>
 				<key>Blue Component</key>
-				<real>0.38511830568313599</real>
+				<real>0.045601848512887955</real>
 				<key>Green Component</key>
-				<real>0.51815849542617798</real>
+				<real>0.11784541606903076</real>
 				<key>Red Component</key>
-				<real>0.88917559385299683</real>
+				<real>0.85909217596054077</real>
 			</dict>
 			<key>Ansi 10 Color</key>
 			<dict>
@@ -374,11 +356,11 @@
 			<key>Ansi 9 Color</key>
 			<dict>
 				<key>Blue Component</key>
-				<real>0.045601848512887955</real>
+				<real>0.38511830568313599</real>
 				<key>Green Component</key>
-				<real>0.11784541606903076</real>
+				<real>0.51815849542617798</real>
 				<key>Red Component</key>
-				<real>0.85909217596054077</real>
+				<real>0.88917559385299683</real>
 			</dict>
 			<key>Automatically Log</key>
 			<false/>
@@ -783,11 +765,11 @@
 			<key>Name</key>
 			<string>Default</string>
 			<key>Non Ascii Font</key>
-			<string>Inconsolata 16</string>
+			<string>Inconsolata 14</string>
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>Inconsolata 18</string>
+			<string>Inconsolata 14</string>
 			<key>Option Key Sends</key>
 			<integer>2</integer>
 			<key>Prompt Before Closing 2</key>
@@ -1762,7 +1744,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2014-11-05T01:26:30Z</date>
+	<date>2015-05-01T02:29:16Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Show Toolbelt</key>
@@ -1793,8 +1775,6 @@
 	</array>
 	<key>TripleClickSelectsFullWrappedLines</key>
 	<false/>
-	<key>UKCrashReporterLastCrashReportDate</key>
-	<real>1318405120</real>
 	<key>URLHandlersByGuid</key>
 	<dict/>
 	<key>UseBorder</key>
@@ -1806,7 +1786,7 @@
 	<key>WebKitDefaultFontSize</key>
 	<integer>11</integer>
 	<key>WebKitStandardFont</key>
-	<string>.Lucida Grande UI</string>
+	<string>.Helvetica Neue DeskInterface</string>
 	<key>WindowNumber</key>
 	<true/>
 	<key>WindowStyle</key>
@@ -1818,6 +1798,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>2.0.0.20141022</string>
+	<string>2.0</string>
 </dict>
 </plist>
