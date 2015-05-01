@@ -588,7 +588,7 @@
        (cond
         ((<= (display-pixel-height) 800) "12")
         ((<= (display-pixel-height) 1200) "18")
-        ((<= (display-pixel-height) 1440) "12")
+        ((<= (display-pixel-height) 1440) "14")
         (t "18") )))
   (set-face-attribute 'default nil :font (concat "Inconsolata-" mike/font-size)) )
 

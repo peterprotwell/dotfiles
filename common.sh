@@ -111,6 +111,17 @@ function serve {
   http-server ./ -p ${port}
 }
 
+function change_shell {
+  local new_shell="$1"
+
+  if ! [ -e "$new_shell" ]; then
+    echo 'Please enter a valid shell'
+    return 1
+  fi
+
+  chsh -s "$new_shell" "$(whoami)"
+}
+
 #-------------------------------------------------------------------------------
 # aliases
 
