@@ -54,7 +54,6 @@
     molokai-theme
     monokai-theme
     multi-term
-    multiple-cursors
     neotree
     projectile
     projectile-rails
@@ -283,15 +282,6 @@
             ido-text-init ido-text
             ido-exit 'refresh)
       (exit-minibuffer))))
-
-;;------------------------------------------------------------------------------
-;; multiple cursors
-
-(require 'multiple-cursors)
-(global-set-key (kbd "s-SPC") 'set-rectangular-region-anchor)
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-?") 'mc/mark-more-like-this-extended)
 
 ;;------------------------------------------------------------------------------
 ;; Speedbar
