@@ -48,6 +48,7 @@
     ido-ubiquitous
     js2-mode
     magit
+    matlab-mode
     markdown-mode
     mmm-mode
     molokai-theme
@@ -220,7 +221,7 @@
 
 (global-set-key [f9] 'save-buffer)
 (global-set-key [f10] 'save-buffer)
-(desktop-save-mode 1)
+;; (desktop-save-mode 1)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (global-auto-revert-mode 1)
 
@@ -363,10 +364,10 @@
         (sr-speedbar-toggle)
       (mike/speedbar-open-current-buffer-in-tree) ))
 
-  (global-set-key [f7] 'mike/speedbar)
+  (global-set-key [f8] 'mike/speedbar)
 )
 
-(global-set-key [f8] 'neotree-toggle)
+(global-set-key [f7] 'neotree-toggle)
 
 ;;------------------------------------------------------------------------------
 ;; Refactoring
@@ -586,7 +587,7 @@
 
 (let ((mike/font-size
        (cond
-        ((<= (display-pixel-height) 800) "12")
+        ((<= (display-pixel-height) 800) "14")
         ((<= (display-pixel-height) 1200) "18")
         ((<= (display-pixel-height) 1440) "16")
         (t "18") )))
