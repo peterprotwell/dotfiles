@@ -1,10 +1,13 @@
 #!/usr/bin/env ruby
 
 # TODO: ask for backup disk, maybe have default?
-drive = '/media/mike/Mancer'
+drive = '/Volumes/feynman'
 if !File.exists? drive
-  puts 'Please insert your backup drive'
-  exit 1
+  drive = '/Volumes/yudkowsky'
+  if !File.exists? drive
+    puts 'Please insert your backup drive'
+    exit 1
+  end
 end
 
 backup_dir = "#{drive}/home"

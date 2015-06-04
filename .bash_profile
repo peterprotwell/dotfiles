@@ -136,6 +136,9 @@ export PATH="$HOME/.cljr/bin:$PATH"
 # My scripts
 export PATH="~/dotfiles/bin:$PATH"
 
+# Homebrew
+export PATH="/usr/local/bin:$PATH"
+
 export NODE_PATH=/usr/local/lib/node_modules
 
 #-------------------------------------------------------------------------------
