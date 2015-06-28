@@ -129,8 +129,6 @@
 (setq-default cursor-type 'bar)
 (setq-default blink-cursor-blinks 0)
 
-(setq-default completion-ignore-case 1)
-
 ;; Scrolling
 (setq scroll-preserve-screen-position t)
 (setq mouse-wheel-progressive-speed nil)
@@ -172,6 +170,7 @@
 (ac-config-default)
 (global-set-key "\M-/" 'auto-complete)
 (global-set-key (kbd "C-M-/") 'ac-fuzzy-complete)
+(setq-default completion-ignore-case 1)
 
 ;;------------------------------------------------------------------------------
 ;; OS settings

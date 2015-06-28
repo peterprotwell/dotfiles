@@ -14,7 +14,7 @@ backup_dir = "#{drive}/home"
 puts "Backing up to #{backup_dir}..."
 
 dirs = %w(books code Compositions Documents dotfiles emacs-book
-Movies Music Pictures sheet-music thoughts)
+Movies Music Pictures thoughts)
 
 Dir.chdir(Dir.home) do
   dirs.each do |dir|
