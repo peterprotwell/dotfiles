@@ -303,16 +303,16 @@
   ;; I want stuff ignored a la carte
   (setq speedbar-directory-unshown-regexp "^\\(\\.\\.?\\|.idea\\)$")
 
-  (defun mike/buffer-directory ()
+  (defun miken-buffer-directory ()
     (if (buffer-file-name) (file-name-directory (buffer-file-name))
       (getenv "HOME") ))
 
   ;; Pulled these functions from projectile-speedbar.el
-  (defun mike/find-project-root ()
+  (defun miken-find-project-root ()
     (if (projectile-project-p) (projectile-project-root)
-      (mike/buffer-directory) ))
+      (miken-buffer-directory) ))
 
-  (defun mike/speedbar-project-refresh (root-dir)
+  (defun miken-speedbar-project-refresh (root-dir)
     "Refresh the context of speedbar based on project root"
     (if (and (not (equal root-dir sr-speedbar-last-refresh-dictionary))
              (not (sr-speedbar-window-p)))
@@ -320,7 +320,7 @@
     (setq default-directory root-dir)
     (speedbar-refresh) )
 
-  (defun mike/open-current-project-in-speedbar (root-dir)
+  (defun miken-open-current-project-in-speedbar (root-dir)
     "Refresh speedbar to show current project in tree"
     (when (not (sr-speedbar-exist-p))
       (while (windmove-find-other-window 'left)
@@ -328,38 +328,38 @@
       (while (windmove-find-other-window 'up)
         (windmove-up) ))
     (sr-speedbar-toggle)
-    (mike/speedbar-project-refresh root-dir) )
+    (miken-speedbar-project-refresh root-dir) )
 
   ;; This opens the directory where the calling buffer lives
-  (defun mike/speedbar-expand-line-list (&optional arg)
+  (defun miken-speedbar-expand-line-list (&optional arg)
     (when arg
       (re-search-forward (concat " " (car arg) "$"))
       (speedbar-expand-line (car arg))
       (speedbar-next 1)
-      (mike/speedbar-expand-line-list (cdr arg)) ))
+      (miken-speedbar-expand-line-list (cdr arg)) ))
 
-  (defun mike/speedbar-open-current-buffer-in-tree ()
+  (defun miken-speedbar-open-current-buffer-in-tree ()
     (interactive)
-    (let* ((root-dir (mike/find-project-root))
-           (prev-buffer-directory (mike/buffer-directory))
+    (let* ((root-dir (miken-find-project-root))
+           (prev-buffer-directory (miken-buffer-directory))
            (relative-buffer-path (car (cdr (split-string prev-buffer-directory root-dir))))
            (parents (butlast (split-string relative-buffer-path "/")))
            (prev-buffer (buffer-name)) )
       (save-excursion
-        (mike/open-current-project-in-speedbar root-dir)
+        (miken-open-current-project-in-speedbar root-dir)
         (select-window (get-buffer-window speedbar-buffer))
         (beginning-of-buffer)
-        (mike/speedbar-expand-line-list parents)
+        (miken-speedbar-expand-line-list parents)
         (unless (string= prev-buffer "*SPEEDBAR*")
           (switch-to-buffer  prev-buffer) ))))
 
-  (defun mike/speedbar ()
+  (defun miken-speedbar ()
     (interactive)
     (if (sr-speedbar-exist-p)
         (sr-speedbar-toggle)
-      (mike/speedbar-open-current-buffer-in-tree) ))
+      (miken-speedbar-open-current-buffer-in-tree) ))
 
-  (global-set-key [f8] 'mike/speedbar)
+  (global-set-key [f8] 'miken-speedbar)
 )
 
 (global-set-key [f7] 'neotree-toggle)
@@ -373,7 +373,7 @@
 ;;------------------------------------------------------------------------------
 ;; Rails settings
 
-(setq mike/rails-file-types
+(setq miken-rails-file-types
   '(;; Ruby
     ruby-mode-hook enh-ruby-mode-hook
     ;; JavaScript / CoffeeScript
@@ -384,7 +384,7 @@
     html-mode-hook html-erb-mode-hook slim-mode-hook haml-mode-hook yaml-mode-hook))
 
 ;; Turn on projectile-rails-mode if we're in a rails project
-(dolist (hook mike/rails-file-types)
+(dolist (hook miken-rails-file-types)
   (add-hook hook
             (lambda ()
               (if (and
@@ -582,13 +582,13 @@
 ;;------------------------------------------------------------------------------
 ;; font size / text size
 
-(let ((mike/font-size
+(let ((miken-font-size
        (cond
         ((<= (display-pixel-height) 800) "14")
         ((<= (display-pixel-height) 1200) "16")
         ((<= (display-pixel-height) 1440) "18")
         (t "18") )))
-  (set-face-attribute 'default nil :font (concat "Inconsolata-" mike/font-size)) )
+  (set-face-attribute 'default nil :font (concat "Inconsolata-" miken-font-size)) )
 
 ;;------------------------------------------------------------------------------
 ;; Buffer functions and keybindings
@@ -610,7 +610,7 @@
 
 (require 'multi-term)
 
-(defun mike/switch-to-or-create-shell-buffer (index)
+(defun miken-switch-to-or-create-shell-buffer (index)
   "Switches to *terminal<index>* if it exists, or creates a new terminal."
   (interactive)
   (let ((term-name (concat "*terminal<" index ">*")))
@@ -619,35 +619,35 @@
       (switch-to-buffer (multi-term)) )))
 
 ;; TODO: learn some metaprogramming and make this shit easier
-(defun mike/shell-1 () (interactive) (mike/switch-to-or-create-shell-buffer "1"))
-(global-set-key (kbd "M-s-1") 'mike/shell-1)
+(defun miken-shell-1 () (interactive) (miken-switch-to-or-create-shell-buffer "1"))
+(global-set-key (kbd "M-s-1") 'miken-shell-1)
 
-(defun mike/shell-2 () (interactive) (mike/switch-to-or-create-shell-buffer "2"))
-(global-set-key (kbd "M-s-2") 'mike/shell-2)
+(defun miken-shell-2 () (interactive) (miken-switch-to-or-create-shell-buffer "2"))
+(global-set-key (kbd "M-s-2") 'miken-shell-2)
 
-(defun mike/shell-3 () (interactive) (mike/switch-to-or-create-shell-buffer "3"))
-(global-set-key (kbd "M-s-3") 'mike/shell-3)
+(defun miken-shell-3 () (interactive) (miken-switch-to-or-create-shell-buffer "3"))
+(global-set-key (kbd "M-s-3") 'miken-shell-3)
 
-(defun mike/shell-4 () (interactive) (mike/switch-to-or-create-shell-buffer "4"))
-(global-set-key (kbd "M-s-4") 'mike/shell-4)
+(defun miken-shell-4 () (interactive) (miken-switch-to-or-create-shell-buffer "4"))
+(global-set-key (kbd "M-s-4") 'miken-shell-4)
 
-(defun mike/shell-5 () (interactive) (mike/switch-to-or-create-shell-buffer "5"))
-(global-set-key (kbd "M-s-5") 'mike/shell-5)
+(defun miken-shell-5 () (interactive) (miken-switch-to-or-create-shell-buffer "5"))
+(global-set-key (kbd "M-s-5") 'miken-shell-5)
 
-(defun mike/shell-6 () (interactive) (mike/switch-to-or-create-shell-buffer "6"))
-(global-set-key (kbd "M-s-6") 'mike/shell-6)
+(defun miken-shell-6 () (interactive) (miken-switch-to-or-create-shell-buffer "6"))
+(global-set-key (kbd "M-s-6") 'miken-shell-6)
 
-(defun mike/shell-7 () (interactive) (mike/switch-to-or-create-shell-buffer "7"))
-(global-set-key (kbd "M-s-7") 'mike/shell-7)
+(defun miken-shell-7 () (interactive) (miken-switch-to-or-create-shell-buffer "7"))
+(global-set-key (kbd "M-s-7") 'miken-shell-7)
 
-(defun mike/shell-8 () (interactive) (mike/switch-to-or-create-shell-buffer "8"))
-(global-set-key (kbd "M-s-8") 'mike/shell-8)
+(defun miken-shell-8 () (interactive) (miken-switch-to-or-create-shell-buffer "8"))
+(global-set-key (kbd "M-s-8") 'miken-shell-8)
 
-(defun mike/shell-9 () (interactive) (mike/switch-to-or-create-shell-buffer "9"))
-(global-set-key (kbd "M-s-9") 'mike/shell-9)
+(defun miken-shell-9 () (interactive) (miken-switch-to-or-create-shell-buffer "9"))
+(global-set-key (kbd "M-s-9") 'miken-shell-9)
 
-(defun mike/shell-10 () (interactive) (mike/switch-to-or-create-shell-buffer "10"))
-(global-set-key (kbd "M-s-0") 'mike/shell-10)
+(defun miken-shell-10 () (interactive) (miken-switch-to-or-create-shell-buffer "10"))
+(global-set-key (kbd "M-s-0") 'miken-shell-10)
 
 (dolist (key-command
          '(("M-<backspace>" . term-send-backward-kill-word)
@@ -671,15 +671,15 @@
   (global-set-key (kbd "C-s-l") 'buf-move-right) )
 
 ;; Window resizing
-(defun mike/window-taller () (interactive) (enlarge-window 2))
-(defun mike/window-shorter () (interactive) (enlarge-window -2))
-(defun mike/window-wider () (interactive) (enlarge-window 2 t))
-(defun mike/window-narrower () (interactive) (enlarge-window -2 t))
+(defun miken-window-taller () (interactive) (enlarge-window 2))
+(defun miken-window-shorter () (interactive) (enlarge-window -2))
+(defun miken-window-wider () (interactive) (enlarge-window 2 t))
+(defun miken-window-narrower () (interactive) (enlarge-window -2 t))
 
-(global-set-key (kbd "M-s-<left>") 'mike/window-narrower)
-(global-set-key (kbd "M-s-<down>") 'mike/window-shorter)
-(global-set-key (kbd "M-s-<up>") 'mike/window-taller)
-(global-set-key (kbd "M-s-<right>") 'mike/window-wider)
+(global-set-key (kbd "M-s-<left>") 'miken-window-narrower)
+(global-set-key (kbd "M-s-<down>") 'miken-window-shorter)
+(global-set-key (kbd "M-s-<up>") 'miken-window-taller)
+(global-set-key (kbd "M-s-<right>") 'miken-window-wider)
 
 ;;------------------------------------------------------------------------------
 ;; Functions that should exist already
@@ -886,7 +886,7 @@ the character typed."
 
 (global-set-key (kbd "C-M-;") 'comment-dwim-line-and-move-down)
 
-(defun mike/toggle-quotes ()
+(defun miken-toggle-quotes ()
   "Toggle single quoted string to double or vice versa, and
   flip the internal quotes as well.  Best to run on the first
   character of the string."
@@ -911,8 +911,8 @@ the character typed."
         (insert new-c)
         (replace-string new-c old-c nil (1+ start) end)))))
 
-(global-set-key (kbd "C-c t") 'mike/toggle-quotes)
-(global-set-key (kbd "C-c C-t") 'mike/toggle-quotes)
+(global-set-key (kbd "C-c t") 'miken-toggle-quotes)
+(global-set-key (kbd "C-c C-t") 'miken-toggle-quotes)
 
 (defun save-macro (name)
   "save a macro. Take a name as argument
@@ -995,16 +995,16 @@ the character typed."
 ;;------------------------------------------------------------------------------
 ;; Key binding overrides
 
-;; (defvar mike/keys-minor-mode-map (make-keymap) "mike/keys-minor-mode keymap.")
+;; (defvar miken-keys-minor-mode-map (make-keymap) "miken-keys-minor-mode keymap.")
 
-;; (define-key mike/keys-minor-mode-map (kbd "M-n") 'next-line-five)
-;; (define-key mike/keys-minor-mode-map (kbd "M-p") 'previous-line-five)
+;; (define-key miken-keys-minor-mode-map (kbd "M-n") 'next-line-five)
+;; (define-key miken-keys-minor-mode-map (kbd "M-p") 'previous-line-five)
 
-;; (define-minor-mode mike/keys-minor-mode
+;; (define-minor-mode miken-keys-minor-mode
 ;;   "A minor mode so that my key settings override annoying major modes."
-;;   t " mike/keys" 'mike/keys-minor-mode-map)
+;;   t " miken-keys" 'miken-keys-minor-mode-map)
 
-;; (mike/keys-minor-mode 1)
+;; (miken-keys-minor-mode 1)
 
 ;;------------------------------------------------------------------------------
 ;; Server
