@@ -42,7 +42,6 @@
     enh-ruby-mode
     expand-region
     flx-ido
-    fuzzy
     ido-ubiquitous
     js2-mode
     magit
@@ -93,7 +92,7 @@
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 
 ;;------------------------------------------------------------------------------
-;; global settings/modes
+;; Global config
 
 (setq inhibit-startup-message t)
 
@@ -101,6 +100,10 @@
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+
+;; Show line/column number in minibuffer
+(setq line-number-mode t)
+(setq column-number-mode t)
 
 (setq make-backup-files nil)
 (setq ring-bell-function 'ignore)
@@ -110,19 +113,10 @@
 (setq confirm-nonexistent-file-or-buffer nil)
 (setq ido-create-new-buffer 'always)
 
+;; Only won't ask if you kill buffer. Still asks on emacs close
 (setq kill-buffer-query-functions
       (remq 'process-kill-buffer-query-function
             kill-buffer-query-functions))
-
-;; Line numbers
-(autoload 'linum-mode "linum" "toggle line numbers on/off" t)
-(global-set-key (kbd "C-<f5>") 'linum-mode)
-
-;; Show line/column number in minibuffer
-(setq line-number-mode t)
-(setq column-number-mode t)
-
-(show-paren-mode 1)
 
 (setq-default cursor-type 'bar)
 (setq-default blink-cursor-blinks 0)
@@ -131,34 +125,39 @@
 (setq scroll-preserve-screen-position t)
 (setq mouse-wheel-progressive-speed nil)
 
-;; Highlight current line
-(global-hl-line-mode 1)
-;; Highlight current symbol
-(auto-highlight-symbol-mode)
+(require 'uniquify)
+(setq-default uniquify-buffer-name-style 'post-forward)
+
+(smex-initialize)
+
+;;------------------------------------------------------------------------------
+;; Global modes
+
+(show-paren-mode 1)
+
+(global-hl-line-mode 1) ;; Highlight current line
+(auto-highlight-symbol-mode) ;; Highlight current symbol
 
 (drag-stuff-global-mode)
 
 (setq comment-style 'indent)
 
-;; ...and I know it!
-(smex-initialize)
-
-(global-set-key (kbd "s-s") 'isearch-forward-regexp)
-(global-set-key (kbd "s-r") 'isearch-backward-regexp)
-
-;; (setq path-to-ctags "/usr/local/bin/ctags")
-
 (global-rbenv-mode)
 
 (autopair-global-mode)
 
-(require 'uniquify)
-(setq-default uniquify-buffer-name-style 'post-forward)
+(global-discover-mode 1)
+
+;; Line numbers
+(global-set-key (kbd "C-<f5>") 'linum-mode)
+
+;;------------------------------------------------------------------------------
+;; Misc
+
+(global-set-key (kbd "s-s") 'isearch-forward-regexp)
+(global-set-key (kbd "s-r") 'isearch-backward-regexp)
 
 (global-set-key (kbd "C-x C-u") 'browse-url)
-
-(require 'discover)
-(global-discover-mode 1)
 
 ;;------------------------------------------------------------------------------
 ;; Autocomplete/auto-complete
