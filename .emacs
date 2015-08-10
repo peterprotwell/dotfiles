@@ -128,7 +128,17 @@
 (require 'uniquify)
 (setq-default uniquify-buffer-name-style 'post-forward)
 
+;; Replaces M-x to run commands
 (smex-initialize)
+(global-set-key (kbd "C-x m") 'smex)
+(global-set-key (kbd "C-x C-m") 'smex)
+
+;;------------------------------------------------------------------------------
+;; OS settings
+
+(when (eq system-type 'darwin)
+  (setq mac-command-modifier 'meta)
+  (setq mac-option-modifier 'super) )
 
 ;;------------------------------------------------------------------------------
 ;; Global modes
@@ -152,12 +162,24 @@
 (global-set-key (kbd "C-<f5>") 'linum-mode)
 
 ;;------------------------------------------------------------------------------
-;; Misc
+;; Saving
 
-(global-set-key (kbd "s-s") 'isearch-forward-regexp)
-(global-set-key (kbd "s-r") 'isearch-backward-regexp)
+(global-set-key [f9] 'save-buffer)
+(global-set-key [f10] 'save-buffer)
+;; (desktop-save-mode 1)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(global-auto-revert-mode 1)
 
-(global-set-key (kbd "C-x C-u") 'browse-url)
+;;------------------------------------------------------------------------------
+;; Font size / text size
+
+(let ((miken-font-size
+       (cond
+        ((<= (display-pixel-height) 800) "14")
+        ((<= (display-pixel-height) 1200) "16")
+        ((<= (display-pixel-height) 1440) "18")
+        (t "18") )))
+  (set-face-attribute 'default nil :font (concat "Inconsolata-" miken-font-size)) )
 
 ;;------------------------------------------------------------------------------
 ;; Autocomplete/auto-complete
@@ -168,13 +190,6 @@
 (global-set-key "\M-/" 'auto-complete)
 (global-set-key (kbd "C-M-/") 'ac-fuzzy-complete)
 (setq-default completion-ignore-case 1)
-
-;;------------------------------------------------------------------------------
-;; OS settings
-
-(when (eq system-type 'darwin)
-  (setq mac-command-modifier 'meta)
-  (setq mac-option-modifier 'super) )
 
 ;;------------------------------------------------------------------------------
 ;; Color themes
@@ -197,6 +212,11 @@
 ;;   (load-theme theme t nil))
 
 ;;------------------------------------------------------------------------------
+;; Frame management
+
+(global-set-key (kbd "M-`") 'other-frame)
+
+;;------------------------------------------------------------------------------
 ;; Window management
 
 (require 'workgroups)
@@ -208,14 +228,98 @@
 
 (global-set-key (kbd "C-x 1") 'zygospore-toggle-delete-other-windows)
 
-;;------------------------------------------------------------------------------
-;; Saving
+;; Also bound to C-x +
+(global-set-key (kbd "C-x =") 'balance-windows)
 
-(global-set-key [f9] 'save-buffer)
-(global-set-key [f10] 'save-buffer)
-;; (desktop-save-mode 1)
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-(global-auto-revert-mode 1)
+;; Move cursor to other window
+(global-set-key (kbd "M-s-h") 'windmove-left)
+(global-set-key (kbd "M-s-j") 'windmove-down)
+(global-set-key (kbd "M-s-k") 'windmove-up)
+(global-set-key (kbd "M-s-l") 'windmove-right)
+
+;; Move buffer to other window
+(when (require 'buffer-move nil 'noerror)
+  (global-set-key (kbd "C-s-h") 'buf-move-left)
+  (global-set-key (kbd "C-s-j") 'buf-move-down)
+  (global-set-key (kbd "C-s-k") 'buf-move-up)
+  (global-set-key (kbd "C-s-l") 'buf-move-right) )
+
+;; Window resizing
+(defun miken-window-taller () (interactive) (enlarge-window 2))
+(defun miken-window-shorter () (interactive) (enlarge-window -2))
+(defun miken-window-wider () (interactive) (enlarge-window 2 t))
+(defun miken-window-narrower () (interactive) (enlarge-window -2 t))
+
+(global-set-key (kbd "M-s-<left>") 'miken-window-narrower)
+(global-set-key (kbd "M-s-<down>") 'miken-window-shorter)
+(global-set-key (kbd "M-s-<up>") 'miken-window-taller)
+(global-set-key (kbd "M-s-<right>") 'miken-window-wider)
+
+;;------------------------------------------------------------------------------
+;; Buffer management
+
+(global-set-key "\C-ck" 'kill-buffer-and-window)
+(global-set-key "\C-c\C-k" 'kill-buffer-and-window)
+
+(global-set-key "\C-cb" 'switch-to-buffer-other-window)
+(global-set-key "\C-c\C-b" 'switch-to-buffer-other-window)
+
+;; Already bound to C-x b
+(global-set-key "\C-x\C-b" 'switch-to-buffer)
+
+;; Previously bound to C-x C-b
+(global-set-key "\C-x\C-l" 'list-buffers)
+
+;;------------------------------------------------------------------------------
+;; Region management
+
+(global-set-key "\C-ci" 'indent-region)
+
+(require 'expand-region)
+(global-set-key (kbd "s-<up>") 'er/expand-region)
+(global-set-key (kbd "s-<down>") 'er/contract-region)
+
+;; Delete region when you start typing
+(pending-delete-mode t)
+
+;;------------------------------------------------------------------------------
+;; Paragraph management
+
+(setq-default fill-column 90)
+
+(defun endless/forward-paragraph (&optional n)
+  "Advance just past next blank line."
+  (interactive "p")
+  (let ((m (use-region-p))
+        (para-commands
+         '(endless/forward-paragraph endless/backward-paragraph)))
+    ;; Only push mark if it's not active and we're not repeating.
+    (or m
+        (not (member this-command para-commands))
+        (member last-command para-commands)
+        (push-mark))
+    ;; The actual movement.
+    (dotimes (_ (abs n))
+      (if (> n 0)
+          (skip-chars-forward "\n[:blank:]")
+        (skip-chars-backward "\n[:blank:]"))
+      (if (search-forward-regexp
+           "\n[[:blank:]]*\n[[:blank:]]*" nil t (cl-signum n))
+          (goto-char (match-end 0))
+        (goto-char (if (> n 0) (point-max) (point-min)))))
+    ;; If mark wasn't active, I like to indent the line too.
+    (unless m
+      (indent-according-to-mode)
+      ;; This looks redundant, but it's surprisingly necessary.
+      (back-to-indentation))))
+
+(defun endless/backward-paragraph (&optional n)
+  "Go back up to previous blank line."
+  (interactive "p")
+  (endless/forward-paragraph (- n)))
+
+(global-set-key "\M-a" 'endless/backward-paragraph)
+(global-set-key "\M-e" 'endless/forward-paragraph)
 
 ;;------------------------------------------------------------------------------
 ;; Projectile
@@ -232,10 +336,16 @@
 (global-set-key (kbd "M-s-g") 'avy-goto-word-or-subword-1)
 
 ;;------------------------------------------------------------------------------
-;; Magit
+;; Magit/git
 
 (setq magit-last-seen-setup-instructions "1.4.0")
 (setq magit-push-always-verify nil)
+
+(require 'vc-git)
+(defun vc-git-annotate-command (file buffer &optional revision)
+  "Execute \"git annotate\" on FILE, inserting the contents in BUFFER."
+  (vc-git-command buffer 0 file "blame" "--abbrev=5") )
+                  ;; " | sed 's/[0-9]*:[0-9]*:[0-9]*//g' | sed 's/-[0-9]\\{3,\\}//g' | tr -s ' '") )
 
 ;;------------------------------------------------------------------------------
 ;; Fuzzy file find
@@ -515,93 +625,7 @@
 (if (fboundp 'winner-mode) (winner-mode 1))
 
 ;;------------------------------------------------------------------------------
-;; Region
-
-(global-set-key "\C-ci" 'indent-region)
-
-(require 'expand-region)
-(global-set-key (kbd "s-<up>") 'er/expand-region)
-(global-set-key (kbd "s-<down>") 'er/contract-region)
-
-;; Delete region when you start typing
-(pending-delete-mode t)
-
-;;------------------------------------------------------------------------------
-;; git
-
-(require 'vc-git)
-(defun vc-git-annotate-command (file buffer &optional revision)
-  "Execute \"git annotate\" on FILE, inserting the contents in BUFFER."
-  (vc-git-command buffer 0 file "blame" "--abbrev=5") )
-                  ;; " | sed 's/[0-9]*:[0-9]*:[0-9]*//g' | sed 's/-[0-9]\\{3,\\}//g' | tr -s ' '") )
-
-;;------------------------------------------------------------------------------
-;; paragraph
-
-(setq-default fill-column 90)
-
-(defun endless/forward-paragraph (&optional n)
-  "Advance just past next blank line."
-  (interactive "p")
-  (let ((m (use-region-p))
-        (para-commands
-         '(endless/forward-paragraph endless/backward-paragraph)))
-    ;; Only push mark if it's not active and we're not repeating.
-    (or m
-        (not (member this-command para-commands))
-        (member last-command para-commands)
-        (push-mark))
-    ;; The actual movement.
-    (dotimes (_ (abs n))
-      (if (> n 0)
-          (skip-chars-forward "\n[:blank:]")
-        (skip-chars-backward "\n[:blank:]"))
-      (if (search-forward-regexp
-           "\n[[:blank:]]*\n[[:blank:]]*" nil t (cl-signum n))
-          (goto-char (match-end 0))
-        (goto-char (if (> n 0) (point-max) (point-min)))))
-    ;; If mark wasn't active, I like to indent the line too.
-    (unless m
-      (indent-according-to-mode)
-      ;; This looks redundant, but it's surprisingly necessary.
-      (back-to-indentation))))
-
-(defun endless/backward-paragraph (&optional n)
-  "Go back up to previous blank line."
-  (interactive "p")
-  (endless/forward-paragraph (- n)))
-
-(global-set-key "\M-a" 'endless/backward-paragraph)
-(global-set-key "\M-e" 'endless/forward-paragraph)
-
-;;------------------------------------------------------------------------------
-;; font size / text size
-
-(let ((miken-font-size
-       (cond
-        ((<= (display-pixel-height) 800) "14")
-        ((<= (display-pixel-height) 1200) "16")
-        ((<= (display-pixel-height) 1440) "18")
-        (t "18") )))
-  (set-face-attribute 'default nil :font (concat "Inconsolata-" miken-font-size)) )
-
-;;------------------------------------------------------------------------------
-;; Buffer functions and keybindings
-
-(global-set-key "\C-ck" 'kill-buffer-and-window)
-(global-set-key "\C-c\C-k" 'kill-buffer-and-window)
-
-(global-set-key "\C-cb" 'switch-to-buffer-other-window)
-(global-set-key "\C-c\C-b" 'switch-to-buffer-other-window)
-
-;; Already bound to C-x b
-(global-set-key "\C-x\C-b" 'switch-to-buffer)
-
-;; Previously bound to C-x C-b
-(global-set-key "\C-x\C-l" 'list-buffers)
-
-;;------------------------------------------------------------------------------
-;; Until the dolphin flies and parrots live at sea - shell config
+;; Multi-term / shell config
 
 (require 'multi-term)
 
@@ -648,33 +672,6 @@
          '(("M-<backspace>" . term-send-backward-kill-word)
            ("M-d" . term-send-forward-kill-word)))
   (add-to-list 'term-bind-key-alist key-command))
-
-;;------------------------------------------------------------------------------
-;; Window functions and keybindings
-
-;; Move cursor to other window
-(global-set-key (kbd "M-s-h") 'windmove-left)
-(global-set-key (kbd "M-s-j") 'windmove-down)
-(global-set-key (kbd "M-s-k") 'windmove-up)
-(global-set-key (kbd "M-s-l") 'windmove-right)
-
-;; Move buffer to other window
-(when (require 'buffer-move nil 'noerror)
-  (global-set-key (kbd "C-s-h") 'buf-move-left)
-  (global-set-key (kbd "C-s-j") 'buf-move-down)
-  (global-set-key (kbd "C-s-k") 'buf-move-up)
-  (global-set-key (kbd "C-s-l") 'buf-move-right) )
-
-;; Window resizing
-(defun miken-window-taller () (interactive) (enlarge-window 2))
-(defun miken-window-shorter () (interactive) (enlarge-window -2))
-(defun miken-window-wider () (interactive) (enlarge-window 2 t))
-(defun miken-window-narrower () (interactive) (enlarge-window -2 t))
-
-(global-set-key (kbd "M-s-<left>") 'miken-window-narrower)
-(global-set-key (kbd "M-s-<down>") 'miken-window-shorter)
-(global-set-key (kbd "M-s-<up>") 'miken-window-taller)
-(global-set-key (kbd "M-s-<right>") 'miken-window-wider)
 
 ;;------------------------------------------------------------------------------
 ;; Functions that should exist already
@@ -925,25 +922,21 @@ the character typed."
 ;;------------------------------------------------------------------------------
 ;; Custom keybindings
 
+(global-set-key (kbd "s-s") 'isearch-forward-regexp)
+(global-set-key (kbd "s-r") 'isearch-backward-regexp)
+
+(global-set-key (kbd "C-x C-u") 'browse-url)
+
 ;; Align text by regex
 (global-set-key (kbd "C-x \\") 'align-regexp)
-
-;; Replaces M-x to run commands. I work out!
-(global-set-key (kbd "C-x m") 'smex)
-(global-set-key (kbd "C-x C-m") 'smex)
 
 ;; Another Yegge binding
 ;; (global-set-key "\C-x\M-r" 'query-replace-regexp)
 (global-set-key (kbd "C-x M-r") 'vr/query-replace)
 
-;; Also bound to C-x +
-(global-set-key (kbd "C-x =") 'balance-windows)
-
 (global-set-key (kbd "C-c C-a") 'calendar)
 
 (global-set-key (kbd "M-g") 'goto-line)
-
-(global-set-key (kbd "M-`") 'other-frame)
 
 (global-set-key (kbd "C-c C-e") 'eval-last-sexp)
 
