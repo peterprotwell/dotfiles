@@ -16,6 +16,13 @@
             (cons (concat (getenv "HOME") "/.rbenv/bin") exec-path) ))
 
 ;;------------------------------------------------------------------------------
+;; OS settings
+
+(when (eq system-type 'darwin)
+  (setq mac-command-modifier 'meta)
+  (setq mac-option-modifier 'super) )
+
+;;------------------------------------------------------------------------------
 ;; Packages
 
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
@@ -132,13 +139,6 @@
 (smex-initialize)
 (global-set-key (kbd "C-x m") 'smex)
 (global-set-key (kbd "C-x C-m") 'smex)
-
-;;------------------------------------------------------------------------------
-;; OS settings
-
-(when (eq system-type 'darwin)
-  (setq mac-command-modifier 'meta)
-  (setq mac-option-modifier 'super) )
 
 ;;------------------------------------------------------------------------------
 ;; Global modes
