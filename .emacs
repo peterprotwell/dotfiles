@@ -182,16 +182,6 @@
   (set-face-attribute 'default nil :font (concat "Inconsolata-" miken-font-size)) )
 
 ;;------------------------------------------------------------------------------
-;; Autocomplete/auto-complete
-
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/auto-complete/ac-dict")
-(ac-config-default)
-(global-set-key "\M-/" 'auto-complete)
-(global-set-key (kbd "C-M-/") 'ac-fuzzy-complete)
-(setq-default completion-ignore-case 1)
-
-;;------------------------------------------------------------------------------
 ;; Color themes
 
 (load-theme 'railscasts t nil)
@@ -328,6 +318,16 @@
 (projectile-global-mode)
 
 (recentf-mode)
+
+;;------------------------------------------------------------------------------
+;; Autocomplete/auto-complete
+
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/auto-complete/ac-dict")
+(ac-config-default)
+(global-set-key "\M-/" 'auto-complete)
+(global-set-key (kbd "C-M-/") 'ac-fuzzy-complete)
+(setq-default completion-ignore-case 1)
 
 ;;------------------------------------------------------------------------------
 ;; Avy
