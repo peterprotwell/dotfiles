@@ -36,7 +36,6 @@
     buffer-move
     clojure-mode
     coffee-mode
-    color-theme
     discover
     drag-stuff
     emr
@@ -85,7 +84,7 @@
 
 ;; Load lisp files
 (defvar emacs-root "~/.emacs.d/")
-;; labels is like let for functions
+;; cl-labels is like let for functions
 (cl-labels
     ((add-path (p) (add-to-list 'load-path (concat emacs-root p))))
   (add-path "lisp")
@@ -187,9 +186,6 @@
           (lambda ()
             (if (string-match ".*theme.*" (buffer-name))
                 (rainbow-mode) )))
-
-(color-theme-initialize)
-(load-library "color-theme-mike")
 
 ;; TODO: figure out why this happens
 (set-cursor-color "#ffffff")
