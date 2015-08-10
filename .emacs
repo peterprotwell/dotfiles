@@ -637,36 +637,11 @@
         (switch-to-buffer term-name)
       (switch-to-buffer (multi-term)) )))
 
-;; TODO: learn some metaprogramming and make this shit easier
-(defun miken-shell-1 () (interactive) (miken-switch-to-or-create-shell-buffer "1"))
-(global-set-key (kbd "M-s-1") 'miken-shell-1)
-
-(defun miken-shell-2 () (interactive) (miken-switch-to-or-create-shell-buffer "2"))
-(global-set-key (kbd "M-s-2") 'miken-shell-2)
-
-(defun miken-shell-3 () (interactive) (miken-switch-to-or-create-shell-buffer "3"))
-(global-set-key (kbd "M-s-3") 'miken-shell-3)
-
-(defun miken-shell-4 () (interactive) (miken-switch-to-or-create-shell-buffer "4"))
-(global-set-key (kbd "M-s-4") 'miken-shell-4)
-
-(defun miken-shell-5 () (interactive) (miken-switch-to-or-create-shell-buffer "5"))
-(global-set-key (kbd "M-s-5") 'miken-shell-5)
-
-(defun miken-shell-6 () (interactive) (miken-switch-to-or-create-shell-buffer "6"))
-(global-set-key (kbd "M-s-6") 'miken-shell-6)
-
-(defun miken-shell-7 () (interactive) (miken-switch-to-or-create-shell-buffer "7"))
-(global-set-key (kbd "M-s-7") 'miken-shell-7)
-
-(defun miken-shell-8 () (interactive) (miken-switch-to-or-create-shell-buffer "8"))
-(global-set-key (kbd "M-s-8") 'miken-shell-8)
-
-(defun miken-shell-9 () (interactive) (miken-switch-to-or-create-shell-buffer "9"))
-(global-set-key (kbd "M-s-9") 'miken-shell-9)
-
-(defun miken-shell-10 () (interactive) (miken-switch-to-or-create-shell-buffer "10"))
-(global-set-key (kbd "M-s-0") 'miken-shell-10)
+(dolist (index '("1" "2" "3" "4" "5" "6" "7" "8" "9"))
+  (global-set-key (kbd (concat "M-s-" index))
+                  `(lambda ()
+                     (interactive)
+                     (miken-switch-to-or-create-shell-buffer ,index))))
 
 (dolist (key-command
          '(("M-<backspace>" . term-send-backward-kill-word)
