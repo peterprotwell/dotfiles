@@ -32,6 +32,7 @@
     auto-complete
     auto-highlight-symbol
     autopair
+    avy
     buffer-move
     clojure-mode
     coffee-mode
@@ -41,10 +42,8 @@
     emr
     enh-ruby-mode
     expand-region
-    feature-mode
     flx-ido
     fuzzy
-    haml-mode
     ido-ubiquitous
     js2-mode
     magit
@@ -232,9 +231,16 @@
 (recentf-mode)
 
 ;;------------------------------------------------------------------------------
+;; Avy
+
+(require 'avy)
+(global-set-key (kbd "M-s-g") 'avy-goto-word-or-subword-1)
+
+;;------------------------------------------------------------------------------
 ;; Magit
 
 (setq magit-last-seen-setup-instructions "1.4.0")
+(setq magit-push-always-verify nil)
 
 ;;------------------------------------------------------------------------------
 ;; Fuzzy file find
@@ -411,6 +417,8 @@
 
 (setq compilation-scroll-output nil)
 
+(add-hook 'after-init-hook 'inf-ruby-switch-setup)
+
 ;;------------------------------------------------------------------------------
 ;; Indentation for languages
 
@@ -577,8 +585,8 @@
 (let ((mike/font-size
        (cond
         ((<= (display-pixel-height) 800) "14")
-        ((<= (display-pixel-height) 1200) "18")
-        ((<= (display-pixel-height) 1440) "16")
+        ((<= (display-pixel-height) 1200) "16")
+        ((<= (display-pixel-height) 1440) "18")
         (t "18") )))
   (set-face-attribute 'default nil :font (concat "Inconsolata-" mike/font-size)) )
 
