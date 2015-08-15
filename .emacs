@@ -319,6 +319,9 @@
 
 (recentf-mode)
 
+(global-set-key (kbd "M-s-f") 'projectile-find-file)
+(global-set-key (kbd "M-s-v") 'projectile-vc)
+
 ;;------------------------------------------------------------------------------
 ;; Autocomplete/auto-complete
 
@@ -338,8 +341,15 @@
 ;;------------------------------------------------------------------------------
 ;; Magit/git
 
+(require 'magit)
+
 (setq magit-last-seen-setup-instructions "1.4.0")
 (setq magit-push-always-verify nil)
+
+;; Don't prompt when first line of commit is over 50 chars.
+(setq git-commit-finish-query-functions '())
+;; Don't set new branch to track parent branch's remote
+(setq magit-branch-arguments (remove "--track" magit-branch-arguments))
 
 (require 'vc-git)
 (defun vc-git-annotate-command (file buffer &optional revision)
