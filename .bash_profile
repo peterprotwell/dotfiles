@@ -151,3 +151,6 @@ fi
 #-------------------------------------------------------------------------------
 
 ## end .bash_profile
+
+# added by Anaconda3 2.2.0 installer
+export PATH="/Users/mike/anaconda/bin:$PATH"
