@@ -334,12 +334,6 @@
 (setq-default completion-ignore-case 1)
 
 ;;------------------------------------------------------------------------------
-;; Avy
-
-(require 'avy)
-(global-set-key (kbd "M-s-g") 'avy-goto-word-or-subword-1)
-
-;;------------------------------------------------------------------------------
 ;; Magit/git
 
 (require 'magit)
@@ -403,6 +397,18 @@
             ido-text-init ido-text
             ido-exit 'refresh)
       (exit-minibuffer))))
+
+;;------------------------------------------------------------------------------
+;; Searching / jumping / tags
+
+(global-set-key (kbd "M-s-g") 'avy-goto-word-or-subword-1)
+
+(global-set-key (kbd "s-s") 'isearch-forward-regexp)
+(global-set-key (kbd "s-r") 'isearch-backward-regexp)
+
+(global-set-key (kbd "M-g") 'goto-line)
+
+(global-set-key (kbd "M-,") 'pop-tag-mark)
 
 ;;------------------------------------------------------------------------------
 ;; Speedbar
@@ -910,9 +916,6 @@ the character typed."
 ;;------------------------------------------------------------------------------
 ;; Custom keybindings
 
-(global-set-key (kbd "s-s") 'isearch-forward-regexp)
-(global-set-key (kbd "s-r") 'isearch-backward-regexp)
-
 (global-set-key (kbd "C-x C-u") 'browse-url)
 
 ;; Align text by regex
@@ -923,8 +926,6 @@ the character typed."
 (global-set-key (kbd "C-x M-r") 'vr/query-replace)
 
 (global-set-key (kbd "C-c C-a") 'calendar)
-
-(global-set-key (kbd "M-g") 'goto-line)
 
 (global-set-key (kbd "C-c C-e") 'eval-last-sexp)
 
