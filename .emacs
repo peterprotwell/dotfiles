@@ -67,6 +67,7 @@
     rubocop
     ruby-end
     ruby-hash-syntax
+    ruby-refactor
     rspec-mode
     sass-mode
     scss-mode
@@ -485,6 +486,8 @@
 (define-key prog-mode-map (kbd "M-RET") 'emr-show-refactor-menu)
 (add-hook 'prog-mode-hook 'emr-initialize)
 
+(setq ruby-refactor-add-parens t)
+
 ;;------------------------------------------------------------------------------
 ;; Rails settings
 
@@ -765,7 +768,7 @@ the character typed."
       (while (> n 0)
         (insert current-line)
         (decf n) )))
-  (next-line 1))
+  (next-line))
 
 (global-set-key (kbd "C-c d") 'copy-line-below)
 (global-set-key (kbd "C-c C-d") 'copy-line-below)
