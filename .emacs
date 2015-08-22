@@ -129,9 +129,6 @@
 (setq scroll-preserve-screen-position t)
 (setq mouse-wheel-progressive-speed nil)
 
-(require 'uniquify)
-(setq-default uniquify-buffer-name-style 'post-forward)
-
 ;; Replaces M-x to run commands
 (smex-initialize)
 (global-set-key (kbd "C-x m") 'smex)
@@ -259,6 +256,9 @@
 
 ;; Previously bound to C-x C-b
 (global-set-key "\C-x\C-l" 'list-buffers)
+
+(require 'uniquify)
+(setq-default uniquify-buffer-name-style 'post-forward)
 
 ;;------------------------------------------------------------------------------
 ;; Region management
