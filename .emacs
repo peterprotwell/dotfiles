@@ -322,6 +322,9 @@
 
 (global-set-key (kbd "M-s-f") 'projectile-find-file)
 (global-set-key (kbd "M-s-v") 'projectile-vc)
+(global-set-key (kbd "M-s-s") 'projectile-ag)
+
+(setq projectile-mode-line " Pj")
 
 ;;------------------------------------------------------------------------------
 ;; Autocomplete/auto-complete
@@ -516,8 +519,6 @@
                    (file-exists-p (concat (projectile-project-root) "Gemfile")) )
                   (projectile-rails-mode) ))))
 
-(global-set-key (kbd "M-s-t") 'projectile-find-implementation-or-test-other-window)
-
 ;; erb files
 (require 'mmm-mode)
 (setq mmm-global-mode 'maybe)
@@ -542,6 +543,13 @@
 (setq compilation-scroll-output nil)
 
 (add-hook 'after-init-hook 'inf-ruby-switch-setup)
+
+(global-set-key (kbd "M-s-t")
+                (lambda ()
+                  (interactive)
+                  (split-window-below)
+                  (windmove-down)
+                  (rspec-toggle-spec-and-target) ))
 
 ;;------------------------------------------------------------------------------
 ;; Indentation for languages
@@ -627,12 +635,6 @@
 (add-hook 'java-mode-hook
   (lambda ()
     (setq tab-width 4)))
-
-;; Markdown
-(add-hook 'markdown-mode-hook
-  (lambda ()
-    (global-set-key (kbd "M-s-p") 'previous-line-five)
-    (global-set-key (kbd "M-s-n") 'next-line-five)))
 
 ;;------------------------------------------------------------------------------
 ;; ediff setup
