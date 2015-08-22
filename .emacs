@@ -109,10 +109,6 @@
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 
-;; Show line/column number in minibuffer
-(setq line-number-mode t)
-(setq column-number-mode t)
-
 (setq make-backup-files nil)
 (setq ring-bell-function 'ignore)
 
@@ -143,6 +139,10 @@
 
 ;;------------------------------------------------------------------------------
 ;; Global modes
+
+;; Show line/column number in minibuffer
+(setq line-number-mode t)
+(setq column-number-mode t)
 
 (show-paren-mode 1)
 
