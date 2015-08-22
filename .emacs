@@ -636,6 +636,13 @@
     (setq tab-width 4)))
 
 ;;------------------------------------------------------------------------------
+;; Markdown
+
+(add-hook 'markdown-mode-hook
+  (lambda ()
+    (miken-keys-minor-mode t) ))
+
+;;------------------------------------------------------------------------------
 ;; ediff setup
 
 (add-hook 'ediff-quit-hook 'winner-undo)
@@ -963,9 +970,7 @@ the character typed."
 
 (define-minor-mode miken-keys-minor-mode
   "A minor mode so that my key settings override annoying major modes."
-  t " mn" miken-keys-minor-mode-map)
-
-(miken-keys-minor-mode t)
+  nil " mn" miken-keys-minor-mode-map)
 
 ;;------------------------------------------------------------------------------
 ;; Server
