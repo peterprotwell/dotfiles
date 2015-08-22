@@ -974,16 +974,16 @@ the character typed."
 ;;------------------------------------------------------------------------------
 ;; Key binding overrides
 
-;; (defvar miken-keys-minor-mode-map (make-keymap) "miken-keys-minor-mode keymap.")
+(defvar miken-keys-minor-mode-map (make-keymap) "miken-keys-minor-mode keymap.")
 
-;; (define-key miken-keys-minor-mode-map (kbd "M-n") 'next-line-five)
-;; (define-key miken-keys-minor-mode-map (kbd "M-p") 'previous-line-five)
+(define-key miken-keys-minor-mode-map (kbd "M-n") 'next-line-five)
+(define-key miken-keys-minor-mode-map (kbd "M-p") 'previous-line-five)
 
-;; (define-minor-mode miken-keys-minor-mode
-;;   "A minor mode so that my key settings override annoying major modes."
-;;   t " miken-keys" 'miken-keys-minor-mode-map)
+(define-minor-mode miken-keys-minor-mode
+  "A minor mode so that my key settings override annoying major modes."
+  t " mn" miken-keys-minor-mode-map)
 
-;; (miken-keys-minor-mode 1)
+(miken-keys-minor-mode t)
 
 ;;------------------------------------------------------------------------------
 ;; Server
