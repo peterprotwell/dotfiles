@@ -545,8 +545,7 @@
 (add-hook 'after-init-hook 'inf-ruby-switch-setup)
 
 (global-set-key (kbd "M-s-t")
-                (lambda ()
-                  (interactive)
+                (lambda () (interactive)
                   (split-window-below)
                   (windmove-down)
                   (rspec-toggle-spec-and-target) ))
@@ -660,8 +659,7 @@
 
 (dolist (index '("1" "2" "3" "4" "5" "6" "7" "8" "9"))
   (global-set-key (kbd (concat "M-s-" index))
-                  `(lambda ()
-                     (interactive)
+                  `(lambda () (interactive)
                      (miken-switch-to-or-create-shell-buffer ,index))))
 
 (dolist (key-command
@@ -670,44 +668,10 @@
   (add-to-list 'term-bind-key-alist key-command))
 
 ;;------------------------------------------------------------------------------
-;; Functions that should exist already
-
-;; Never understood why Emacs doesn't have this function.
-(defun rename-file-and-buffer (new-name)
-  "Renames both current buffer and file it's visiting to NEW-NAME."
-  (interactive "sNew name: ")
-    (let ((name (buffer-name))
-          (filename (buffer-file-name)) )
-      (if (not filename)
-          (message "Buffer '%s' is not visiting a file!" name)
-        (if (get-buffer new-name)
-            (message "A buffer named '%s' already exists!" new-name)
-          (progn (rename-file name new-name 1)
-                 (rename-buffer new-name)
-                 (set-visited-file-name new-name)
-                 (set-buffer-modified-p nil) )))))
-
-;; Never understood why Emacs doesn't have this function, either.
-(defun move-buffer-file (dir)
-  "Moves both current buffer and file it's visiting to DIR."
-  (interactive "DNew directory: ")
-    (let* ((name (buffer-name))
-           (filename (buffer-file-name))
-           (dir
-            (if (string-match dir "\\(?:/\\|\\\\)$")
-                (substring dir 0 -1) dir))
-           (newname (concat dir "/" name)) )
-      (if (not filename)
-          (message "Buffer '%s' is not visiting a file!" name)
-        (progn (copy-file filename newname 1)
-               (delete-file filename)
-               (set-visited-file-name newname)
-               (set-buffer-modified-p nil) t))))
-;; (global-set-key "\C-x\C-w" 'move-buffer-file)
-;; (global-set-key "\C-xw" 'move-buffer-file)
+;; Text manipulation
 
 ;; From the Yegge blog post "Saving Time"
-(defun fix-amazon-url ()
+(defun miken-fix-amazon-url ()
   "Minimizes the Amazon URL under the point.  You can paste an Amazon
   URL out of your browser, put the cursor in it somewhere, and invoke
   this method to convert it."
@@ -720,159 +684,18 @@
     (match-string 1)
     (match-string 3) ))))
 
-;; Word count
-(defun count-words-buffer ()
-  "Counts the number of words in the buffer."
-  (interactive)
-  (let ((count 0))
-    (save-excursion
-      (goto-char (point-min))
-      (while (< (point) (point-max))
-        (forward-word 1)
-        (setq count (+ 1 count)) )
-      (message "buffer contains %d words." count) )))
-
-(defun goto-match-paren (arg)
-  "Go to the matching parenthesis if on parenthesis, otherwise insert
-the character typed."
-  (interactive "p")
-  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
-    ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
-    (t                    (self-insert-command (or arg 1))) ))
-;; TODO fix this to work if you're on either side of the paren
-(global-set-key (kbd "C-c 9") `goto-match-paren)
-(global-set-key (kbd "C-c C-9") `goto-match-paren)
-
-;;------------------------------------------------------------------------------
-;; Custom functions
-
-;; This is the greatest and best function ever.
-(defun reload ()
-  "Reloads the .emacs file"
-  (interactive)
-  (load-file "~/.emacs") )
-
-(defun yank-line-below ()
-  "Yanks text from the buffer as if point was on the next line. Equivalent to
-  the command 'C-a C-n C-y'"
-  (interactive)
-  (save-excursion
-    (move-beginning-of-line nil)
-    (next-line)
-    (yank) ))
-
-(global-set-key (kbd "C-c C-y") 'yank-line-below)
-
-(defun copy-line-below (&optional n)
-  "Duplicate current line, make more than 1 copy given a numeric argument"
-  (interactive "p")
-  (save-excursion
-    (let ((current-line (thing-at-point 'line)))
-      ;; when on last line, insert a newline first
-      (if (or (= 1 (forward-line 1))
-              (eq (point) (point-max)))
-        (insert "\n"))
-      ;; now insert as many time as requested
-      (while (> n 0)
-        (insert current-line)
-        (decf n) )))
-  (next-line))
-
-(global-set-key (kbd "C-c d") 'copy-line-below)
-(global-set-key (kbd "C-c C-d") 'copy-line-below)
-
-;; Emulate vim's half-screen scrolling
-(defun window-half-height ()
-  (max 1 (/ (+ 1 (window-height (selected-window))) 2)) )
-
-(defun scroll-up-half ()
-  (interactive)
-  (scroll-up (window-half-height)) )
-
-(global-set-key "\C-v" 'scroll-up-half)
-
-(defun scroll-down-half ()
-  (interactive)
-  (scroll-down (window-half-height)) )
-
-(global-set-key "\M-v" 'scroll-down-half)
-
-(defun vim-open-line-above ()
-  "Insert a newline above the current line and indent point."
-  (interactive)
-  (unless (bolp)
-    (beginning-of-line) )
-  (newline)
-  (forward-line -1)
-  (indent-according-to-mode) )
-
-(global-set-key (kbd "C-c o") 'vim-open-line-above)
-(global-set-key (kbd "C-c C-o") 'vim-open-line-above)
-
-(defun vim-open-line-below ()
-  (interactive)
-  (end-of-line)
-  (newline-and-indent) )
-
-(global-set-key [S-return] 'vim-open-line-below)
-
-;; In the pipe, five-by-five
-(defun previous-line-five ()
-  (interactive)
-  (previous-line 5))
-
-(global-set-key "\M-p" 'previous-line-five)
-
-(defun next-line-five ()
-  (interactive)
-  (next-line 5) )
-
-(global-set-key "\M-n" 'next-line-five)
-
-(defun xml-format ()
+(defun miken-xml-format ()
   "Formats a region of XML to look nice"
   (interactive)
   (save-excursion
     (shell-command-on-region (mark) (point) "xmllint --format -" (buffer-name) t) ))
 
-(defun json-format ()
+(defun miken-json-format ()
   (interactive)
   (let ((begin (if mark-active (min (point) (mark)) (point-min)))
         (end (if mark-active (max (point) (mark)) (point-max))))
     (shell-command-on-region begin end
      "python -mjson.tool" (current-buffer) t)))
-
-(defun current-buffer-filepath ()
-  "Put the current file path on the clipboard"
-  (interactive)
-  (let ((filename (buffer-file-name)))
-    (when filename
-      (with-temp-buffer
-        (insert filename)
-        (clipboard-kill-region (point-min) (point-max)) )
-      (message filename) )))
-
-(global-set-key (kbd "C-c `") 'current-buffer-filepath)
-
-(defun comment-dwim-line (&optional arg)
-  "Replacement for the comment-dwim command.
-   If no region is selected and current line is not blank, then comment current line.
-   Replaces default behaviour of comment-dwim, when it inserts comment at the end of the line."
-  (interactive "*P")
-  (comment-normalize-vars)
-  (if (not (region-active-p))
-      (comment-or-uncomment-region (line-beginning-position) (line-end-position))
-    (comment-dwim arg)))
-
-(global-set-key (kbd "M-;") 'comment-dwim-line)
-
-(defun comment-dwim-line-and-move-down (&optional arg)
-  "Comment the current line and move to the next line"
-  (interactive)
-  (comment-dwim-line arg)
-  (next-line) )
-
-(global-set-key (kbd "C-M-;") 'comment-dwim-line-and-move-down)
 
 (defun miken-toggle-quotes ()
   "Toggle single quoted string to double or vice versa, and
@@ -901,6 +724,165 @@ the character typed."
 
 (global-set-key (kbd "C-c t") 'miken-toggle-quotes)
 (global-set-key (kbd "C-c C-t") 'miken-toggle-quotes)
+
+;;------------------------------------------------------------------------------
+;; Functions that should exist already
+
+;; Never understood why Emacs doesn't have this function.
+(defun miken-rename-buffer-and-file (new-name)
+  "Renames both current buffer and file it's visiting to NEW-NAME."
+  (interactive "sNew name: ")
+    (let ((name (buffer-name))
+          (filename (buffer-file-name)) )
+      (if (not filename)
+          (message "Buffer '%s' is not visiting a file!" name)
+        (if (get-buffer new-name)
+            (message "A buffer named '%s' already exists!" new-name)
+          (progn (rename-file name new-name 1)
+                 (rename-buffer new-name)
+                 (set-visited-file-name new-name)
+                 (set-buffer-modified-p nil) )))))
+
+;; Never understood why Emacs doesn't have this function, either.
+(defun miken-move-buffer-file (dir)
+  "Moves both current buffer and file it's visiting to DIR."
+  (interactive "DNew directory: ")
+    (let* ((name (buffer-name))
+           (filename (buffer-file-name))
+           (dir
+            (if (string-match dir "\\(?:/\\|\\\\)$")
+                (substring dir 0 -1) dir))
+           (newname (concat dir "/" name)) )
+      (if (not filename)
+          (message "Buffer '%s' is not visiting a file!" name)
+        (progn (copy-file filename newname 1)
+               (delete-file filename)
+               (set-visited-file-name newname)
+               (set-buffer-modified-p nil) t))))
+
+;; Word count
+(defun miken-count-words-buffer ()
+  "Counts the number of words in the buffer."
+  (interactive)
+  (let ((count 0))
+    (save-excursion
+      (goto-char (point-min))
+      (while (< (point) (point-max))
+        (forward-word 1)
+        (setq count (+ 1 count)) )
+      (message "buffer contains %d words." count) )))
+
+(defun miken-goto-match-paren (arg)
+  "Go to the matching parenthesis if on parenthesis, otherwise insert
+the character typed."
+  (interactive "p")
+  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
+    ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+    (t                    (self-insert-command (or arg 1))) ))
+;; TODO fix this to work if you're on either side of the paren
+(global-set-key (kbd "C-c 9") 'miken-goto-match-paren)
+(global-set-key (kbd "C-c C-9") 'miken-goto-match-paren)
+
+;;------------------------------------------------------------------------------
+;; Custom functions
+
+;; This is the greatest and best function ever.
+(defun miken-reload ()
+  "Reloads the .emacs file"
+  (interactive)
+  (load-file "~/.emacs") )
+
+(defun miken-copy-line-below (&optional n)
+  "Duplicate current line, make more than 1 copy given a numeric argument"
+  (interactive "p")
+  (save-excursion
+    (let ((current-line (thing-at-point 'line)))
+      ;; when on last line, insert a newline first
+      (if (or (= 1 (forward-line 1))
+              (eq (point) (point-max)))
+        (insert "\n"))
+      ;; now insert as many time as requested
+      (while (> n 0)
+        (insert current-line)
+        (decf n) )))
+  (next-line))
+
+(global-set-key (kbd "C-c d") 'miken-copy-line-below)
+(global-set-key (kbd "C-c C-d") 'miken-copy-line-below)
+
+;; Emulate vim's half-screen scrolling
+(defun miken-window-half-height ()
+  (max 1 (/ (+ 1 (window-height (selected-window))) 2)) )
+
+(global-set-key (kbd "C-v")
+                (lambda () (interactive)
+                  (scroll-up (miken-window-half-height)) ))
+
+(global-set-key (kbd "M-v")
+                (lambda () (interactive)
+                  (scroll-down (miken-window-half-height)) ))
+
+(defun miken-vim-open-line-above ()
+  "Insert a newline above the current line and indent point."
+  (interactive)
+  (unless (bolp)
+    (beginning-of-line) )
+  (newline)
+  (forward-line -1)
+  (indent-according-to-mode) )
+
+(global-set-key (kbd "C-c o") 'miken-vim-open-line-above)
+(global-set-key (kbd "C-c C-o") 'miken-vim-open-line-above)
+
+(global-set-key [S-return]
+                (lambda () (interactive)
+                  (end-of-line)
+                  (newline-and-indent) ))
+
+;; In the pipe, five-by-five
+(defun miken-previous-line-five ()
+  (interactive)
+  (previous-line 5))
+
+(global-set-key (kbd "M-p") 'miken-previous-line-five)
+
+(defun miken-next-line-five ()
+  (interactive)
+  (next-line 5) )
+
+(global-set-key (kbd "M-n") 'miken-next-line-five)
+
+(defun miken-current-buffer-filepath ()
+  "Put the current file path on the clipboard"
+  (interactive)
+  (let ((filename (buffer-file-name)))
+    (when filename
+      (with-temp-buffer
+        (insert filename)
+        (clipboard-kill-region (point-min) (point-max)) )
+      (message filename) )))
+
+(global-set-key (kbd "C-c `") 'miken-current-buffer-filepath)
+
+(defun miken-comment-dwim-line (&optional arg)
+  "Replacement for the comment-dwim command.
+   If no region is selected and current line is not blank, then comment current line.
+   Replaces default behaviour of comment-dwim, when it inserts comment at the end of the line."
+  (interactive "*P")
+  (comment-normalize-vars)
+  (if (not (region-active-p))
+      (comment-or-uncomment-region (line-beginning-position) (line-end-position))
+    (comment-dwim arg)))
+
+(global-set-key (kbd "M-;") 'miken-comment-dwim-line)
+
+(defun miken-comment-dwim-line-and-move-down (&optional arg)
+  "Comment the current line and move to the next line"
+  (interactive)
+  (miken-comment-dwim-line arg)
+  (next-line) )
+
+(global-set-key (kbd "C-M-;") 'miken-comment-dwim-line-and-move-down)
 
 (defun save-macro (name)
   "save a macro. Take a name as argument
@@ -976,8 +958,8 @@ the character typed."
 
 (defvar miken-keys-minor-mode-map (make-keymap) "miken-keys-minor-mode keymap.")
 
-(define-key miken-keys-minor-mode-map (kbd "M-n") 'next-line-five)
-(define-key miken-keys-minor-mode-map (kbd "M-p") 'previous-line-five)
+(define-key miken-keys-minor-mode-map (kbd "M-n") 'miken-next-line-five)
+(define-key miken-keys-minor-mode-map (kbd "M-p") 'miken-previous-line-five)
 
 (define-minor-mode miken-keys-minor-mode
   "A minor mode so that my key settings override annoying major modes."
