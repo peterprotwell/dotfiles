@@ -236,15 +236,14 @@
   (global-set-key (kbd "C-s-l") 'buf-move-right) )
 
 ;; Window resizing
-(defun miken-window-taller () (interactive) (enlarge-window 2))
-(defun miken-window-shorter () (interactive) (enlarge-window -2))
-(defun miken-window-wider () (interactive) (enlarge-window 2 t))
-(defun miken-window-narrower () (interactive) (enlarge-window -2 t))
-
-(global-set-key (kbd "M-s-<left>") 'miken-window-narrower)
-(global-set-key (kbd "M-s-<down>") 'miken-window-shorter)
-(global-set-key (kbd "M-s-<up>") 'miken-window-taller)
-(global-set-key (kbd "M-s-<right>") 'miken-window-wider)
+(global-set-key (kbd "M-s-<up>")
+                (lambda () (interactive) (enlarge-window 2)))
+(global-set-key (kbd "M-s-<down>")
+                (lambda () (interactive) (enlarge-window -2)))
+(global-set-key (kbd "M-s-<left>")
+                (lambda () (interactive) (enlarge-window -2 t)))
+(global-set-key (kbd "M-s-<right>")
+                (lambda () (interactive) (enlarge-window 2 t)))
 
 ;;------------------------------------------------------------------------------
 ;; Buffer management
