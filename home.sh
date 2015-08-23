@@ -17,4 +17,4 @@ function ytd {
 # aliases
 
 alias cdJ="cd ~/Documents/job"
-alias cdm="cd ~/code/rails/movie-trailer-bingo"
+alias cdmtb="cd ~/code/rails/movie-trailer-bingo"
