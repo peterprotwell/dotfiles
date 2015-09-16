@@ -202,6 +202,7 @@ alias cdp="cd ~/Pictures"
 alias cdpm="cd ~/code/rails/programmer-mike"
 alias cdr="cd ~/code/ruby"
 alias cdra="cd ~/code/rails"
+alias cdrr="cd ~/code/ruby-refactor"
 alias cdrw="cd ~/code/rails/recursewords"
 alias cdt="cd ~/thoughts"
 

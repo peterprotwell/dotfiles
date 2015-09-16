@@ -117,11 +117,6 @@
 (setq confirm-nonexistent-file-or-buffer nil)
 (setq ido-create-new-buffer 'always)
 
-;; Only won't ask if you kill buffer. Still asks on emacs close
-(setq kill-buffer-query-functions
-      (remq 'process-kill-buffer-query-function
-            kill-buffer-query-functions))
-
 (setq-default cursor-type 'bar)
 (setq-default blink-cursor-blinks 0)
 
@@ -550,6 +545,8 @@
                   (split-window-below)
                   (windmove-down)
                   (rspec-toggle-spec-and-target) ))
+
+(setq rspec-use-rake-when-possible nil)
 
 ;;------------------------------------------------------------------------------
 ;; Indentation for languages
@@ -981,6 +978,9 @@ the character typed."
 
 ;;------------------------------------------------------------------------------
 ;; Exit
+
+(setq kill-buffer-query-functions
+      (remq 'process-kill-buffer-query-function kill-buffer-query-functions))
 
 (defadvice save-buffers-kill-emacs (around no-query-kill-emacs activate)
   "Prevent annoying \"Active processes exist\" query when you quit Emacs."
