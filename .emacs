@@ -348,6 +348,8 @@
 ;; Don't set new branch to track parent branch's remote
 (setq magit-branch-arguments (remove "--track" magit-branch-arguments))
 
+(setq magit-commit-arguments '("--verbose"))
+
 (require 'vc-git)
 (defun vc-git-annotate-command (file buffer &optional revision)
   "Execute \"git annotate\" on FILE, inserting the contents in BUFFER."
