@@ -207,7 +207,6 @@
 (if (file-exists-p "~/.emacs.d/workgroups")
     (wg-load "~/.emacs.d/workgroups"))
 ;; (setq wg-query-for-save-on-emacs-exit nil)
-;; (add-hook 'kill-emacs-query-functions '(wg-save "~/.emacs.d/workgroups/temp"))
 
 (global-set-key (kbd "C-x 1") 'zygospore-toggle-delete-other-windows)
 
@@ -650,7 +649,7 @@
 (require 'multi-term)
 
 (defun miken-switch-to-or-create-shell-buffer (index)
-  "Switches to *terminal<index>* if it exists, or creates a new terminal."
+  "Switches to *terminal<INDEX>* if it exists, or creates a new terminal."
   (interactive)
   (let ((term-name (concat "*terminal<" index ">*")))
     (if (get-buffer term-name)
@@ -680,9 +679,9 @@
        (search-forward-regexp
         ".+/\\([A-Z0-9]\\{10\\}\\)/[^[:space:]\"]+" (point-at-eol) t)
        (replace-match
-  (concat "http://www.amazon.com/o/asin/"
-    (match-string 1)
-    (match-string 3) ))))
+        (concat "http://www.amazon.com/o/asin/"
+                (match-string 1)
+                (match-string 3) ))))
 
 (defun miken-xml-format ()
   "Formats a region of XML to look nice"
@@ -699,7 +698,7 @@
 
 (defun miken-toggle-quotes ()
   "Toggle single quoted string to double or vice versa, and
-  flip the internal quotes as well.  Best to run on the first
+  flip the internal quotes as well. Best to run on the first
   character of the string."
   (interactive)
   (save-excursion
@@ -707,12 +706,8 @@
     (re-search-forward "[\"']")
     (backward-char 1)
     (let* ((start (point))
-           (old-c (char-after start))
-           new-c)
-      (setq new-c (case old-c
-                    (?\" "'")
-                    (?\' "\"")))
-      (setq old-c (char-to-string old-c))
+           (old-c (char-to-string (char-after start)))
+           (new-c (if (string= old-c "'") "\"" "'")))
       (delete-char 1)
       (insert new-c)
       (re-search-forward old-c)
