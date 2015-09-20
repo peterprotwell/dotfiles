@@ -239,17 +239,17 @@
 ;;------------------------------------------------------------------------------
 ;; Buffer management
 
-(global-set-key "\C-ck" 'kill-buffer-and-window)
-(global-set-key "\C-c\C-k" 'kill-buffer-and-window)
+(global-set-key (kbd "C-c k") 'kill-buffer-and-window)
+(global-set-key (kbd "C-c C-k") 'kill-buffer-and-window)
 
-(global-set-key "\C-cb" 'switch-to-buffer-other-window)
-(global-set-key "\C-c\C-b" 'switch-to-buffer-other-window)
+(global-set-key (kbd "C-c b") 'switch-to-buffer-other-window)
+(global-set-key (kbd "C-c C-b") 'switch-to-buffer-other-window)
 
 ;; Already bound to C-x b
-(global-set-key "\C-x\C-b" 'switch-to-buffer)
+(global-set-key (kbd "C-x C-b") 'switch-to-buffer)
 
 ;; Previously bound to C-x C-b
-(global-set-key "\C-x\C-l" 'list-buffers)
+(global-set-key (kbd "C-x C-l") 'list-buffers)
 
 (require 'uniquify)
 (setq-default uniquify-buffer-name-style 'post-forward)
@@ -257,7 +257,7 @@
 ;;------------------------------------------------------------------------------
 ;; Region management
 
-(global-set-key "\C-ci" 'indent-region)
+(global-set-key (kbd "C-c i") 'indent-region)
 
 (require 'expand-region)
 (global-set-key (kbd "s-<up>") 'er/expand-region)
@@ -302,8 +302,8 @@
   (interactive "p")
   (endless/forward-paragraph (- n)))
 
-(global-set-key "\M-a" 'endless/backward-paragraph)
-(global-set-key "\M-e" 'endless/forward-paragraph)
+(global-set-key (kbd "M-a") 'endless/backward-paragraph)
+(global-set-key (kbd "M-e") 'endless/forward-paragraph)
 
 ;;------------------------------------------------------------------------------
 ;; Projectile
@@ -325,7 +325,7 @@
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/auto-complete/ac-dict")
 (ac-config-default)
-(global-set-key "\M-/" 'auto-complete)
+(global-set-key (kbd "M-/") 'auto-complete)
 (global-set-key (kbd "C-M-/") 'ac-fuzzy-complete)
 (setq-default completion-ignore-case 1)
 
