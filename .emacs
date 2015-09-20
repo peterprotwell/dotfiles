@@ -354,11 +354,6 @@
 ;;------------------------------------------------------------------------------
 ;; Fuzzy file find
 
-;; (require 'helm)
-;; (require 'helm-config)
-;; (helm-mode 1)
-;; (setq helm-split-window-in-side-p t)
-
 (ido-mode 1)
 (ido-ubiquitous-mode)
 (flx-ido-mode 1)
@@ -802,10 +797,6 @@ the character typed."
   (interactive "p")
   (save-excursion
     (let ((current-line (thing-at-point 'line)))
-      ;; when on last line, insert a newline first
-      (if (or (= 1 (forward-line 1))
-              (eq (point) (point-max)))
-        (insert "\n"))
       ;; now insert as many time as requested
       (while (> n 0)
         (insert current-line)
@@ -845,17 +836,8 @@ the character typed."
                   (newline-and-indent) ))
 
 ;; In the pipe, five-by-five
-(defun miken-previous-line-five ()
-  (interactive)
-  (previous-line 5))
-
-(global-set-key (kbd "M-p") 'miken-previous-line-five)
-
-(defun miken-next-line-five ()
-  (interactive)
-  (next-line 5) )
-
-(global-set-key (kbd "M-n") 'miken-next-line-five)
+(global-set-key (kbd "M-p") (lambda () (interactive) (previous-line 5)))
+(global-set-key (kbd "M-n") (lambda () (interactive (next-line 5))))
 
 (defun miken-current-buffer-filepath ()
   "Put the current file path on the clipboard"
@@ -907,11 +889,8 @@ the character typed."
 
 (global-set-key (kbd "C-x C-u") 'browse-url)
 
-;; Align text by regex
 (global-set-key (kbd "C-x \\") 'align-regexp)
 
-;; Another Yegge binding
-;; (global-set-key "\C-x\M-r" 'query-replace-regexp)
 (global-set-key (kbd "C-x M-r") 'vr/query-replace)
 
 (global-set-key (kbd "C-c C-a") 'calendar)
@@ -921,9 +900,6 @@ the character typed."
 ;;------------------------------------------------------------------------------
 ;; Abbrev. Definitions
 
-;; Turn on syntax expansion
-;;(setq abbrev-file-name "~/.emacs.d/abbrev_file.el")
-;;(read-abbrev-file abbrev-file-name t)
 (setq dabbrev-case-replace nil)
 (setq abbrev-mode t)
 
