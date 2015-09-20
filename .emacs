@@ -792,6 +792,9 @@ the character typed."
   (interactive "p")
   (save-excursion
     (let ((current-line (thing-at-point 'line)))
+      ;; When on any line except the last, insert a newline first
+      (if (= 1 (forward-line 1))
+          (insert "\n"))
       ;; now insert as many time as requested
       (while (> n 0)
         (insert current-line)
@@ -831,8 +834,11 @@ the character typed."
                   (newline-and-indent) ))
 
 ;; In the pipe, five-by-five
-(global-set-key (kbd "M-p") (lambda () (interactive) (previous-line 5)))
-(global-set-key (kbd "M-n") (lambda () (interactive) (next-line 5)))
+(defun miken-previous-line-five () (interactive) (previous-line 5))
+(global-set-key (kbd "M-p") 'miken-previous-line-five)
+
+(defun miken-next-line-five () (interactive) (next-line 5))
+(global-set-key (kbd "M-n") 'miken-next-line-five)
 
 (defun miken-current-buffer-filepath ()
   "Put the current file path on the clipboard"
