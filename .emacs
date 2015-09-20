@@ -832,7 +832,7 @@ the character typed."
 
 ;; In the pipe, five-by-five
 (global-set-key (kbd "M-p") (lambda () (interactive) (previous-line 5)))
-(global-set-key (kbd "M-n") (lambda () (interactive (next-line 5))))
+(global-set-key (kbd "M-n") (lambda () (interactive) (next-line 5)))
 
 (defun miken-current-buffer-filepath ()
   "Put the current file path on the clipboard"
