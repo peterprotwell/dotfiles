@@ -6,16 +6,6 @@
 (require 'cl)
 
 ;;------------------------------------------------------------------------------
-;; Fix the PATH variable
-
-(setenv "PATH" (concat (getenv "HOME") "/.rbenv/shims:"
-                       (getenv "HOME") "/.rbenv/bin:"
-                       (getenv "PATH") ))
-(setq exec-path
-      (cons (concat (getenv "HOME") "/.rbenv/shims")
-            (cons (concat (getenv "HOME") "/.rbenv/bin") exec-path) ))
-
-;;------------------------------------------------------------------------------
 ;; OS settings
 
 (when (eq system-type 'darwin)
@@ -63,12 +53,12 @@
     projectile-rails
     railscasts-theme
     rainbow-mode
-    rbenv
     rubocop
     ruby-end
     ruby-hash-syntax
     ruby-refactor
     rspec-mode
+    rvm
     sass-mode
     scss-mode
     slim-mode
@@ -144,8 +134,6 @@
 (drag-stuff-global-mode)
 
 (setq comment-style 'indent)
-
-(global-rbenv-mode)
 
 (autopair-global-mode)
 
@@ -541,6 +529,9 @@
                   (rspec-toggle-spec-and-target) ))
 
 (setq rspec-use-rake-when-possible nil)
+
+(setq rspec-use-rvm t)
+(rvm-use-default)
 
 ;;------------------------------------------------------------------------------
 ;; Indentation for languages
