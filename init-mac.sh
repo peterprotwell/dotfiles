@@ -14,7 +14,7 @@ brew upgrade
 #-------------------------------------------------------------------------------
 # Packages
 
-packages="ag bash cloc coreutils ctags emacs git icdiff rbenv rename ruby-build shellcheck tree zsh"
+packages="ag bash cloc coreutils ctags emacs git icdiff rename shellcheck tree zsh"
 
 for package in $packages; do
   brew install "$package"
@@ -26,7 +26,7 @@ done
 brew install caskroom/cask/brew-cask
 
 apps="emacs firefox flux gitx google-chrome iterm2 macdown menumeters\
- openoffice paintbrush scroll-reverser sizeup skype vlc"
+ openoffice paintbrush scroll-reverser sizeup vlc"
 
 for app in $apps; do
   brew cask install "$app"

@@ -63,15 +63,6 @@ path=(/usr/local/bin "$path[@]")
 # My scripts
 path=(~/dotfiles/bin "$path[@]")
 
-#-------------------------------------------------------------------------------
-# rbenv
-
-if which rbenv >/dev/null; then
-  # rbenv doesn't add gem binaries to your path
-  path=("$(rbenv root)/versions/$(rbenv version-name)/bin" "$path[@]")
-
-  eval "$(rbenv init -)"
-fi
 
 #-------------------------------------------------------------------------------
 

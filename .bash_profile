@@ -142,15 +142,4 @@ export PATH="/usr/local/bin:$PATH"
 export NODE_PATH=/usr/local/lib/node_modules
 
 #-------------------------------------------------------------------------------
-# rbenv
-
-if which rbenv >/dev/null; then
-  eval "$(rbenv init -)"
-fi
-
-#-------------------------------------------------------------------------------
-
 ## end .bash_profile
-
-# added by Anaconda3 2.2.0 installer
-export PATH="/Users/mike/anaconda/bin:$PATH"

@@ -246,5 +246,13 @@ fi
 export TERM=xterm-256color
 
 #-------------------------------------------------------------------------------
+# rvm
+
+if [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
+  # Load RVM into a shell session *as a function*
+  source "$HOME/.rvm/scripts/rvm"
+fi
+
+#-------------------------------------------------------------------------------
 
 ## end common.sh
