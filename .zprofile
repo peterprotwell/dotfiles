@@ -63,6 +63,8 @@ path=(/usr/local/bin "$path[@]")
 # My scripts
 path=(~/dotfiles/bin "$path[@]")
 
+# Emacs cask
+path=(~/.cask/bin "$path[@]")
 
 #-------------------------------------------------------------------------------
 
