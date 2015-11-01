@@ -9,8 +9,8 @@
 ;; OS settings
 
 (when (eq system-type 'darwin)
-  (setq mac-command-modifier 'meta)
-  (setq mac-option-modifier 'super) )
+  (setq mac-command-modifier 'meta
+        mac-option-modifier 'super ))
 
 ;;------------------------------------------------------------------------------
 ;; Packages
@@ -73,7 +73,7 @@
     zygospore ))
 
 (dolist (p my-packages)
-  (when (not (package-installed-p p))
+  (unless (package-installed-p p)
     (package-install p) ))
 
 ;;------------------------------------------------------------------------------
@@ -257,7 +257,7 @@
 ;;------------------------------------------------------------------------------
 ;; Paragraph management
 
-(setq-default fill-column 90)
+(setq-default fill-column 85)
 
 (defun endless/forward-paragraph (&optional n)
   "Advance just past next blank line."
@@ -531,7 +531,6 @@
 (setq rspec-use-rake-when-possible nil)
 
 (setq rspec-use-rvm t)
-(rvm-use-default)
 
 ;;------------------------------------------------------------------------------
 ;; Indentation for languages
@@ -564,10 +563,10 @@
     (define-key coffee-mode-map (kbd "RET") 'newline-and-indent) ))
 
 ;; shell
-(setq sh-indentation 2)
 (add-hook 'sh-mode-hook
           (lambda ()
-            (setq sh-basic-offset 2) ))
+            (setq sh-basic-offset 2
+                  sh-indentation 2) ))
 
 ;; erb
 (add-hook 'html-erb-mode-hook
@@ -618,7 +617,6 @@
   (lambda ()
     (setq tab-width 4)))
 
-;;------------------------------------------------------------------------------
 ;; Markdown
 
 (add-hook 'markdown-mode-hook
@@ -637,6 +635,7 @@
 ;;------------------------------------------------------------------------------
 ;; Multi-term / shell config
 
+;; For term-bind-key-alist
 (require 'multi-term)
 
 (defun miken-switch-to-or-create-shell-buffer (index)
@@ -790,7 +789,7 @@ the character typed."
       (while (> n 0)
         (insert current-line)
         (decf n) )))
-  (next-line))
+  (forward-line))
 
 (global-set-key (kbd "C-c d") 'miken-copy-line-below)
 (global-set-key (kbd "C-c C-d") 'miken-copy-line-below)
@@ -825,10 +824,10 @@ the character typed."
                   (newline-and-indent) ))
 
 ;; In the pipe, five-by-five
-(defun miken-previous-line-five () (interactive) (previous-line 5))
+(defun miken-previous-line-five () (interactive) (forward-line -5))
 (global-set-key (kbd "M-p") 'miken-previous-line-five)
 
-(defun miken-next-line-five () (interactive) (next-line 5))
+(defun miken-next-line-five () (interactive) (forward-line 5))
 (global-set-key (kbd "M-n") 'miken-next-line-five)
 
 (defun miken-current-buffer-filepath ()
@@ -859,7 +858,7 @@ the character typed."
   "Comment the current line and move to the next line"
   (interactive)
   (miken-comment-dwim-line arg)
-  (next-line) )
+  (forward-line) )
 
 (global-set-key (kbd "C-M-;") 'miken-comment-dwim-line-and-move-down)
 
@@ -953,13 +952,6 @@ the character typed."
 (defadvice save-buffers-kill-emacs (around no-query-kill-emacs activate)
   "Prevent annoying \"Active processes exist\" query when you quit Emacs."
   (flet ((process-list ())) ad-do-it))
-
-;;------------------------------------------------------------------------------
-;; Slime
-
-;(require 'slime-autoloads)
-;(slime-setup)
-;(setq inferior-lisp-program "~/Applications/cmucl/bin/lisp")
 
 ;;------------------------------------------------------------------------------
 
