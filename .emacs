@@ -175,12 +175,12 @@
 ;; TODO: figure out why this happens
 (set-cursor-color "#ffffff")
 
-;; (defun override-theme (theme)
-;;   "Clear out the active themes and load a theme freshly"
-;;   (interactive "sOverride with custom theme: ")
-;;   (while custom-enabled-themes
-;;     (disable-theme (car custom-enabled-themes)))
-;;   (load-theme theme t nil))
+(defun miken-override-theme (theme)
+  "Clear out the active themes and load a theme freshly"
+  (interactive "sOverride with custom theme: ")
+  (while custom-enabled-themes
+    (disable-theme (car custom-enabled-themes)))
+  (load-theme (intern theme) t nil))
 
 ;;------------------------------------------------------------------------------
 ;; Frame management
