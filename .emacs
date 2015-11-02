@@ -154,13 +154,11 @@
 ;;------------------------------------------------------------------------------
 ;; Font size / text size
 
-(let ((miken-font-size
-       (cond
-        ((<= (display-pixel-height) 800) "14")
-        ((<= (display-pixel-height) 1200) "16")
-        ((<= (display-pixel-height) 1440) "18")
-        (t "18") )))
-  (set-face-attribute 'default nil :font (concat "Inconsolata-" miken-font-size)) )
+(let ((font-size (cond
+                  ((<= (display-pixel-height) 800) "14")
+                  ((<= (display-pixel-height) 1200) "16")
+                  (t "18") )))
+  (set-face-attribute 'default nil :font (concat "Inconsolata-" font-size)) )
 
 ;;------------------------------------------------------------------------------
 ;; Color themes
@@ -168,12 +166,8 @@
 (load-theme 'railscasts t nil)
 
 (add-hook 'emacs-lisp-mode-hook
-          (lambda ()
-            (if (string-match ".*theme.*" (buffer-name))
-                (rainbow-mode) )))
-
-;; TODO: figure out why this happens
-(set-cursor-color "#ffffff")
+          (lambda () (if (string-match ".*theme.*" (buffer-name))
+                         (rainbow-mode) )))
 
 (defun miken-override-theme (theme)
   "Clear out the active themes and load a theme freshly"
@@ -296,7 +290,6 @@
 ;;------------------------------------------------------------------------------
 ;; Projectile
 
-;; Projectile because fuzzy file search
 (projectile-global-mode)
 
 (recentf-mode)
@@ -367,8 +360,7 @@
         (nextbuf (cadr ido-matches)))
     (when (get-buffer buf)
       ;; If next match names a buffer use the buffer object;
-      ;; buffer name may be changed by packages such as
-      ;; uniquify.
+      ;; buffer name may be changed by packages such as uniquify.
       (when (and nextbuf (get-buffer nextbuf))
         (setq nextbuf (get-buffer nextbuf)))
       (bury-buffer buf)
@@ -564,9 +556,8 @@
 
 ;; shell
 (add-hook 'sh-mode-hook
-          (lambda ()
-            (setq sh-basic-offset 2
-                  sh-indentation 2) ))
+          (lambda () (setq sh-basic-offset 2
+                           sh-indentation 2) ))
 
 ;; erb
 (add-hook 'html-erb-mode-hook
@@ -609,19 +600,16 @@
 
 ;; C
 (add-hook 'c-mode-hook
-  (lambda ()
-    (setq tab-width 4)))
+  (lambda () (setq tab-width 4)))
 
 ;; Java
 (add-hook 'java-mode-hook
-  (lambda ()
-    (setq tab-width 4)))
+  (lambda () (setq tab-width 4)))
 
 ;; Markdown
 
 (add-hook 'markdown-mode-hook
-  (lambda ()
-    (miken-keys-minor-mode t) ))
+  (lambda () (miken-keys-minor-mode t) ))
 
 ;;------------------------------------------------------------------------------
 ;; ediff setup
