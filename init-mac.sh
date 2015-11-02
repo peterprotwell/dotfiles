@@ -25,7 +25,7 @@ done
 
 brew install caskroom/cask/brew-cask
 
-apps="emacs firefox flux gitx google-chrome iterm2 macdown menumeters\
+apps="alfred emacs firefox flux gitx google-chrome iterm2 macdown menumeters\
  openoffice paintbrush scroll-reverser sizeup vlc"
 
 for app in $apps; do
