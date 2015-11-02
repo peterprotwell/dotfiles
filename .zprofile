@@ -17,9 +17,6 @@ ZSH_THEME="mikenichols"
 # Comment this out to disable weekly auto-update checks
 DISABLE_AUTO_UPDATE="true"
 
-# Uncomment following line if you want red dots to be displayed while waiting for completion
-# COMPLETION_WAITING_DOTS="true"
-
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
@@ -65,13 +62,6 @@ path=(~/dotfiles/bin "$path[@]")
 
 # Emacs cask
 path=(~/.cask/bin "$path[@]")
-
-#-------------------------------------------------------------------------------
-
-if [[ -n ${INSIDE_EMACS} ]]; then
-  # This shell runs inside an Emacs *shell*/*term* buffer.
-  # unsetopt zle
-fi
 
 #-------------------------------------------------------------------------------
 ## end .zprofile
