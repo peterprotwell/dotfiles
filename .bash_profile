@@ -4,22 +4,6 @@
 
 source ~/dotfiles/common.sh
 
-# Download a video from youtube to an mp3
-function ytd {
-  if [ -e "a.mp3" ]; then
-    rm "a.mp3"
-  fi
-  youtube-dl -o v.flv "$1" && ffmpeg -i v.flv -ab 192k a.mp3 && rm v.flv
-}
-
-# Download a video from youtube to an mpg
-function ytd {
-  if [ -e "a.mpg" ]; then
-    rm "a.mpg"
-  fi
-  youtube-dl -o v.flv "$1" && ffmpeg -i v.flv -ab 192k a.mp3 && rm v.flv
-}
-
 # Reload your .bash_profile file while your shell is running
 alias resh="source ~/.bash_profile && echo '.bash_profile reloaded'"
 
@@ -37,9 +21,6 @@ else
   # This is a terrible word to type
   alias en="evince"
 fi
-
-export progmike=progran5@programmermike.com:/home2/progran5/
-alias sshprm="ssh progran5@programmermike.com"
 
 #-------------------------------------------------------------------------------
 
