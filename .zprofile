@@ -8,17 +8,17 @@ source ~/dotfiles/common.sh
 # oh-my-zsh setup
 
 # Path to your oh-my-zsh configuration.
-ZSH=~/dotfiles/oh-my-zsh
+ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load.
-# Look in ~/dotfiles/oh-my-zsh/themes/
+# Look in $ZSH/themes/
 ZSH_THEME="mikenichols"
 
 # Comment this out to disable weekly auto-update checks
 DISABLE_AUTO_UPDATE="true"
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Which plugins would you like to load? (plugins can be found in $ZSH/plugins/*)
+# Custom plugins may be added to $ZSH/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(git github node osx ruby)
 
