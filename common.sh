@@ -148,10 +148,13 @@ alias ber="bundle exec rake"
 alias bers="bundle exec rspec"
 alias beru="bundle exec ruby"
 
-# rspec
-function rspec {
-  local rspec_executable=$(type -a rspec | tail -n 1 | cut -d ' ' -f3)
-  $rspec_executable && unicornleap -s 1.5
+# rspec && unicorn
+function ru {
+  bundle exec rspec "$1" && unicornleap -s 1.5
+}
+
+function rr {
+  rubocop && bundle exec rspec "$1" && unicornleap -s 1.5
 }
 
 # rails stuff
