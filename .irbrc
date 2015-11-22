@@ -28,6 +28,10 @@ def pwd
   Dir.pwd
 end
 
+def meth(thing)
+  (thing.methods - Object.methods).sort
+end
+
 # also from http://themomorohoax.com/2009/03/27/irb-tip-load-files-faster
 def reload(file_name = nil)
   if file_name.nil?

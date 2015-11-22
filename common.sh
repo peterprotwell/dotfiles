@@ -186,9 +186,6 @@ alias pgstop="pg_ctl -D /usr/local/var/postgres stop -s -m fast"
 alias pgstatus="pg_ctl -D /usr/local/var/postgres status"
 alias pg="psql -h localhost -d postgres"
 
-# Doesn't work
-# alias fuckit="sudo \$(history 1 | cut -d ' ' -f7)"
-
 # cd aliases
 alias cdA="cd /Applications"
 alias cdb="cd ~/books"
@@ -253,6 +250,8 @@ fi
 
 # Nicer colors for emacs in terminal
 export TERM=xterm-256color
+
+eval "$(thefuck --alias)"
 
 #-------------------------------------------------------------------------------
 # rvm
