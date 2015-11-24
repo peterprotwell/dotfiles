@@ -109,6 +109,9 @@
 
 (setq-default cursor-type 'bar)
 (setq-default blink-cursor-blinks 0)
+(setq default-frame-alist
+      (append default-frame-alist
+              '((cursor-color . "#FFFFFF")) ))
 
 ;; Scrolling
 (setq scroll-preserve-screen-position t)
