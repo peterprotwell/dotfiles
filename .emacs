@@ -593,13 +593,22 @@
 (add-to-list 'auto-mode-alist
              '("\\(Capfile\\|Gemfile\\(?:\\.[a-zA-Z0-9._-]+\\)?\\|[rR]akefile\\)\\'" . enh-ruby-mode))
 
+(defun miken-ruby-interpolate ()
+  "In a double quoted string, interpolate."
+  (interactive)
+  (insert "#")
+  (when (and (looking-back "\".*") (looking-at ".*\""))
+    (insert "{}")
+    (backward-char 1)))
+
 (add-hook 'enh-ruby-mode-hook
   (lambda ()
     (ruby-end-mode)
     (linum-mode)
     (auto-complete-mode)
     (auto-highlight-symbol-mode)
-    (define-key enh-ruby-mode-map (kbd "RET") 'newline-and-indent) ))
+    (define-key enh-ruby-mode-map (kbd "RET") 'newline-and-indent)
+    (define-key enh-ruby-mode-map (kbd "#") 'miken-ruby-interpolate) ))
 
 ;; C
 (add-hook 'c-mode-hook
