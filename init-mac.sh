@@ -14,7 +14,8 @@ fi
 #-------------------------------------------------------------------------------
 # Packages
 
-packages="ag bash cloc coreutils ctags emacs git icdiff rename shellcheck tree zsh"
+packages="ag bash cask cloc coreutils ctags elixir emacs gcc git\
+ htop leiningen markdown p7zip python3 rename shellcheck thefuck tree zsh"
 
 for package in $packages; do
   brew install "$package"

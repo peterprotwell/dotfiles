@@ -127,6 +127,7 @@ function change_shell {
 
 # I'm really more of a dog person
 alias dog="cat"
+alias dogc="pygmentize -g "
 
 # zsh default aliases this to 'ls -l'
 alias ll="ls -hAl"
@@ -137,10 +138,6 @@ alias dush="du -sh ./*"
 alias sc="shellcheck"
 
 alias underscore2dash='rename "s/_/-/g" ./*'
-
-# ruby
-alias rubyupgrade="rbenv install && gem install bundler && bundle"
-alias rubyupdate="rubyupgrade"
 
 alias b="bundle"
 alias be="bundle exec"
@@ -179,6 +176,11 @@ alias tdcls="RAILS_ENV=test bundle exec rake db:drop db:create db:schema:load db
 alias tdcm="RAILS_ENV=test bundle exec rake db:drop db:create db:migrate"
 alias tdcms="RAILS_ENV=test bundle exec rake db:drop db:create db:migrate db:seed"
 
+# emacs
+alias ce="cask exec"
+alias cee="cask exec ecukes"
+alias cer="cask exec ert-runner"
+
 # postgresql
 alias pginit="initdb /usr/local/var/postgres -E utf8 -U mike"
 alias pgstart="pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start"
@@ -209,6 +211,7 @@ alias cdpm="cd ~/code/rails/programmer-mike"
 alias cdr="cd ~/code/ruby"
 alias cdra="cd ~/code/rails"
 alias cdrr="cd ~/code/ruby-refactor"
+alias cdr.="cd ~/code/rvm.el"
 alias cdrw="cd ~/code/rails/recursewords"
 alias cdt="cd ~/thoughts"
 
@@ -221,7 +224,6 @@ alias ack="ag"
 alias un7zip="7z x"
 
 alias g="git"
-alias gi="git icdiff"
 alias gx="gitx &"
 
 alias pwdp="pwd -P"
