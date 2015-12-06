@@ -954,6 +954,7 @@ the character typed."
 
 ;; for using `emacsclient` in the shell
 (server-start)
+(setq vc-follow-symlinks t)
 
 ;;------------------------------------------------------------------------------
 ;; Exit
