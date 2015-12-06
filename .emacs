@@ -3,7 +3,7 @@
 ;;;
 
 ;; Load common lisp extensions
-(require 'cl)
+(require 'cl-lib)
 
 ;;------------------------------------------------------------------------------
 ;; OS settings
