@@ -76,6 +76,10 @@
   (unless (package-installed-p p)
     (package-install p) ))
 
+;; Removed on 2015-12-06, it autoloads some autotest/autoconf stuff
+;; (let ((default-directory "/usr/local/share/emacs/site-lisp/"))
+;;   (normal-top-level-add-subdirs-to-load-path))
+
 ;;------------------------------------------------------------------------------
 ;; Included lisp and required libraries
 
@@ -589,9 +593,10 @@
 ;; Ruby
 (setq ruby-end-insert-newline nil)
 (add-to-list 'auto-mode-alist
-             '("\\.\\(?:gemspec\\|irbrc\\|gemrc\\|rake\\|rb\\|ru\\|thor\\)\\'" . enh-ruby-mode))
+             '("\\.\\(?:gemspec\\|irbrc\\|gemrc\\|pryrc\\|rake\\|rb\\|ru\\|thor\\)\\'" . enh-ruby-mode))
 (add-to-list 'auto-mode-alist
              '("\\(Capfile\\|Gemfile\\(?:\\.[a-zA-Z0-9._-]+\\)?\\|[rR]akefile\\)\\'" . enh-ruby-mode))
+(setq enh-ruby-hanging-brace-deep-indent-level 1)
 
 (defun miken-ruby-interpolate ()
   "In a double quoted string, interpolate."
@@ -729,7 +734,7 @@
                  (set-buffer-modified-p nil) )))))
 
 ;; Never understood why Emacs doesn't have this function, either.
-(defun miken-move-buffer-file (dir)
+(defun miken-move-buffer-and-file (dir)
   "Moves both current buffer and file it's visiting to DIR."
   (interactive "DNew directory: ")
     (let* ((name (buffer-name))
