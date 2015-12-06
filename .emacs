@@ -69,6 +69,7 @@
     workgroups
     xkcd
     yaml-mode
+    yari
     zenburn-theme
     zygospore ))
 
