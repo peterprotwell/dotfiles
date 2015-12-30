@@ -26,6 +26,7 @@
 
 (defvar my-packages
   '(ag
+    alchemist
     auto-complete
     auto-highlight-symbol
     autopair
@@ -35,6 +36,7 @@
     coffee-mode
     discover
     drag-stuff
+    elixir-mode
     emr
     enh-ruby-mode
     expand-region
@@ -323,6 +325,7 @@
 (global-set-key (kbd "M-/") 'auto-complete)
 (global-set-key (kbd "C-M-/") 'ac-fuzzy-complete)
 (setq-default completion-ignore-case 1)
+(add-to-list 'ac-modes 'elixir-mode)
 
 ;;------------------------------------------------------------------------------
 ;; Magit/git
@@ -537,6 +540,12 @@
 (setq rspec-use-rake-when-possible nil)
 
 (setq rspec-use-rvm t)
+
+;;------------------------------------------------------------------------------
+;; Alchemist
+
+(require 'alchemist)
+(setq alchemist-key-command-prefix (kbd "C-c ,"))
 
 ;;------------------------------------------------------------------------------
 ;; Indentation for languages
