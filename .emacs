@@ -542,10 +542,10 @@
 (setq rspec-use-rvm t)
 
 ;;------------------------------------------------------------------------------
-;; Alchemist
+;; Alchemist / elixir
 
-(require 'alchemist)
 (setq alchemist-key-command-prefix (kbd "C-c ,"))
+(require 'alchemist)
 
 ;;------------------------------------------------------------------------------
 ;; Indentation for languages
