@@ -170,6 +170,9 @@
 ;; Color themes
 
 (load-theme 'railscasts t nil)
+;; (load-theme 'mecha t nil)
+
+(setq rainbow-x-colors nil)
 
 (add-hook 'emacs-lisp-mode-hook
           (lambda () (if (string-match ".*theme.*" (buffer-name))
