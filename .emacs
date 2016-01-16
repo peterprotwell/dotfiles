@@ -28,7 +28,6 @@
   '(ag
     alchemist
     auto-complete
-    auto-highlight-symbol
     autopair
     avy
     buffer-move
@@ -135,7 +134,6 @@
 (show-paren-mode 1)
 
 (global-hl-line-mode 1) ;; Highlight current line
-(auto-highlight-symbol-mode) ;; Highlight current symbol
 
 (drag-stuff-global-mode)
 
@@ -621,7 +619,6 @@
     (ruby-end-mode)
     (linum-mode)
     (auto-complete-mode)
-    (auto-highlight-symbol-mode)
     (define-key enh-ruby-mode-map (kbd "RET") 'newline-and-indent)
     (define-key enh-ruby-mode-map (kbd "#") 'miken-ruby-interpolate) ))
 
