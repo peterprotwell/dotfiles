@@ -196,13 +196,6 @@
 (workgroups-mode 1)
 (if (file-exists-p "~/.emacs.d/workgroups")
     (wg-load "~/.emacs.d/workgroups"))
-;; (setq wg-query-for-save-on-emacs-exit nil)
-
-(global-set-key (kbd "C-z C-z")
-                (lambda ()
-                  (interactive)
-                  (wg-update-workgroup (wg-current-workgroup))
-                  (wg-save (wg-file)) ))
 
 (global-set-key (kbd "C-x 1") 'zygospore-toggle-delete-other-windows)
 
