@@ -79,10 +79,6 @@
   (unless (package-installed-p p)
     (package-install p) ))
 
-;; Removed on 2015-12-06, it autoloads some autotest/autoconf stuff
-;; (let ((default-directory "/usr/local/share/emacs/site-lisp/"))
-;;   (normal-top-level-add-subdirs-to-load-path))
-
 ;;------------------------------------------------------------------------------
 ;; Included lisp and required libraries
 
@@ -152,11 +148,13 @@
 ;; Line numbers
 (global-set-key (kbd "C-<f5>") 'linum-mode)
 
+;; DA-DA-DA DAAA, daa daa DAAT duh-DAAAAAA!
+(winner-mode)
+
 ;;------------------------------------------------------------------------------
 ;; Saving
 
 (global-set-key [f9] 'save-buffer)
-(global-set-key [f10] 'save-buffer)
 (desktop-save-mode t)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (global-auto-revert-mode 1)
@@ -389,15 +387,18 @@
       (exit-minibuffer))))
 
 ;;------------------------------------------------------------------------------
-;; Searching / jumping / tags
-
-(global-set-key (kbd "M-s-g") 'avy-goto-word-or-subword-1)
+;; Searching / Replacing
 
 (global-set-key (kbd "s-s") 'isearch-forward-regexp)
 (global-set-key (kbd "s-r") 'isearch-backward-regexp)
 
-(global-set-key (kbd "M-g") 'goto-line)
+(global-set-key (kbd "C-x M-r") 'vr/query-replace)
 
+;;------------------------------------------------------------------------------
+;; Jumping / Tags
+
+(global-set-key (kbd "M-s-g") 'avy-goto-word-or-subword-1)
+(global-set-key (kbd "M-g") 'goto-line)
 (global-set-key (kbd "M-,") 'pop-tag-mark)
 
 ;;------------------------------------------------------------------------------
@@ -640,7 +641,6 @@
   (lambda () (setq tab-width 4)))
 
 ;; Markdown
-
 (add-hook 'markdown-mode-hook
   (lambda () (miken-keys-minor-mode t) ))
 
@@ -650,8 +650,6 @@
 (add-hook 'ediff-quit-hook 'winner-undo)
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 (setq ediff-split-window-function 'split-window-horizontally)
-;; DA-DA-DA DAAA, daa daa DAAT duh-DAAAAAA!
-(if (fboundp 'winner-mode) (winner-mode 1))
 
 ;;------------------------------------------------------------------------------
 ;; Multi-term / shell config
@@ -730,6 +728,8 @@
 
 (global-set-key (kbd "C-c t") 'miken-toggle-quotes)
 (global-set-key (kbd "C-c C-t") 'miken-toggle-quotes)
+
+(global-set-key (kbd "C-x \\") 'align-regexp)
 
 ;;------------------------------------------------------------------------------
 ;; Functions that should exist already
@@ -897,21 +897,17 @@ the character typed."
   (switch-to-buffer nil))               ; return to the initial buffer
 
 ;;------------------------------------------------------------------------------
-;; Custom keybindings
+;; Misc. custom keybindings
 
 (global-set-key (kbd "C-x C-u") 'browse-url)
-
-(global-set-key (kbd "C-x \\") 'align-regexp)
-
-(global-set-key (kbd "C-x M-r") 'vr/query-replace)
-
 (global-set-key (kbd "C-c C-a") 'calendar)
-
-(global-set-key (kbd "C-c C-e") 'eval-last-sexp)
+;; Commented out on 2016-01-16, see if I miss it
+;; (global-set-key (kbd "C-c C-e") 'eval-last-sexp)
 
 ;;------------------------------------------------------------------------------
 ;; Abbrev. Definitions
 
+;; TODO: Transfer these to yasnippet
 (setq dabbrev-case-replace nil)
 (setq abbrev-mode t)
 
