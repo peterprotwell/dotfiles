@@ -968,17 +968,22 @@ the character typed."
              (subrp (symbol-function 'play-sound-internal)))
   (require 'play-sound))
 
+(defun miken-lightsaber (opt)
+  (interactive)
+  (let ((action (if opt "up" "down")))
+    (play-sound-file (concat emacs-root "sounds/lightsaber-" action ".mp3"))))
+
 (defun miken-make-frame-command ()
   "Play a lightsaber ignition sound when making a new frame"
   (interactive)
-  (play-sound-file (concat emacs-root "sounds/lightsaber-up.mp3"))
+  (miken-lightsaber t)
   (make-frame-command))
 (global-set-key (kbd "C-x 5 2") 'miken-make-frame-command)
 
 (defun miken-delete-frame ()
   "Play a lightsaber deactivate sound when killing a frame"
   (interactive)
-  (play-sound-file (concat emacs-root "sounds/lightsaber-down.mp3"))
+  (miken-lightsaber nil)
   (delete-frame))
 (global-set-key (kbd "C-x 5 0") 'miken-delete-frame)
 
@@ -993,5 +998,7 @@ the character typed."
   (flet ((process-list ())) ad-do-it))
 
 ;;------------------------------------------------------------------------------
+
+(miken-lightsaber t)
 
 ;;; End .emacs
