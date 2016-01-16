@@ -87,14 +87,14 @@
 ;; Included lisp and required libraries
 
 ;; Load lisp files
-(defvar emacs-root "~/.emacs.d/")
+(defvar emacs-root (concat (getenv "HOME") "/.emacs.d/"))
 ;; cl-labels is like let for functions
 (cl-labels
     ((add-path (p) (add-to-list 'load-path (concat emacs-root p))))
   (add-path "lisp")
   (add-path "themes") )
 
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+(add-to-list 'custom-theme-load-path (concat emacs-root "themes"))
 
 ;;------------------------------------------------------------------------------
 ;; Global config
@@ -964,6 +964,27 @@ the character typed."
 ;; for using `emacsclient` in the shell
 (server-start)
 (setq vc-follow-symlinks t)
+
+;;------------------------------------------------------------------------------
+;; Sound
+
+(unless (and (fboundp 'play-sound-internal)
+             (subrp (symbol-function 'play-sound-internal)))
+  (require 'play-sound))
+
+(defun miken-make-frame-command ()
+  "Play a lightsaber ignition sound when making a new frame"
+  (interactive)
+  (play-sound-file (concat emacs-root "sounds/lightsaber-up.mp3"))
+  (make-frame-command))
+(global-set-key (kbd "C-x 5 2") 'miken-make-frame-command)
+
+(defun miken-delete-frame ()
+  "Play a lightsaber deactivate sound when killing a frame"
+  (interactive)
+  (play-sound-file (concat emacs-root "sounds/lightsaber-down.mp3"))
+  (delete-frame))
+(global-set-key (kbd "C-x 5 0") 'miken-delete-frame)
 
 ;;------------------------------------------------------------------------------
 ;; Exit
