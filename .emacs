@@ -3,7 +3,7 @@
 ;;;
 
 ;; Load common lisp extensions
-(require 'cl-lib)
+(eval-when-compile (require 'cl-lib))
 
 ;;------------------------------------------------------------------------------
 ;; OS settings
@@ -325,7 +325,6 @@
 (require 'magit)
 
 (setq magit-last-seen-setup-instructions "1.4.0")
-(setq magit-push-always-verify nil)
 
 ;; Don't prompt when first line of commit is over 50 chars.
 (setq git-commit-finish-query-functions '())
