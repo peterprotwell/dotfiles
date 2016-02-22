@@ -18,11 +18,6 @@ function mkcd {
   mkdir "$1" && cd "$1"
 }
 
-# nice path
-function np {
-  echo "$PATH" | tr : "\n"
-}
-
 # Ignore RubyMine created files
 function ignorerm {
   echo ".idea/*" >> .git/info/exclude
@@ -86,17 +81,6 @@ function gh {
 
 function agi {
   ag $(echo "$*" | sed 's/ / --ignore /g')
-}
-
-function emacs2 {
-  if [ -e /opt/homebrew-cask/Caskroom/emacs/24.4/Emacs.app/Contents/MacOS/Emacs ]; then
-    /opt/homebrew-cask/Caskroom/emacs/24.4/Emacs.app/Contents/MacOS/Emacs &
-  elif [ -e /Applications/Emacs.app/Contents/MacOS/Emacs ]; then
-    /Applications/Emacs.app/Contents/MacOS/Emacs &
-  else
-    echo 'You have no emacs installed.'
-    return 1
-  fi
 }
 
 # requires node and http-server:
@@ -231,6 +215,9 @@ alias pwdp="pwd -P"
 alias rmtrash="rm -rf ~/.Trash/*"
 
 alias killspring="ps aux | egrep 'spring (app|server)' | tr -s ' ' | cut -d' ' -f2 | xargs kill -9"
+
+# nice path
+alias np="echo \"$PATH\" | tr : '\n'"
 
 #-------------------------------------------------------------------------------
 # machine-specific setup
