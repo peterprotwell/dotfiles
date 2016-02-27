@@ -130,19 +130,16 @@ alias bers="bundle exec rspec"
 alias beru="bundle exec ruby"
 
 # rspec && unicorn
-function ru {
-  bundle exec rspec "$1" && unicornleap -s 1.5
-}
-
-function rr {
-  rubocop && bundle exec rspec "$1" && unicornleap -s 1.5
-}
+alias ru="bundle exec rspec && unicornleap -s 1.5"
+alias rr="rubocop && bundle exec rspec && unicornleap -s 1.5"
 
 # rails stuff
 alias ret="RAILS_ENV=test"
 alias red="RAILS_ENV=development"
+alias rep="RAILS_ENV=production"
 
 alias taildev="tail -f log/development*"
+alias tailprod="tail -f log/production*"
 
 # rake aliases
 alias mst="bundle exec rake db:migrate:status"
