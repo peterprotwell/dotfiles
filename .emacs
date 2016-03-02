@@ -153,6 +153,7 @@
 ;; Saving
 
 (global-set-key [f9] 'save-buffer)
+(global-set-key [f10] 'save-buffer)
 (desktop-save-mode t)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (global-auto-revert-mode 1)

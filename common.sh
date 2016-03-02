@@ -131,7 +131,9 @@ alias beru="bundle exec ruby"
 
 # rspec && unicorn
 alias ru="bundle exec rspec && unicornleap -s 1.5"
-alias rr="rubocop && bundle exec rspec && unicornleap -s 1.5"
+alias rr="rubocop -D && bundle exec rspec && unicornleap -s 1.5"
+
+alias oci="open coverage/index.html"
 
 # rails stuff
 alias ret="RAILS_ENV=test"

@@ -8,7 +8,6 @@
   ci = commit
   cam = commit -am
   co = checkout
-  cod = checkout develop
   com = checkout master
   cop2 = checkout @{-2}
   cop3 = checkout @{-3}
@@ -19,7 +18,9 @@
   cpx = cherry-pick -x
   d = diff
   dc = diff --cached
+  ds = diff --cached
   f = fetch
+  fp = fetch --prune
   kb = reset --hard HEAD~1
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
   mm = merge master
@@ -30,8 +31,11 @@
   poh = push -u origin HEAD
   pr = pull --rebase
   rb = reset --mixed HEAD~1
+  r = rebase
+  ra = rebase --abort
+  rc = rebase --continue
+  ri = rebase --interactive
   rbm = rebase master
-  rbd = rebase develop
   rpo = remote prune origin
   s = status
   st = !(echo 'Use g s for status')
