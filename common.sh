@@ -18,12 +18,6 @@ function mkcd {
   mkdir "$1" && cd "$1"
 }
 
-# Ignore RubyMine created files
-function ignorerm {
-  echo ".idea/*" >> .git/info/exclude
-  echo "Ignoring RubyMine project files."
-}
-
 # Rename in current directory
 function rn {
   rename -n "s/$1/$2/g" ./*
@@ -123,7 +117,10 @@ alias sc="shellcheck"
 
 alias underscore2dash='rename "s/_/-/g" ./*'
 
+# bundler
 alias b="bundle"
+alias bu="bundle update --source"
+alias bua="bundle update"
 alias be="bundle exec"
 alias ber="bundle exec rake"
 alias bers="bundle exec rspec"
@@ -145,19 +142,12 @@ alias tailprod="tail -f log/production*"
 
 # rake aliases
 alias mst="bundle exec rake db:migrate:status"
-alias tmst="RAILS_ENV=test bundle exec rake db:migrate:status"
 
 alias dcl="bundle exec rake db:drop db:create db:schema:load"
 alias dcls="bundle exec rake db:drop db:create db:schema:load db:seed"
 
 alias dcm="bundle exec rake db:drop db:create db:migrate"
 alias dcms="bundle exec rake db:drop db:create db:migrate db:seed"
-
-alias tdcl="RAILS_ENV=test bundle exec rake db:drop db:create db:schema:load"
-alias tdcls="RAILS_ENV=test bundle exec rake db:drop db:create db:schema:load db:seed"
-
-alias tdcm="RAILS_ENV=test bundle exec rake db:drop db:create db:migrate"
-alias tdcms="RAILS_ENV=test bundle exec rake db:drop db:create db:migrate db:seed"
 
 # emacs
 alias ce="cask exec"
@@ -202,16 +192,12 @@ alias cdt="cd ~/thoughts"
 alias vb="javac -cp .:junit-4.11.jar:hamcrest-core-1.3.jar *.java"
 alias vt="java -cp .:junit-4.11.jar:hamcrest-core-1.3.jar org.junit.runner.JUnitCore VideoStoreTest"
 
-alias ack="ag"
-
 alias un7zip="7z x"
 
 alias g="git"
 alias gx="gitx &"
 
 alias pwdp="pwd -P"
-
-alias rmtrash="rm -rf ~/.Trash/*"
 
 alias killspring="ps aux | egrep 'spring (app|server)' | tr -s ' ' | cut -d' ' -f2 | xargs kill -9"
 

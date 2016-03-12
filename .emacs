@@ -820,17 +820,16 @@ the character typed."
                 (lambda () (interactive)
                   (scroll-down (miken-window-half-height)) ))
 
-(defun miken-vim-open-line-above ()
+(defun miken-open-line-above ()
   "Insert a newline above the current line and indent point."
   (interactive)
-  (unless (bolp)
-    (beginning-of-line) )
+  (unless (bolp) (beginning-of-line))
   (newline)
   (forward-line -1)
-  (indent-according-to-mode) )
+  (indent-according-to-mode))
 
-(global-set-key (kbd "C-c o") 'miken-vim-open-line-above)
-(global-set-key (kbd "C-c C-o") 'miken-vim-open-line-above)
+(global-set-key (kbd "C-c o") 'miken-open-line-above)
+(global-set-key (kbd "C-c C-o") 'miken-open-line-above)
 
 (global-set-key [S-return]
                 (lambda () (interactive)
