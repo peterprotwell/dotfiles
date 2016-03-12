@@ -235,6 +235,8 @@ if [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
   source "$HOME/.rvm/scripts/rvm"
 fi
 
+export rvm_silence_path_mismatch_check_flag=1
+
 #-------------------------------------------------------------------------------
 
 ## end common.sh
