@@ -202,7 +202,7 @@
 (global-set-key (kbd "C-x 1") 'zygospore-toggle-delete-other-windows)
 
 ;; Also bound to C-x +
-(global-set-key (kbd "C-x =") 'balance-windows)
+(global-set-key (kbd "C-c C-b") 'balance-windows)
 
 ;; Move cursor to other window
 (global-set-key (kbd "M-s-h") 'windmove-left)
@@ -247,8 +247,6 @@
 
 ;;------------------------------------------------------------------------------
 ;; Region management
-
-(global-set-key (kbd "C-c i") 'indent-region)
 
 (require 'expand-region)
 (global-set-key (kbd "s-<up>") 'er/expand-region)
@@ -893,8 +891,6 @@ the character typed."
 
 (global-set-key (kbd "C-x C-u") 'browse-url)
 (global-set-key (kbd "C-c C-a") 'calendar)
-;; Commented out on 2016-01-16, see if I miss it
-;; (global-set-key (kbd "C-c C-e") 'eval-last-sexp)
 
 ;;------------------------------------------------------------------------------
 ;; Abbrev. Definitions

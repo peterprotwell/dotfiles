@@ -247,4 +247,7 @@ export rvm_silence_path_mismatch_check_flag=1
 
 #-------------------------------------------------------------------------------
 
+# Seriously?
+export HOMEBREW_NO_ANALYTICS=1
+
 ## end common.sh
