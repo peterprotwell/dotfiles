@@ -4,7 +4,8 @@
 
 # There can be only one
 export EDITOR="emacs -q"
-alias ec="emacsclient -n"
+alias e="emacsclient -n"
+alias ec="echo 'Just type e'"
 
 #-------------------------------------------------------------------------------
 # functions
@@ -156,6 +157,9 @@ alias dcls="bundle exec rake db:drop db:create db:schema:load db:seed"
 
 alias dcm="bundle exec rake db:drop db:create db:migrate"
 alias dcms="bundle exec rake db:drop db:create db:migrate db:seed"
+
+# mix
+alias me="mix espec"
 
 # emacs
 alias ce="cask exec"

@@ -5,12 +5,9 @@
 #-------------------------------------------------------------------------------
 # functions
 
-# Download a video from youtube to an mp3
+# Download a video or playlist from youtube to an mp3
 function ytd {
-  if [ -e "a.mp3" ]; then
-    rm "a.mp3"
-  fi
-  youtube-dl -o v.flv "$1" && ffmpeg -i v.flv -ab 192k a.mp3 && rm v.flv
+  youtube-dl -o '%(title)s.%(ext)s' --yes-playlist -x --audio-format mp3 --audio-quality 192k "$1"
 }
 
 #-------------------------------------------------------------------------------

@@ -539,6 +539,7 @@
 
 (setq alchemist-key-command-prefix (kbd "C-c ,"))
 (require 'alchemist)
+(setq alchemist-mix-test-task "espec")
 
 ;;------------------------------------------------------------------------------
 ;; Indentation for languages
