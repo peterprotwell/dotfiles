@@ -37,12 +37,12 @@
        enh-ruby-mode ruby-end ruby-hash-syntax ruby-refactor rspec-mode
        projectile-rails rubocop rvm
        ;; Misc modes
-       clojure-mode coffee-mode haml-mode js2-mode markdown-mode
-       mmm-mode rainbow-mode sass-mode scss-mode slim-mode yaml-mode
+       clojure-mode haml-mode js2-mode markdown-mode mmm-mode rainbow-mode
+       sass-mode scss-mode slim-mode yaml-mode
        ;; Themes
        molokai-theme monokai-theme railscasts-theme solarized-theme zenburn-theme
        ;; Just for fun
-       keyfreq xkcd
+       xkcd
        ))
 
 (dolist (p my-packages)
@@ -110,7 +110,7 @@
 
 (setq comment-style 'indent)
 
-(autopair-global-mode)
+(electric-pair-mode)
 
 (global-discover-mode 1)
 
