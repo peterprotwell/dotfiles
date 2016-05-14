@@ -566,22 +566,10 @@
     (linum-mode)
     (define-key js-mode-map (kbd "RET") 'newline-and-indent) ))
 
-;; CoffeeScript
-(add-hook 'coffee-mode-hook
-  (lambda ()
-    (linum-mode)
-    (define-key coffee-mode-map (kbd "RET") 'newline-and-indent) ))
-
 ;; shell
 (add-hook 'sh-mode-hook
           (lambda () (setq sh-basic-offset 2
                            sh-indentation 2) ))
-
-;; erb
-(add-hook 'html-erb-mode-hook
-  (lambda ()
-    (auto-complete-mode)
-    (linum-mode) ))
 
 ;; CSS
 (add-hook 'css-mode-hook
