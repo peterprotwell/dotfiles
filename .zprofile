@@ -43,6 +43,17 @@ alias ll="ls -hAl"
 alias resh="source ~/.zprofile && echo '.zprofile reloaded'"
 
 #-------------------------------------------------------------------------------
+# Global aliases
+
+alias -g ..='cd ..'
+alias -g ...='cd ../..'
+alias -g ....='cd ../../..'
+alias -g .....='cd ../../../..'
+alias -g ......='cd ../../../../..'
+alias -g C=' | wc -l'
+alias -g DN=/dev/null
+
+#-------------------------------------------------------------------------------
 # path
 
 # Force unique values for the path array (which is tied to $PATH)

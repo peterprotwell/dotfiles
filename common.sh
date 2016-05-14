@@ -111,14 +111,6 @@ alias dogc="pygmentize -g "
 # zsh default aliases this to 'ls -l'
 alias ll="ls -hAl"
 
-alias -g ..='cd ..'
-alias -g ...='cd ../..'
-alias -g ....='cd ../../..'
-alias -g .....='cd ../../../..'
-alias -g ......='cd ../../../../..'
-alias -g C=' | wc -l'
-alias -g DN=/dev/null
-
 # Shows how much space each directory/file in the current directory is taking up
 alias dush="du -sh ./*"
 
@@ -137,7 +129,7 @@ alias beru="bundle exec ruby"
 
 # rspec && unicorn
 alias ru="bundle exec rspec && unicornleap -s 1.5"
-alias rr="rubocop -D && bundle exec rspec && unicornleap -s 1.5"
+alias rr="bundle exec rubocop -D && bundle exec rspec && unicornleap -s 1.5"
 
 alias oci="open coverage/index.html"
 
