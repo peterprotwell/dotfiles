@@ -25,54 +25,25 @@
 (package-refresh-contents)
 
 (defvar my-packages
-  '(ag
-    alchemist
-    auto-complete
-    autopair
-    avy
-    buffer-move
-    clojure-mode
-    coffee-mode
-    discover
-    drag-stuff
-    elixir-mode
-    emr
-    enh-ruby-mode
-    expand-region
-    flx-ido
-    ido-ubiquitous
-    js2-mode
-    magit
-    matlab-mode
-    markdown-mode
-    mmm-mode
-    molokai-theme
-    monokai-theme
-    multi-term
-    neotree
-    projectile
-    projectile-rails
-    railscasts-theme
-    rainbow-mode
-    rubocop
-    ruby-end
-    ruby-hash-syntax
-    ruby-refactor
-    rspec-mode
-    rvm
-    sass-mode
-    scss-mode
-    slim-mode
-    smex
-    solarized-theme
-    sr-speedbar
-    visual-regexp
-    workgroups
-    xkcd
-    yaml-mode
-    yari
-    zenburn-theme
-    zygospore ))
+  ;; Must haves
+  '(ag auto-complete buffer-move projectile flx-ido ido-ubiquitous
+       magit smex visual-regexp workgroups
+       ;; Minor programming packages
+       avy discover drag-stuff expand-region key-chord neotree sr-speedbar
+       multi-term zygospore
+       ;; Elixir
+       alchemist elixir-mode
+       ;; Ruby
+       enh-ruby-mode ruby-end ruby-hash-syntax ruby-refactor rspec-mode
+       projectile-rails rubocop rvm
+       ;; Misc modes
+       clojure-mode coffee-mode haml-mode js2-mode markdown-mode
+       mmm-mode rainbow-mode sass-mode scss-mode slim-mode yaml-mode
+       ;; Themes
+       molokai-theme monokai-theme railscasts-theme solarized-theme zenburn-theme
+       ;; Just for fun
+       keyfreq xkcd
+       ))
 
 (dolist (p my-packages)
   (unless (package-installed-p p)
