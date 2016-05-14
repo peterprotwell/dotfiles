@@ -49,6 +49,33 @@
   (unless (package-installed-p p)
     (package-install p) ))
 
+;; From package.el#package--get-deps:1703
+(defun miken-package-get-deps (pkg &optional only)
+  "Get all packages on which PKG depends"
+  (interactive)
+  (let* ((pkg-desc (cadr (assq pkg package-alist)))
+         (direct-deps (cl-loop for p in (package-desc-reqs pkg-desc)
+                               for name = (car p)
+                               when (assq name package-alist)
+                               collect name))
+         (indirect-deps (unless (eq only 'direct)
+                          (remove-duplicates
+                           (cl-loop for p in direct-deps
+                                    append (miken-package-get-deps p))))))
+    (cl-case only
+      (direct   direct-deps)
+      (separate (list direct-deps indirect-deps))
+      (indirect indirect-deps)
+      (t        (remove-duplicates (append direct-deps indirect-deps))))))
+
+(defun miken-package-get-dependees (dependency)
+  "Get all packages which depend on DEPENDENCY"
+  (interactive)
+  (cl-loop for pkg in (remove-duplicates package-activated-list)
+           for deps = (miken-package-get-deps pkg)
+           when (memq dependency deps)
+           collect pkg))
+
 ;;------------------------------------------------------------------------------
 ;; Included lisp and required libraries
 
