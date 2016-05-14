@@ -201,8 +201,9 @@
 
 (global-set-key (kbd "C-x 1") 'zygospore-toggle-delete-other-windows)
 
-;; Also bound to C-x +
-(global-set-key (kbd "C-c C-b") 'balance-windows)
+(global-set-key (kbd "C-x =") 'balance-windows)
+;; Previously bound to C-x =
+(global-set-key (kbd "C-x +") 'what-cursor-position)
 
 ;; Move cursor to other window
 (global-set-key (kbd "M-s-h") 'windmove-left)
