@@ -5,6 +5,8 @@
 ;; Load common lisp extensions
 (eval-when-compile (require 'cl-lib))
 
+(defvar emacs-root (concat (getenv "HOME") "/.emacs.d/"))
+
 ;;------------------------------------------------------------------------------
 ;; OS settings
 
@@ -22,7 +24,8 @@
 (require 'package)
 (setq package-enable-at-startup nil) ;; To avoid initializing twice
 (package-initialize)
-(package-refresh-contents)
+(unless (file-directory-p (concat emacs-root "elpa"))
+  (package-refresh-contents))
 
 (defvar my-packages
   ;; Must haves
@@ -79,8 +82,6 @@
 ;;------------------------------------------------------------------------------
 ;; Included lisp and required libraries
 
-;; Load lisp files
-(defvar emacs-root (concat (getenv "HOME") "/.emacs.d/"))
 ;; cl-labels is like let for functions
 (cl-labels
     ((add-path (p) (add-to-list 'load-path (concat emacs-root p))))
@@ -121,6 +122,9 @@
 (smex-initialize)
 (global-set-key (kbd "C-x m") 'smex)
 (global-set-key (kbd "C-x C-m") 'smex)
+
+(require 'key-chord)
+(key-chord-mode 1)
 
 ;;------------------------------------------------------------------------------
 ;; Global modes
@@ -301,7 +305,9 @@
 (recentf-mode)
 
 (global-set-key (kbd "M-s-f") 'projectile-find-file)
+(key-chord-define-global "fj" 'projectile-find-file)
 (global-set-key (kbd "M-s-v") 'projectile-vc)
+(key-chord-define-global "vn" 'projectile-vc)
 (global-set-key (kbd "M-s-s") 'projectile-ag)
 
 (setq projectile-mode-line " Pj")
@@ -471,9 +477,6 @@
 ;;------------------------------------------------------------------------------
 ;; Refactoring
 
-(define-key prog-mode-map (kbd "M-RET") 'emr-show-refactor-menu)
-(add-hook 'prog-mode-hook 'emr-initialize)
-
 (setq ruby-refactor-add-parens t)
 
 ;;------------------------------------------------------------------------------
@@ -532,6 +535,8 @@
 (setq rspec-use-rake-when-possible nil)
 
 (setq rspec-use-rvm t)
+
+(key-chord-define-global "ty" 'rspec-toggle-spec-and-target)
 
 ;;------------------------------------------------------------------------------
 ;; Alchemist / elixir
