@@ -113,6 +113,7 @@
 (setq default-frame-alist
       (append default-frame-alist
               '((cursor-color . "#FFFFFF")) ))
+(setq blink-cursor-interval 0.8)
 
 ;; Scrolling
 (setq scroll-preserve-screen-position t)
