@@ -222,20 +222,18 @@
   (global-set-key (kbd "C-s-l") 'buf-move-right) )
 
 ;; Window resizing
-(global-set-key (kbd "M-s-<up>")
-                (lambda () (interactive) (enlarge-window 2)))
-(global-set-key (kbd "M-s-<down>")
-                (lambda () (interactive) (enlarge-window -2)))
-(global-set-key (kbd "M-s-<left>")
-                (lambda () (interactive) (enlarge-window -2 t)))
-(global-set-key (kbd "M-s-<right>")
-                (lambda () (interactive) (enlarge-window 2 t)))
+(global-set-key (kbd "M-s-<up>") (lambda () (interactive) (enlarge-window 2)))
+(global-set-key (kbd "M-s-<down>") (lambda () (interactive) (enlarge-window -2)))
+(global-set-key (kbd "M-s-<left>") (lambda () (interactive) (enlarge-window -2 t)))
+(global-set-key (kbd "M-s-<right>") (lambda () (interactive) (enlarge-window 2 t)))
 
 ;;------------------------------------------------------------------------------
 ;; Buffer management
 
 (global-set-key (kbd "C-c k") 'kill-buffer-and-window)
 (global-set-key (kbd "C-c C-k") 'kill-buffer-and-window)
+
+(key-chord-define-global "dk" (lambda () (interactive) (kill-buffer (buffer-name))))
 
 (global-set-key (kbd "C-c b") 'switch-to-buffer-other-window)
 (global-set-key (kbd "C-c C-b") 'switch-to-buffer-other-window)
