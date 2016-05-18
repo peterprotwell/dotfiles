@@ -130,23 +130,16 @@
 ;;------------------------------------------------------------------------------
 ;; Global modes
 
-;; Show line/column number in minibuffer
 (setq line-number-mode t)
 (setq column-number-mode t)
-
 (show-paren-mode 1)
-
 (global-hl-line-mode 1) ;; Highlight current line
-
 (drag-stuff-global-mode)
-
 (setq comment-style 'indent)
-
 (electric-pair-mode)
 
 (global-discover-mode 1)
 
-;; Line numbers
 (global-set-key (kbd "C-<f5>") 'linum-mode)
 
 ;; DA-DA-DA DAAA, daa daa DAAT duh-DAAAAAA!
@@ -156,7 +149,6 @@
 ;; Saving
 
 (global-set-key [f9] 'save-buffer)
-(global-set-key [f10] 'save-buffer)
 (desktop-save-mode t)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (global-auto-revert-mode 1)
@@ -172,9 +164,6 @@
 
 ;;------------------------------------------------------------------------------
 ;; Color themes
-
-;; (load-theme 'railscasts t nil)
-;; (load-theme 'mecha t nil)
 
 (setq rainbow-x-colors nil)
 
@@ -704,7 +693,6 @@
       (let ((end (point)))
         (replace-match new-c)
         (replace-string new-c old-c nil (1+ start) end)))))
-
 (global-set-key (kbd "C-c t") 'miken-toggle-quotes)
 (global-set-key (kbd "C-c C-t") 'miken-toggle-quotes)
 
@@ -790,18 +778,15 @@ the character typed."
         (insert current-line)
         (decf n) )))
   (forward-line))
-
 (global-set-key (kbd "C-c d") 'miken-copy-line-below)
 (global-set-key (kbd "C-c C-d") 'miken-copy-line-below)
 
 ;; Emulate vim's half-screen scrolling
 (defun miken-window-half-height ()
   (max 1 (/ (+ 1 (window-height (selected-window))) 2)) )
-
 (global-set-key (kbd "C-v")
                 (lambda () (interactive)
                   (scroll-up (miken-window-half-height)) ))
-
 (global-set-key (kbd "M-v")
                 (lambda () (interactive)
                   (scroll-down (miken-window-half-height)) ))
@@ -813,7 +798,6 @@ the character typed."
   (newline)
   (forward-line -1)
   (indent-according-to-mode))
-
 (global-set-key (kbd "C-c o") 'miken-open-line-above)
 (global-set-key (kbd "C-c C-o") 'miken-open-line-above)
 
@@ -838,7 +822,6 @@ the character typed."
         (insert filename)
         (clipboard-kill-region (point-min) (point-max)) )
       (message filename) )))
-
 (global-set-key (kbd "C-c `") 'miken-current-buffer-filepath)
 
 (defun miken-comment-dwim-line (&optional arg)
@@ -850,7 +833,6 @@ the character typed."
   (if (not (region-active-p))
       (comment-or-uncomment-region (line-beginning-position) (line-end-position))
     (comment-dwim arg)))
-
 (global-set-key (kbd "M-;") 'miken-comment-dwim-line)
 
 (defun miken-comment-dwim-line-and-move-down (&optional arg)
@@ -858,7 +840,6 @@ the character typed."
   (interactive)
   (miken-comment-dwim-line arg)
   (forward-line) )
-
 (global-set-key (kbd "C-M-;") 'miken-comment-dwim-line-and-move-down)
 
 (defun save-macro (name)
