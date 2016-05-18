@@ -171,7 +171,7 @@
 ;;------------------------------------------------------------------------------
 ;; Color themes
 
-(load-theme 'railscasts t nil)
+;; (load-theme 'railscasts t nil)
 ;; (load-theme 'mecha t nil)
 
 (setq rainbow-x-colors nil)
@@ -186,6 +186,10 @@
   (while custom-enabled-themes
     (disable-theme (car custom-enabled-themes)))
   (load-theme (intern theme) t nil))
+
+;; (miken-override-theme 'railscasts t nil)
+;; (miken-override-theme 'mecha t nil)
+(miken-override-theme "solarized-dark")
 
 ;;------------------------------------------------------------------------------
 ;; Frame management
