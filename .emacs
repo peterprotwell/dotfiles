@@ -32,7 +32,7 @@
   '(ag auto-complete buffer-move projectile flx-ido ido-ubiquitous
        magit smex visual-regexp workgroups
        ;; Minor programming packages
-       avy discover drag-stuff expand-region key-chord neotree sr-speedbar
+       avy discover drag-stuff expand-region neotree sr-speedbar
        multi-term zygospore
        ;; Elixir
        alchemist elixir-mode
@@ -124,9 +124,6 @@
 (smex-initialize)
 (global-set-key (kbd "C-x m") 'smex)
 (global-set-key (kbd "C-x C-m") 'smex)
-
-(require 'key-chord)
-(key-chord-mode 1)
 
 ;;------------------------------------------------------------------------------
 ;; Global modes
@@ -234,8 +231,6 @@
 (global-set-key (kbd "C-c k") 'kill-buffer-and-window)
 (global-set-key (kbd "C-c C-k") 'kill-buffer-and-window)
 
-(key-chord-define-global "dk" (lambda () (interactive) (kill-buffer (buffer-name))))
-
 (global-set-key (kbd "C-c b") 'switch-to-buffer-other-window)
 (global-set-key (kbd "C-c C-b") 'switch-to-buffer-other-window)
 
@@ -305,9 +300,7 @@
 (recentf-mode)
 
 (global-set-key (kbd "M-s-f") 'projectile-find-file)
-(key-chord-define-global "fj" 'projectile-find-file)
 (global-set-key (kbd "M-s-v") 'projectile-vc)
-(key-chord-define-global "vn" 'projectile-vc)
 (global-set-key (kbd "M-s-s") 'projectile-ag)
 
 (setq projectile-mode-line " Pj")
@@ -535,8 +528,6 @@
 (setq rspec-use-rake-when-possible nil)
 
 (setq rspec-use-rvm t)
-
-(key-chord-define-global "ty" 'rspec-toggle-spec-and-target)
 
 ;;------------------------------------------------------------------------------
 ;; Alchemist / elixir
