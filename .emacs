@@ -52,6 +52,8 @@
   (unless (package-installed-p p)
     (package-install p) ))
 
+;; TODO: Uninstall packages not defined or dependencies of existing packages
+
 ;; From package.el#package--get-deps:1703
 (defun miken-package-get-deps (pkg &optional only)
   "Get all packages on which PKG depends"
@@ -338,7 +340,7 @@
 (defun vc-git-annotate-command (file buffer &optional revision)
   "Execute \"git annotate\" on FILE, inserting the contents in BUFFER."
   (vc-git-command buffer 0 file "blame" "--abbrev=5") )
-                  ;; " | sed 's/[0-9]*:[0-9]*:[0-9]*//g' | sed 's/-[0-9]\\{3,\\}//g' | tr -s ' '") )
+;; " | sed 's/[0-9]*:[0-9]*:[0-9]*//g' | sed 's/-[0-9]\\{3,\\}//g' | tr -s ' '") )
 
 ;;------------------------------------------------------------------------------
 ;; Fuzzy file find
@@ -467,7 +469,7 @@
       (miken-speedbar-open-current-buffer-in-tree) ))
 
   (global-set-key [f8] 'miken-speedbar)
-)
+  )
 
 (global-set-key [f7] 'neotree-toggle)
 
@@ -480,14 +482,15 @@
 ;; Rails settings
 
 (setq miken-rails-file-types
-  '(;; Ruby
-    ruby-mode-hook enh-ruby-mode-hook
-    ;; JavaScript / CoffeeScript
-    javascript-mode-hook js2-mode-hook coffee-mode-hook
-    ;; Styles
-    css-mode-hook sass-mode-hook scss-mode-hook
-    ;; Markup
-    html-mode-hook html-erb-mode-hook slim-mode-hook haml-mode-hook yaml-mode-hook))
+      '(;; Ruby
+        ruby-mode-hook
+        enh-ruby-mode-hook
+        ;; JavaScript / CoffeeScript
+        javascript-mode-hook js2-mode-hook coffee-mode-hook
+        ;; Styles
+        css-mode-hook sass-mode-hook scss-mode-hook
+        ;; Markup
+        html-mode-hook html-erb-mode-hook slim-mode-hook haml-mode-hook yaml-mode-hook))
 
 ;; Turn on projectile-rails-mode if we're in a rails project
 (dolist (hook miken-rails-file-types)
@@ -549,20 +552,20 @@
 
 ;; elisp
 (add-hook 'emacs-lisp-mode-hook
-  (lambda ()
-    (define-key emacs-lisp-mode-map (kbd "RET") 'newline-and-indent) ))
+          (lambda ()
+            (define-key emacs-lisp-mode-map (kbd "RET") 'newline-and-indent) ))
 
 ;; JavaScript
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (add-hook 'js2-mode-hook
-  (lambda ()
-    (linum-mode)
-    (define-key js2-mode-map (kbd "RET") 'newline-and-indent) ))
+          (lambda ()
+            (linum-mode)
+            (define-key js2-mode-map (kbd "RET") 'newline-and-indent) ))
 
 (add-hook 'js-mode-hook
-  (lambda ()
-    (linum-mode)
-    (define-key js-mode-map (kbd "RET") 'newline-and-indent) ))
+          (lambda ()
+            (linum-mode)
+            (define-key js-mode-map (kbd "RET") 'newline-and-indent) ))
 
 ;; shell
 (add-hook 'sh-mode-hook
@@ -571,20 +574,20 @@
 
 ;; CSS
 (add-hook 'css-mode-hook
-  (lambda ()
-    (setq css-indent-offset 2)))
+          (lambda ()
+            (setq css-indent-offset 2)))
 
 ;; SASS
 (add-hook 'sass-mode-hook
-  (lambda ()
-    (rainbow-mode)
-    (setq css-indent-offset 2)))
+          (lambda ()
+            (rainbow-mode)
+            (setq css-indent-offset 2)))
 
 ;; SCSS
 (add-hook 'scss-mode-hook
-  (lambda ()
-    (rainbow-mode)
-    (setq css-indent-offset 2)))
+          (lambda ()
+            (rainbow-mode)
+            (setq css-indent-offset 2)))
 (setq scss-compile-at-save nil)
 
 ;; Ruby
@@ -604,24 +607,24 @@
     (backward-char 1)))
 
 (add-hook 'enh-ruby-mode-hook
-  (lambda ()
-    (ruby-end-mode)
-    (linum-mode)
-    (auto-complete-mode)
-    (define-key enh-ruby-mode-map (kbd "RET") 'newline-and-indent)
-    (define-key enh-ruby-mode-map (kbd "#") 'miken-ruby-interpolate) ))
+          (lambda ()
+            (ruby-end-mode)
+            (linum-mode)
+            (auto-complete-mode)
+            (define-key enh-ruby-mode-map (kbd "RET") 'newline-and-indent)
+            (define-key enh-ruby-mode-map (kbd "#") 'miken-ruby-interpolate) ))
 
 ;; C
 (add-hook 'c-mode-hook
-  (lambda () (setq tab-width 4)))
+          (lambda () (setq tab-width 4)))
 
 ;; Java
 (add-hook 'java-mode-hook
-  (lambda () (setq tab-width 4)))
+          (lambda () (setq tab-width 4)))
 
 ;; Markdown
 (add-hook 'markdown-mode-hook
-  (lambda () (miken-keys-minor-mode t) ))
+          (lambda () (miken-keys-minor-mode t) ))
 
 ;;------------------------------------------------------------------------------
 ;; ediff setup
@@ -681,8 +684,7 @@
   (interactive)
   (let ((begin (if mark-active (min (point) (mark)) (point-min)))
         (end (if mark-active (max (point) (mark)) (point-max))))
-    (shell-command-on-region begin end
-     "python -mjson.tool" (current-buffer) t)))
+    (shell-command-on-region begin end "python -mjson.tool" (current-buffer) t)))
 
 (defun miken-toggle-quotes ()
   "Toggle single quoted string to double or vice versa, and
@@ -715,33 +717,33 @@
 (defun miken-rename-buffer-and-file (new-name)
   "Renames both current buffer and file it's visiting to NEW-NAME."
   (interactive "sNew name: ")
-    (let ((name (buffer-name))
-          (filename (buffer-file-name)) )
-      (if (not filename)
-          (message "Buffer '%s' is not visiting a file!" name)
-        (if (get-buffer new-name)
-            (message "A buffer named '%s' already exists!" new-name)
-          (progn (rename-file name new-name 1)
-                 (rename-buffer new-name)
-                 (set-visited-file-name new-name)
-                 (set-buffer-modified-p nil) )))))
+  (let ((name (buffer-name))
+        (filename (buffer-file-name)) )
+    (if (not filename)
+        (message "Buffer '%s' is not visiting a file!" name)
+      (if (get-buffer new-name)
+          (message "A buffer named '%s' already exists!" new-name)
+        (progn (rename-file name new-name 1)
+               (rename-buffer new-name)
+               (set-visited-file-name new-name)
+               (set-buffer-modified-p nil) )))))
 
 ;; Never understood why Emacs doesn't have this function, either.
 (defun miken-move-buffer-and-file (dir)
   "Moves both current buffer and file it's visiting to DIR."
   (interactive "DNew directory: ")
-    (let* ((name (buffer-name))
-           (filename (buffer-file-name))
-           (dir
-            (if (string-match dir "\\(?:/\\|\\\\)$")
-                (substring dir 0 -1) dir))
-           (newname (concat dir "/" name)) )
-      (if (not filename)
-          (message "Buffer '%s' is not visiting a file!" name)
-        (progn (copy-file filename newname 1)
-               (delete-file filename)
-               (set-visited-file-name newname)
-               (set-buffer-modified-p nil) t))))
+  (let* ((name (buffer-name))
+         (filename (buffer-file-name))
+         (dir
+          (if (string-match dir "\\(?:/\\|\\\\)$")
+              (substring dir 0 -1) dir))
+         (newname (concat dir "/" name)) )
+    (if (not filename)
+        (message "Buffer '%s' is not visiting a file!" name)
+      (progn (copy-file filename newname 1)
+             (delete-file filename)
+             (set-visited-file-name newname)
+             (set-buffer-modified-p nil) t))))
 
 ;; Word count
 (defun miken-count-words-buffer ()
@@ -760,8 +762,8 @@
 the character typed."
   (interactive "p")
   (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
-    ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
-    (t                    (self-insert-command (or arg 1))) ))
+        ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+        (t                    (self-insert-command (or arg 1))) ))
 ;; TODO fix this to work if you're on either side of the paren
 (global-set-key (kbd "C-c 9") 'miken-goto-match-paren)
 (global-set-key (kbd "C-c C-9") 'miken-goto-match-paren)
