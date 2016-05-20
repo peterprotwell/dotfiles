@@ -229,17 +229,16 @@ fi
 # Nicer colors for emacs in terminal
 export TERM=xterm-256color
 
-eval "$(thefuck --alias)"
-
-#-------------------------------------------------------------------------------
-# rvm
-
-if [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
-  # Load RVM into a shell session *as a function*
-  source "$HOME/.rvm/scripts/rvm"
+if type fuck &> /dev/null; then
+  eval "$(thefuck --alias)"
 fi
 
-export rvm_silence_path_mismatch_check_flag=1
+#-------------------------------------------------------------------------------
+# rbenv
+
+if type rbenv &> /dev/null; then
+  eval "$(rbenv init -)"
+fi
 
 #-------------------------------------------------------------------------------
 

@@ -74,5 +74,8 @@ path=(~/dotfiles/bin "$path[@]")
 # Emacs cask
 path=(~/.cask/bin "$path[@]")
 
+# rbenv doesn't add gem binaries to your path
+path=("$(rbenv root)/versions/$(rbenv version-name)/bin" "$path[@]")
+
 #-------------------------------------------------------------------------------
 ## end .zprofile

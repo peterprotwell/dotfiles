@@ -38,7 +38,7 @@
        alchemist elixir-mode
        ;; Ruby
        enh-ruby-mode ruby-end ruby-hash-syntax ruby-refactor rspec-mode
-       projectile-rails rubocop rvm
+       projectile-rails rubocop rbenv
        ;; Misc modes
        clojure-mode haml-mode js2-mode markdown-mode mmm-mode rainbow-mode
        sass-mode scss-mode slim-mode yaml-mode
@@ -126,6 +126,8 @@
 (smex-initialize)
 (global-set-key (kbd "C-x m") 'smex)
 (global-set-key (kbd "C-x C-m") 'smex)
+
+(global-rbenv-mode)
 
 ;;------------------------------------------------------------------------------
 ;; Global modes
@@ -504,13 +506,6 @@
 ;;------------------------------------------------------------------------------
 ;; rspec
 
-(defadvice rspec-compile (around rspec-compile-around)
-  "Use BASH shell for running the specs because of ZSH issues."
-  (let ((shell-file-name "/usr/local/bin/bash"))
-    ad-do-it))
-
-(ad-activate 'rspec-compile)
-
 (setq compilation-scroll-output nil)
 
 (add-hook 'after-init-hook 'inf-ruby-switch-setup)
@@ -522,8 +517,6 @@
                   (rspec-toggle-spec-and-target) ))
 
 (setq rspec-use-rake-when-possible nil)
-
-(setq rspec-use-rvm t)
 
 ;;------------------------------------------------------------------------------
 ;; Alchemist / elixir
