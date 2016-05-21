@@ -4,6 +4,9 @@
 
 [alias]
   b = branch
+  bb = bisect bad
+  bg = bisect good
+  bs = bisect start
   branch-name = rev-parse --abbrev-ref HEAD
   ci = commit
   cam = commit -am
@@ -22,7 +25,7 @@
   f = fetch
   fp = fetch --prune
   kb = reset --hard HEAD~1
-  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+  l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
   mm = merge master
   mmours = merge -s recursive -X ours master
   oops = commit --amend -C HEAD
@@ -38,8 +41,10 @@
   rbm = rebase master
   rpo = remote prune origin
   s = status
-  st = !(echo 'Use g s for status')
+  sa = stash apply
+  sd = stash drop
   sp = stash pop
+  st = stash
   tc = commit -am temp_commit
   up = rev-parse --abbrev-ref --symbolic-full-name @{u}
 
