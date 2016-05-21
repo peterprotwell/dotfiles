@@ -180,9 +180,9 @@
     (disable-theme (car custom-enabled-themes)))
   (load-theme (intern theme) t nil))
 
-;; (miken-override-theme 'railscasts t nil)
-;; (miken-override-theme 'mecha t nil)
-(miken-override-theme "solarized-dark")
+(miken-override-theme "railscasts")
+;; (miken-override-theme "mecha")
+;; (miken-override-theme "solarized-dark")
 
 ;;------------------------------------------------------------------------------
 ;; Frame management

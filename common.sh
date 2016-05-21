@@ -150,8 +150,10 @@ alias dcls="bundle exec rake db:drop db:create db:schema:load db:seed"
 alias dcm="bundle exec rake db:drop db:create db:migrate"
 alias dcms="bundle exec rake db:drop db:create db:migrate db:seed"
 
-# mix
+# mix / elixir
 alias me="mix espec"
+alias met="MIX_ENV=test"
+alias mdg="mix deps.get"
 
 # emacs
 alias ce="cask exec"
