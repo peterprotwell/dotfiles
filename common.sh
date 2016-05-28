@@ -151,9 +151,13 @@ alias dcm="bundle exec rake db:drop db:create db:migrate"
 alias dcms="bundle exec rake db:drop db:create db:migrate db:seed"
 
 # mix / elixir
-alias me="mix espec"
 alias met="MIX_ENV=test"
+alias med="MIX_ENV=dev"
+alias me="mix espec"
 alias mdg="mix deps.get"
+alias mlh="mix local.hex"
+
+alias imps="iex -S Phoenix.server"
 
 # emacs
 alias ce="cask exec"
