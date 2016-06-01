@@ -5,7 +5,6 @@
 # There can be only one
 export EDITOR="emacs -q"
 alias e="emacsclient -n"
-alias ec="echo 'Just type e'"
 
 #-------------------------------------------------------------------------------
 # functions
@@ -176,17 +175,13 @@ alias cdA="cd /Applications"
 alias cdb="cd ~/books"
 alias cdc="cd ~/code"
 alias cdcc="cd ~/code/c"
-alias cdcco="cd ~/code/coffeescript"
 alias cdcj="cd ~/code/javascript"
-alias cdcjn="cd ~/code/javascript/node"
 alias cdcl="cd ~/code/lisp"
 alias cdclj="cd ~/code/clojure"
-alias cdcrd="cd ~/code/rails/depot"
 alias cdd="cd ~/Downloads"
 alias cdD="cd ~/Desktop"
 alias cd.="cd ~/dotfiles"
 alias cde="cd ~/thoughts/emacs"
-alias cdeb="cd ~/emacs-book"
 alias cdm="cd ~/code/mikendotio"
 alias cdM="cd ~/Movies"
 alias cdp="cd ~/Pictures"
@@ -194,7 +189,6 @@ alias cdpm="cd ~/code/rails/programmer-mike"
 alias cdr="cd ~/code/ruby"
 alias cdra="cd ~/code/rails"
 alias cdrr="cd ~/code/ruby-refactor"
-alias cdr.="cd ~/code/rvm.el"
 alias cdrw="cd ~/code/rails/recursewords"
 alias cdt="cd ~/thoughts"
 

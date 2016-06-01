@@ -10,6 +10,10 @@ function ytd {
   youtube-dl -o '%(title)s.%(ext)s' --yes-playlist -x --audio-format mp3 --audio-quality 192k "$1"
 }
 
+function ytdv {
+  youtube-dl -o '%(title)s.%(ext)s' --yes-playlist --recode-video mp4 "$1"
+}
+
 #-------------------------------------------------------------------------------
 # aliases
 
