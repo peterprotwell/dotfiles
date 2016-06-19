@@ -1,27 +1,24 @@
 #!/usr/bin/env ruby
 
-# TODO: ask for backup disk, maybe have default?
-drive = '/Volumes/yudkowsky'
-if !File.exists? drive
-  drive = '/Volumes/feynman'
-  if !File.exists? drive
-    puts 'Please insert your backup drive'
-    exit 1
+def find_backup_drive
+  %w(yudkowsky feynman Tyson).each do |disk|
+    return disk if File.exists? "/Volumes/#{disk}"
   end
+
+  puts 'Please insert your backup drive' and exit 1
 end
 
-backup_dir = "#{drive}/home"
+drive = find_backup_drive
+backup_dir = "/Volumes/#{drive}/home"
 puts "Backing up to #{backup_dir}..."
 
 dirs = %w(books code Compositions Documents dotfiles emacs-book
 Movies Music Pictures thoughts)
 
+system("mkdir -p #{backup_dir}")
 Dir.chdir(Dir.home) do
   dirs.each do |dir|
-    if !Dir.exists?(dir)
-      puts "~/#{dir} doesn't exist"
-      next
-    end
+    puts "~/#{dir} doesn't exist" and next if !Dir.exists?(dir)
 
     puts '*' * 80
     puts "  backing up #{dir}..."
