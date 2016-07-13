@@ -14,6 +14,10 @@ function cu {
   cd ../"$1"
 }
 
+function fn {
+  find . -name "*$1*"
+}
+
 function mkcd {
   mkdir "$1" && cd "$1"
 }
@@ -118,7 +122,7 @@ alias sc="shellcheck"
 alias underscore2dash='rename "s/_/-/g" ./*'
 
 # bundler
-alias b="bundle"
+alias b="bundle check || bundle install"
 alias bu="bundle update --source"
 alias bua="bundle update"
 alias be="bundle exec"
@@ -150,18 +154,30 @@ alias dcm="bundle exec rake db:drop db:create db:migrate"
 alias dcms="bundle exec rake db:drop db:create db:migrate db:seed"
 
 # mix / elixir
+alias mc="mix compile"
 alias met="MIX_ENV=test"
 alias med="MIX_ENV=dev"
-alias me="mix espec"
+alias me="mix espec --cover"
 alias mdg="mix deps.get"
 alias mlh="mix local.hex"
+alias mps="mix phoenix.server"
+alias mpr="mix phoenix.routes"
 
-alias imps="iex -S Phoenix.server"
+alias imps="iex -S mix phoenix.server"
 
 # emacs
 alias ce="cask exec"
 alias cee="cask exec ecukes"
 alias cer="cask exec ert-runner"
+
+# docker
+alias di="docker images"
+alias dp="docker ps -a"
+alias dbuild="docker build -t $(basename $(pwd)) ."
+alias drun="docker run -p 9001:4000 -v $(pwd):/$(basename $(pwd)) $(basename $(pwd))"
+alias dcb="docker-compose build"
+alias dcu="docker-compose up"
+alias dcbu="docker-compose build && docker-compose up"
 
 # postgresql
 alias pginit="initdb /usr/local/var/postgres -E utf8 -U mike"
@@ -208,12 +224,14 @@ alias killspring="ps aux | egrep 'spring (app|server)' | tr -s ' ' | cut -d' ' -
 # nice path
 alias np="echo \"$PATH\" | tr : '\n'"
 
+alias syncmusic="rsync -vr --size-only --delete /Volumes/yudkowsky/home/Music/iTunes/ ~/Music/iTunes"
+
 #-------------------------------------------------------------------------------
 # machine-specific setup
 
 if [ "$(whoami)" = "mike" ]; then
   source ~/dotfiles/home.sh
-elif [ "$(whoami)" = "mikenichols" ]; then
+elif [ "$(whoami)" = "mnicho29" ]; then
   source ~/dotfiles/work.sh
 fi
 

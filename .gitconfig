@@ -38,7 +38,7 @@
   ra = rebase --abort
   rc = rebase --continue
   ri = rebase --interactive
-  rbm = rebase master
+  rbm = rebase --autosquash master
   rpo = remote prune origin
   s = status
   sa = stash apply
@@ -57,3 +57,6 @@
 [rerere]
   enabled = true
   autoupdate = true
+
+[rebase]
+  autosquash = true
