@@ -14,27 +14,23 @@ fi
 #-------------------------------------------------------------------------------
 # Packages
 
-packages="bash cask cloc coreutils ctags elixir emacs ffmpeg gcc git htop-osx
- leiningen markdown p7zip postgresql rbenv rename ruby-build shellcheck
- the_silver_searcher thefuck tree youtube-dl zsh"
+packages="bash cask cloc coreutils ctags docker docker-compose docker-machine elixir
+ emacs ffmpeg gcc git htop-osx leiningen markdown p7zip postgresql rbenv rename
+ ruby-build shellcheck the_silver_searcher thefuck tree youtube-dl zsh"
 
 for package in $packages; do
   brew install "$package"
 done
 
 # Post-install stuff
-if ! psql -l &> /dev/null; then
-  echo "Starting posgresql..."
-  brew services start postgresql
-else
-  echo "postgresql already started"
-fi
+brew services start docker-machine
+brew services start postgresql
 
 #-------------------------------------------------------------------------------
 # Apps
 
-apps="alfred emacs firefox flux gitx google-chrome hipchat iterm2 macdown menumeters\
- openoffice paintbrush scroll-reverser sizeup steam sublime-text utorrent vlc"
+apps="alfred emacs firefox flux gitx google-chrome iterm2 macdown menumeters
+ openoffice paintbrush scroll-reverser sizeup slack steam sublime-text utorrent vlc"
 
 for app in $apps; do
   brew cask install "$app"
