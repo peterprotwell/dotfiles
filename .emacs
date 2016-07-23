@@ -151,6 +151,7 @@
 ;; Saving
 
 (global-set-key [f9] 'save-buffer)
+(global-set-key [f10] 'save-buffer)
 (desktop-save-mode t)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (global-auto-revert-mode 1)
@@ -183,6 +184,7 @@
 (miken-override-theme "railscasts")
 ;; (miken-override-theme "mecha")
 ;; (miken-override-theme "solarized-dark")
+;; (miken-override-theme "monokai")
 
 ;;------------------------------------------------------------------------------
 ;; Frame management
