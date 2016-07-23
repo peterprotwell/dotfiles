@@ -231,7 +231,7 @@ alias syncmusic="rsync -vr --size-only --delete /Volumes/yudkowsky/home/Music/iT
 
 if [ "$(whoami)" = "mike" ]; then
   source ~/dotfiles/home.sh
-elif [ "$(whoami)" = "mnicho29" ]; then
+elif [ "$(whoami)" = "mnichols" ]; then
   source ~/dotfiles/work.sh
 fi
 
@@ -240,6 +240,14 @@ if [ "$(uname)" = "Darwin" ]; then
 elif [ "$(uname)" = "linux-gnu" -o "$(uname)" = "Linux" ]; then
   source ~/dotfiles/common-linux.sh
 fi
+
+
+#-------------------------------------------------------------------------------
+# Docker
+
+# if [[ "$(docker-machine status default)" == "Running" ]]; then
+#  eval "$(docker-machine env default)"
+# fi
 
 #-------------------------------------------------------------------------------
 # Misc.
