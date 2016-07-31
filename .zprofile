@@ -45,7 +45,6 @@ alias resh="source ~/.zprofile && echo '.zprofile reloaded'"
 #-------------------------------------------------------------------------------
 # Global aliases
 
-alias -g ..='cd ..'
 alias -g ...='cd ../..'
 alias -g ....='cd ../../..'
 alias -g .....='cd ../../../..'

@@ -40,8 +40,8 @@
        enh-ruby-mode ruby-end ruby-hash-syntax ruby-refactor rspec-mode
        projectile-rails rubocop rbenv
        ;; Misc modes
-       clojure-mode haml-mode js2-mode markdown-mode mmm-mode rainbow-mode
-       sass-mode scss-mode slim-mode yaml-mode
+       clojure-mode haml-mode js2-mode jsx-mode markdown-mode
+       mmm-mode rainbow-mode sass-mode scss-mode slim-mode yaml-mode
        ;; Themes
        molokai-theme monokai-theme railscasts-theme solarized-theme zenburn-theme
        ;; Just for fun
@@ -541,13 +541,19 @@
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
 
+;; shell
+(add-hook 'sh-mode-hook
+          (lambda () (setq sh-basic-offset 2
+                           sh-indentation 2) ))
+
 ;; elisp
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
             (define-key emacs-lisp-mode-map (kbd "RET") 'newline-and-indent) ))
 
-;; JavaScript
+;; JavaScript etc.
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+(customize-set-variable 'js2-basic-offset 2)
 (add-hook 'js2-mode-hook
           (lambda ()
             (linum-mode)
@@ -557,11 +563,9 @@
           (lambda ()
             (linum-mode)
             (define-key js-mode-map (kbd "RET") 'newline-and-indent) ))
-
-;; shell
-(add-hook 'sh-mode-hook
-          (lambda () (setq sh-basic-offset 2
-                           sh-indentation 2) ))
+;; JSX
+(customize-set-variable 'jsx-indent-level 2)
+(add-to-list 'auto-mode-alist '("\\.jsx$" . jsx-mode))
 
 ;; CSS
 (add-hook 'css-mode-hook
