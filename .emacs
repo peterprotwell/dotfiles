@@ -5,8 +5,6 @@
 ;; Load common lisp extensions
 (eval-when-compile (require 'cl-lib))
 
-(defvar emacs-root (concat (getenv "HOME") "/.emacs.d/"))
-
 ;;------------------------------------------------------------------------------
 ;; OS settings
 
@@ -24,7 +22,7 @@
 (require 'package)
 (setq package-enable-at-startup nil) ;; To avoid initializing twice
 (package-initialize)
-(unless (file-directory-p (concat emacs-root "elpa"))
+(unless (file-directory-p (concat user-emacs-directory "elpa"))
   (package-refresh-contents))
 
 (defvar my-packages
@@ -87,11 +85,11 @@
 
 ;; cl-labels is like let for functions
 (cl-labels
-    ((add-path (p) (add-to-list 'load-path (concat emacs-root p))))
+    ((add-path (p) (add-to-list 'load-path (concat user-emacs-directory p))))
   (add-path "lisp")
   (add-path "themes") )
 
-(add-to-list 'custom-theme-load-path (concat emacs-root "themes"))
+(add-to-list 'custom-theme-load-path (concat user-emacs-directory "themes"))
 
 ;;------------------------------------------------------------------------------
 ;; Global config
@@ -934,7 +932,7 @@ the character typed."
 (defun miken-lightsaber (opt)
   (interactive)
   (let ((action (if opt "up" "down")))
-    (play-sound-file (concat emacs-root "sounds/lightsaber-" action ".mp3"))))
+    (play-sound-file (concat user-emacs-directory "sounds/lightsaber-" action ".mp3"))))
 
 (defun miken-make-frame-command ()
   "Play a lightsaber ignition sound when making a new frame"
