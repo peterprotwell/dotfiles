@@ -189,6 +189,10 @@
 
 (global-set-key (kbd "M-`") 'other-frame)
 
+;; Full path in frame title
+(if window-system
+  (setq frame-title-format '(buffer-file-name "%f" ("%b"))))
+
 ;;------------------------------------------------------------------------------
 ;; Window management
 
@@ -326,12 +330,6 @@
 (setq magit-branch-arguments (remove "--track" magit-branch-arguments))
 
 (setq magit-commit-arguments '("--verbose"))
-
-(require 'vc-git)
-(defun vc-git-annotate-command (file buffer &optional revision)
-  "Execute \"git annotate\" on FILE, inserting the contents in BUFFER."
-  (vc-git-command buffer 0 file "blame" "--abbrev=5") )
-;; " | sed 's/[0-9]*:[0-9]*:[0-9]*//g' | sed 's/-[0-9]\\{3,\\}//g' | tr -s ' '") )
 
 ;;------------------------------------------------------------------------------
 ;; Fuzzy file find
