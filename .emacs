@@ -18,10 +18,13 @@
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("melpa" . "http://melpa.milkbox.net/packages/") ))
 
-;; Load packages now, not after init
-(require 'package)
-(setq package-enable-at-startup nil) ;; To avoid initializing twice
 (package-initialize)
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
+(setq use-package-always-ensure t)
+
+;; Load packages now, not after init
+(setq package-enable-at-startup nil) ;; To avoid initializing twice
 (unless (file-directory-p (concat user-emacs-directory "elpa"))
   (package-refresh-contents))
 
