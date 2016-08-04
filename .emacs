@@ -30,22 +30,7 @@
 
 (defvar my-packages
   ;; Must haves
-  '(ag auto-complete projectile flx-ido ido-ubiquitous
-       magit visual-regexp
-       ;; Minor programming packages
-       avy discover drag-stuff expand-region neotree sr-speedbar
-       multi-term
-       ;; Elixir
-       alchemist elixir-mode
-       ;; Ruby
-       enh-ruby-mode ruby-end ruby-hash-syntax ruby-refactor rspec-mode
-       projectile-rails rubocop
-       ;; Misc modes
-       clojure-mode haml-mode js2-mode jsx-mode markdown-mode
-       mmm-mode rainbow-mode sass-mode scss-mode slim-mode yaml-mode
-       ;; Just for fun
-       xkcd
-       ))
+  '(flx-ido ido-ubiquitous))
 
 (dolist (p my-packages)
   (unless (package-installed-p p)
@@ -138,16 +123,21 @@
 (setq column-number-mode t)
 (show-paren-mode 1)
 (global-hl-line-mode 1) ;; Highlight current line
-(drag-stuff-global-mode)
 (setq comment-style 'indent)
 (electric-pair-mode)
 
-(global-discover-mode 1)
+(use-package discover
+  :config
+  (global-discover-mode 1))
 
 (global-set-key (kbd "C-<f5>") 'linum-mode)
 
 ;; DA-DA-DA DAAA, daa daa DAAT duh-DAAAAAA!
 (winner-mode)
+
+(use-package drag-stuff
+  :config
+  (drag-stuff-global-mode))
 
 ;;------------------------------------------------------------------------------
 ;; Saving
@@ -172,9 +162,11 @@
 
 (setq rainbow-x-colors nil)
 
-(add-hook 'emacs-lisp-mode-hook
-          (lambda () (if (string-match ".*theme.*" (buffer-name))
-                         (rainbow-mode) )))
+(use-package rainbow-mode
+  :config
+  (add-hook 'emacs-lisp-mode-hook
+            (lambda () (if (string-match ".*theme.*" (buffer-name))
+                           (rainbow-mode) ))))
 
 (defun miken-override-theme (theme)
   "Clear out the active themes and load a theme freshly"
@@ -250,15 +242,15 @@
 ;; Previously bound to C-x C-b
 (global-set-key (kbd "C-x C-l") 'list-buffers)
 
-(require 'uniquify)
 (setq-default uniquify-buffer-name-style 'post-forward)
 
 ;;------------------------------------------------------------------------------
 ;; Region management
 
-(require 'expand-region)
-(global-set-key (kbd "s-<up>") 'er/expand-region)
-(global-set-key (kbd "s-<down>") 'er/contract-region)
+(use-package expand-region
+  :bind
+  (("s-<up>" . er/expand-region)
+   ("s-<down>" . er/contract-region)))
 
 ;; Delete region when you start typing
 (pending-delete-mode t)
@@ -305,40 +297,44 @@
 ;;------------------------------------------------------------------------------
 ;; Projectile
 
-(projectile-global-mode)
+(use-package ag)
+
+(use-package projectile
+  :config
+  (projectile-global-mode)
+  (setq projectile-mode-line " Pj")
+  :bind
+  (("M-s-f" . projectile-find-file)
+   ("M-s-v" . projectile-vc)
+   ("M-s-s" . projectile-ag)))
 
 (recentf-mode)
-
-(global-set-key (kbd "M-s-f") 'projectile-find-file)
-(global-set-key (kbd "M-s-v") 'projectile-vc)
-(global-set-key (kbd "M-s-s") 'projectile-ag)
-
-(setq projectile-mode-line " Pj")
 
 ;;------------------------------------------------------------------------------
 ;; Autocomplete/auto-complete
 
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/auto-complete/ac-dict")
-(ac-config-default)
-(global-set-key (kbd "M-/") 'auto-complete)
-(global-set-key (kbd "C-M-/") 'ac-fuzzy-complete)
-(setq-default completion-ignore-case 1)
-(add-to-list 'ac-modes 'elixir-mode)
+(use-package auto-complete
+  :bind
+  (("M-/" . auto-complete)
+   ("C-M-/" . ac-fuzzy-complete))
+  :config
+  (require 'auto-complete-config)
+  (add-to-list 'ac-dictionary-directories "~/.emacs.d/auto-complete/ac-dict")
+  (ac-config-default)
+  (setq-default completion-ignore-case 1)
+  (add-to-list 'ac-modes 'elixir-mode))
 
 ;;------------------------------------------------------------------------------
 ;; Magit/git
 
-(require 'magit)
-
-(setq magit-last-seen-setup-instructions "1.4.0")
-
-;; Don't prompt when first line of commit is over 50 chars.
-(setq git-commit-finish-query-functions '())
-;; Don't set new branch to track parent branch's remote
-(setq magit-branch-arguments (remove "--track" magit-branch-arguments))
-
-(setq magit-commit-arguments '("--verbose"))
+(use-package magit
+  :config
+  (setq magit-last-seen-setup-instructions "1.4.0")
+  ;; Don't prompt when first line of commit is over 50 chars.
+  (setq git-commit-finish-query-functions '())
+  ;; Don't set new branch to track parent branch's remote
+  (setq magit-branch-arguments (remove "--track" magit-branch-arguments))
+  (setq magit-commit-arguments '("--verbose")))
 
 ;;------------------------------------------------------------------------------
 ;; Fuzzy file find
@@ -386,12 +382,17 @@
 (global-set-key (kbd "s-s") 'isearch-forward-regexp)
 (global-set-key (kbd "s-r") 'isearch-backward-regexp)
 
-(global-set-key (kbd "C-x M-r") 'vr/query-replace)
+(use-package visual-regexp
+  :bind
+  ("C-x M-r" . vr/query-replace))
 
 ;;------------------------------------------------------------------------------
 ;; Jumping / Tags
 
-(global-set-key (kbd "M-s-g") 'avy-goto-word-or-subword-1)
+(use-package avy
+  :bind
+  ("M-s-g" . avy-goto-word-or-subword-1))
+
 (global-set-key (kbd "M-g") 'goto-line)
 (global-set-key (kbd "M-,") 'pop-tag-mark)
 
@@ -399,7 +400,9 @@
 ;; Speedbar
 
 ;; sr-speedbar (safe require)
-(when (require 'sr-speedbar nil 'noerror)
+;; (when (require 'sr-speedbar nil 'noerror)
+(use-package sr-speedbar
+  :config
   (setq sr-speedbar-right-side nil)
   (setq sr-speedbar-skip-other-window-p t)
   (setq sr-speedbar-width 40)
@@ -469,12 +472,16 @@
   (global-set-key [f8] 'miken-speedbar)
   )
 
-(global-set-key [f7] 'neotree-toggle)
+(use-package neotree
+  :bind
+  ([f7] . neotree-toggle))
 
 ;;------------------------------------------------------------------------------
 ;; Refactoring
 
-(setq ruby-refactor-add-parens t)
+(use-package ruby-refactor
+  :defer t
+  :config (setq ruby-refactor-add-parens t))
 
 ;;------------------------------------------------------------------------------
 ;; Rails settings
@@ -500,44 +507,45 @@
                   (projectile-rails-mode) ))))
 
 ;; erb files
-(require 'mmm-mode)
-(setq mmm-global-mode 'maybe)
-
-(require 'mmm-erb)
-(mmm-add-mode-ext-class 'html-erb-mode "\\.erb\\'" 'erb)
-(mmm-add-mode-ext-class 'html-erb-mode "\\.jst" 'ejs)
-
-(add-to-list 'auto-mode-alist '("\\.erb\\'" . html-erb-mode))
-(add-to-list 'auto-mode-alist '("\\.jst'"  . html-erb-mode))
+(use-package mmm-mode
+  :config
+  (setq mmm-global-mode 'maybe)
+  (mmm-add-mode-ext-class 'html-erb-mode "\\.erb\\'" 'erb)
+  (mmm-add-mode-ext-class 'html-erb-mode "\\.jst" 'ejs)
+  (add-to-list 'auto-mode-alist '("\\.erb\\'" . html-erb-mode))
+  (add-to-list 'auto-mode-alist '("\\.jst'"  . html-erb-mode)))
 
 ;;------------------------------------------------------------------------------
 ;; rspec
 
-(setq compilation-scroll-output nil)
-
-(add-hook 'after-init-hook 'inf-ruby-switch-setup)
-
-(global-set-key (kbd "M-s-t")
-                (lambda () (interactive)
-                  (split-window-below)
-                  (windmove-down)
-                  (rspec-toggle-spec-and-target) ))
-
-(setq rspec-use-rake-when-possible nil)
+(use-package rspec-mode
+  :init
+  (setq compilation-scroll-output nil)
+  (add-hook 'after-init-hook 'inf-ruby-switch-setup)
+  :config
+  (setq rspec-use-rake-when-possible nil)
+  (defun miken-rspec-toggle-flip ()
+    (interactive)
+    (split-window-below)
+    (windmove-down)
+    (rspec-toggle-spec-and-target))
+  :bind
+  ("M-s-t" . miken-rspec-toggle-flip))
 
 ;;------------------------------------------------------------------------------
 ;; Alchemist / elixir
 
-(setq alchemist-key-command-prefix (kbd "C-c ,"))
-(require 'alchemist)
-(setq alchemist-mix-test-task "espec")
-
-(add-to-list 'elixir-mode-hook
-             (defun auto-activate-ruby-end-mode-for-elixir-mode ()
-               (set (make-variable-buffer-local 'ruby-end-expand-keywords-before-re)
-                    "\\(?:^\\|\\s-+\\)\\(?:do\\)")
-               (set (make-variable-buffer-local 'ruby-end-check-statement-modifiers) nil)
-               (ruby-end-mode +1)))
+(use-package alchemist
+  :init
+  (setq alchemist-key-command-prefix (kbd "C-c ,"))
+  :config
+  (setq alchemist-mix-test-task "espec")
+  (add-to-list 'elixir-mode-hook
+               (defun auto-activate-ruby-end-mode-for-elixir-mode ()
+                 (set (make-variable-buffer-local 'ruby-end-expand-keywords-before-re)
+                      "\\(?:^\\|\\s-+\\)\\(?:do\\)")
+                 (set (make-variable-buffer-local 'ruby-end-check-statement-modifiers) nil)
+                 (ruby-end-mode +1))))
 
 ;;------------------------------------------------------------------------------
 ;; Indentation for languages
@@ -557,20 +565,24 @@
             (define-key emacs-lisp-mode-map (kbd "RET") 'newline-and-indent) ))
 
 ;; JavaScript etc.
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-(customize-set-variable 'js2-basic-offset 2)
-(add-hook 'js2-mode-hook
-          (lambda ()
-            (linum-mode)
-            (define-key js2-mode-map (kbd "RET") 'newline-and-indent) ))
+(use-package js2-mode
+  :config
+  (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+  (customize-set-variable 'js2-basic-offset 2)
+  (add-hook 'js2-mode-hook
+            (lambda ()
+              (linum-mode)
+              (define-key js2-mode-map (kbd "RET") 'newline-and-indent) )))
 
 (add-hook 'js-mode-hook
           (lambda ()
             (linum-mode)
             (define-key js-mode-map (kbd "RET") 'newline-and-indent) ))
 ;; JSX
-(customize-set-variable 'jsx-indent-level 2)
-(add-to-list 'auto-mode-alist '("\\.jsx$" . jsx-mode))
+(use-package jsx-mode
+  :config
+  (customize-set-variable 'jsx-indent-level 2)
+  (add-to-list 'auto-mode-alist '("\\.jsx$" . jsx-mode)))
 
 ;; CSS
 (add-hook 'css-mode-hook
@@ -578,41 +590,51 @@
             (setq css-indent-offset 2)))
 
 ;; SASS
-(add-hook 'sass-mode-hook
-          (lambda ()
-            (rainbow-mode)
-            (setq css-indent-offset 2)))
+(use-package sass-mode
+  :config
+  (add-hook 'sass-mode-hook
+            (lambda ()
+              (rainbow-mode)
+              (setq css-indent-offset 2))))
 
 ;; SCSS
-(add-hook 'scss-mode-hook
-          (lambda ()
-            (rainbow-mode)
-            (setq css-indent-offset 2)))
-(setq scss-compile-at-save nil)
+(use-package scss-mode
+  :config
+  (setq scss-compile-at-save nil)
+  (add-hook 'scss-mode-hook
+            (lambda ()
+              (rainbow-mode)
+              (setq css-indent-offset 2))))
 
 ;; Ruby
-(setq ruby-end-insert-newline nil)
-(add-to-list 'auto-mode-alist
-             '("\\.\\(?:gemspec\\|irbrc\\|gemrc\\|pryrc\\|rake\\|rb\\|ru\\|thor\\)\\'" . enh-ruby-mode))
-(add-to-list 'auto-mode-alist
-             '("\\(Capfile\\|Gemfile\\(?:\\.[a-zA-Z0-9._-]+\\)?\\|[rR]akefile\\)\\'" . enh-ruby-mode))
-(setq enh-ruby-hanging-brace-deep-indent-level 1)
+(use-package ruby-hash-syntax :defer t)
+(use-package ruby-end
+  :config
+  (setq ruby-end-insert-newline nil))
 
-(defun miken-ruby-interpolate ()
-  "In a double quoted string, interpolate."
-  (interactive)
-  (insert "#")
-  (when (and (looking-back "\".*") (looking-at ".*\""))
-    (insert "{}")
-    (backward-char 1)))
+(use-package enh-ruby-mode
+  :config
+  (add-to-list 'auto-mode-alist
+               '("\\.\\(?:gemspec\\|irbrc\\|gemrc\\|pryrc\\|rake\\|rb\\|ru\\|thor\\)\\'" . enh-ruby-mode))
+  (add-to-list 'auto-mode-alist
+               '("\\(Capfile\\|Gemfile\\(?:\\.[a-zA-Z0-9._-]+\\)?\\|[rR]akefile\\)\\'" . enh-ruby-mode))
+  (setq enh-ruby-hanging-brace-deep-indent-level 1)
 
-(add-hook 'enh-ruby-mode-hook
-          (lambda ()
-            (ruby-end-mode)
-            (linum-mode)
-            (auto-complete-mode)
-            (define-key enh-ruby-mode-map (kbd "RET") 'newline-and-indent)
-            (define-key enh-ruby-mode-map (kbd "#") 'miken-ruby-interpolate) ))
+  (defun miken-ruby-interpolate ()
+    "In a double quoted string, interpolate."
+    (interactive)
+    (insert "#")
+    (when (and (looking-back "\".*") (looking-at ".*\""))
+      (insert "{}")
+      (backward-char 1)))
+
+  (add-hook 'enh-ruby-mode-hook
+            (lambda ()
+              (ruby-end-mode)
+              (linum-mode)
+              (auto-complete-mode)
+              (define-key enh-ruby-mode-map (kbd "RET") 'newline-and-indent)
+              (define-key enh-ruby-mode-map (kbd "#") 'miken-ruby-interpolate) )))
 
 ;; C
 (add-hook 'c-mode-hook
@@ -623,8 +645,15 @@
           (lambda () (setq tab-width 4)))
 
 ;; Markdown
-(add-hook 'markdown-mode-hook
-          (lambda () (miken-keys-minor-mode t) ))
+(use-package markdown-mode
+  :config
+  (add-hook 'markdown-mode-hook
+            (lambda () (miken-keys-minor-mode t)) ))
+
+(use-package clojure-mode :defer t)
+(use-package haml-mode :defer t)
+(use-package slim-mode :defer t)
+(use-package yaml-mode :defer t)
 
 ;;------------------------------------------------------------------------------
 ;; ediff setup
@@ -637,25 +666,25 @@
 ;; Multi-term / shell config
 
 ;; For term-bind-key-alist
-(require 'multi-term)
+(use-package multi-term
+  :config
+  (defun miken-switch-to-or-create-shell-buffer (index)
+    "Switches to *terminal<INDEX>* if it exists, or creates a new terminal."
+    (interactive)
+    (let ((term-name (concat "*terminal<" index ">*")))
+      (if (get-buffer term-name)
+          (switch-to-buffer term-name)
+        (switch-to-buffer (multi-term)) )))
 
-(defun miken-switch-to-or-create-shell-buffer (index)
-  "Switches to *terminal<INDEX>* if it exists, or creates a new terminal."
-  (interactive)
-  (let ((term-name (concat "*terminal<" index ">*")))
-    (if (get-buffer term-name)
-        (switch-to-buffer term-name)
-      (switch-to-buffer (multi-term)) )))
+  (dolist (index '("1" "2" "3" "4" "5" "6" "7" "8" "9"))
+    (global-set-key (kbd (concat "M-s-" index))
+                    `(lambda () (interactive)
+                       (miken-switch-to-or-create-shell-buffer ,index))))
 
-(dolist (index '("1" "2" "3" "4" "5" "6" "7" "8" "9"))
-  (global-set-key (kbd (concat "M-s-" index))
-                  `(lambda () (interactive)
-                     (miken-switch-to-or-create-shell-buffer ,index))))
-
-(dolist (key-command
-         '(("M-<backspace>" . term-send-backward-kill-word)
-           ("M-d" . term-send-forward-kill-word)))
-  (add-to-list 'term-bind-key-alist key-command))
+  (dolist (key-command
+           '(("M-<backspace>" . term-send-backward-kill-word)
+             ("M-d" . term-send-forward-kill-word)))
+    (add-to-list 'term-bind-key-alist key-command)))
 
 ;;------------------------------------------------------------------------------
 ;; Text manipulation
@@ -954,6 +983,8 @@ the character typed."
   (miken-lightsaber nil)
   (delete-frame))
 (global-set-key (kbd "C-x 5 0") 'miken-delete-frame)
+
+(use-package xkcd :defer true)
 
 ;;------------------------------------------------------------------------------
 ;; Exit
