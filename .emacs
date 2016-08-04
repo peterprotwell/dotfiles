@@ -30,11 +30,11 @@
 
 (defvar my-packages
   ;; Must haves
-  '(ag auto-complete buffer-move projectile flx-ido ido-ubiquitous
+  '(ag auto-complete projectile flx-ido ido-ubiquitous
        magit visual-regexp
        ;; Minor programming packages
        avy discover drag-stuff expand-region neotree sr-speedbar
-       multi-term zygospore
+       multi-term
        ;; Elixir
        alchemist elixir-mode
        ;; Ruby
@@ -207,7 +207,9 @@
   (if (file-exists-p "~/.emacs.d/workgroups")
       (wg-load "~/.emacs.d/workgroups")))
 
-(global-set-key (kbd "C-x 1") 'zygospore-toggle-delete-other-windows)
+(use-package zygospore
+  :bind
+  ("C-x 1" . zygospore-toggle-delete-other-windows))
 
 (global-set-key (kbd "C-x =") 'balance-windows)
 ;; Previously bound to C-x =
@@ -220,11 +222,12 @@
 (global-set-key (kbd "M-s-l") 'windmove-right)
 
 ;; Move buffer to other window
-(when (require 'buffer-move nil 'noerror)
-  (global-set-key (kbd "C-s-h") 'buf-move-left)
-  (global-set-key (kbd "C-s-j") 'buf-move-down)
-  (global-set-key (kbd "C-s-k") 'buf-move-up)
-  (global-set-key (kbd "C-s-l") 'buf-move-right) )
+(use-package buffer-move
+  :bind
+  (("C-s-h" . buf-move-left)
+   ("C-s-j" . buf-move-down)
+   ("C-s-k" . buf-move-up)
+   ("C-s-l" . buf-move-right)))
 
 ;; Window resizing
 (global-set-key (kbd "M-s-<up>") (lambda () (interactive) (enlarge-window 2)))
