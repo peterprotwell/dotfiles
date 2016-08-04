@@ -43,8 +43,6 @@
        ;; Misc modes
        clojure-mode haml-mode js2-mode jsx-mode markdown-mode
        mmm-mode rainbow-mode sass-mode scss-mode slim-mode yaml-mode
-       ;; Themes
-       molokai-theme monokai-theme railscasts-theme solarized-theme zenburn-theme
        ;; Just for fun
        xkcd
        ))
@@ -185,10 +183,11 @@
     (disable-theme (car custom-enabled-themes)))
   (load-theme (intern theme) t nil))
 
-(miken-override-theme "railscasts")
-;; (miken-override-theme "mecha")
-;; (miken-override-theme "solarized-dark")
-;; (miken-override-theme "monokai")
+(use-package railscasts-theme)
+(use-package molokai-theme :defer t)
+(use-package monokai-theme :defer t)
+(use-package solarized-theme :defer t)
+(use-package zenburn-theme :defer t)
 
 ;;------------------------------------------------------------------------------
 ;; Frame management
