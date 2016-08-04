@@ -31,7 +31,7 @@
 (defvar my-packages
   ;; Must haves
   '(ag auto-complete buffer-move projectile flx-ido ido-ubiquitous
-       magit visual-regexp workgroups
+       magit visual-regexp
        ;; Minor programming packages
        avy discover drag-stuff expand-region neotree sr-speedbar
        multi-term zygospore
@@ -201,10 +201,11 @@
 ;;------------------------------------------------------------------------------
 ;; Window management
 
-(require 'workgroups)
-(workgroups-mode 1)
-(if (file-exists-p "~/.emacs.d/workgroups")
-    (wg-load "~/.emacs.d/workgroups"))
+(use-package workgroups
+  :config
+  (workgroups-mode 1)
+  (if (file-exists-p "~/.emacs.d/workgroups")
+      (wg-load "~/.emacs.d/workgroups")))
 
 (global-set-key (kbd "C-x 1") 'zygospore-toggle-delete-other-windows)
 
