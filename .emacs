@@ -31,7 +31,7 @@
 (defvar my-packages
   ;; Must haves
   '(ag auto-complete buffer-move projectile flx-ido ido-ubiquitous
-       magit smex visual-regexp workgroups
+       magit visual-regexp workgroups
        ;; Minor programming packages
        avy discover drag-stuff expand-region neotree sr-speedbar
        multi-term zygospore
@@ -39,7 +39,7 @@
        alchemist elixir-mode
        ;; Ruby
        enh-ruby-mode ruby-end ruby-hash-syntax ruby-refactor rspec-mode
-       projectile-rails rubocop rbenv
+       projectile-rails rubocop
        ;; Misc modes
        clojure-mode haml-mode js2-mode jsx-mode markdown-mode
        mmm-mode rainbow-mode sass-mode scss-mode slim-mode yaml-mode
@@ -124,11 +124,14 @@
 (setq mouse-wheel-progressive-speed nil)
 
 ;; Replaces M-x to run commands
-(smex-initialize)
-(global-set-key (kbd "C-x m") 'smex)
-(global-set-key (kbd "C-x C-m") 'smex)
+(use-package smex
+  :config (smex-initialize)
+  :bind (("C-x m" . smex)
+         ("C-x C-m" . smex)))
 
-(global-rbenv-mode)
+(use-package rbenv
+  :config
+  (global-rbenv-mode))
 
 ;;------------------------------------------------------------------------------
 ;; Global modes
