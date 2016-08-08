@@ -100,9 +100,7 @@
   :bind (("C-x m" . smex)
          ("C-x C-m" . smex)))
 
-(use-package rbenv
-  :config
-  (global-rbenv-mode))
+(use-package rbenv :config (global-rbenv-mode))
 
 ;;------------------------------------------------------------------------------
 ;; Global modes
@@ -114,18 +112,14 @@
 (setq comment-style 'indent)
 (electric-pair-mode)
 
-(use-package discover
-  :config
-  (global-discover-mode 1))
+(use-package discover :config (global-discover-mode 1))
 
 (global-set-key (kbd "C-<f5>") 'linum-mode)
 
 ;; DA-DA-DA DAAA, daa daa DAAT duh-DAAAAAA!
 (winner-mode)
 
-(use-package drag-stuff
-  :config
-  (drag-stuff-global-mode))
+(use-package drag-stuff :config (drag-stuff-global-mode))
 
 ;;------------------------------------------------------------------------------
 ;; Saving
@@ -189,8 +183,7 @@
       (wg-load (concat user-emacs-directory "workgroups"))))
 
 (use-package zygospore
-  :bind
-  ("C-x 1" . zygospore-toggle-delete-other-windows))
+  :bind ("C-x 1" . zygospore-toggle-delete-other-windows))
 
 (global-set-key (kbd "C-x =") 'balance-windows)
 ;; Previously bound to C-x =
@@ -359,18 +352,8 @@
             ido-exit 'refresh)
       (exit-minibuffer))))
 
-;; (add-hook 'minibuffer-inactive-mode-hook
-;;           (lambda ()
-;;             (global-set-key (kbd "C-.") 'ido-next-match)
-;;             (global-set-key (kbd "C-,") 'ido-prev-match) ))
-
-(use-package ido-ubiquitous
-  :config
-  (ido-ubiquitous-mode))
-
-(use-package flx-ido
-  :config
-  (flx-ido-mode 1))
+(use-package ido-ubiquitous :config (ido-ubiquitous-mode))
+(use-package flx-ido :config (flx-ido-mode 1))
 
 ;;------------------------------------------------------------------------------
 ;; Searching / Replacing
@@ -378,16 +361,12 @@
 (global-set-key (kbd "s-s") 'isearch-forward-regexp)
 (global-set-key (kbd "s-r") 'isearch-backward-regexp)
 
-(use-package visual-regexp
-  :bind
-  ("C-x M-r" . vr/query-replace))
+(use-package visual-regexp :bind ("C-x M-r" . vr/query-replace))
 
 ;;------------------------------------------------------------------------------
 ;; Jumping / Tags
 
-(use-package avy
-  :bind
-  ("M-s-g" . avy-goto-word-or-subword-1))
+(use-package avy :bind ("M-s-g" . avy-goto-word-or-subword-1))
 
 (global-set-key (kbd "M-g") 'goto-line)
 (global-set-key (kbd "M-,") 'pop-tag-mark)
@@ -468,9 +447,7 @@
   (global-set-key [f8] 'miken-speedbar)
   )
 
-(use-package neotree
-  :bind
-  ([f7] . neotree-toggle))
+(use-package neotree :bind ([f7] . neotree-toggle))
 
 ;;------------------------------------------------------------------------------
 ;; Refactoring
@@ -609,9 +586,7 @@
 
 ;; Ruby
 (use-package ruby-hash-syntax :defer t)
-(use-package ruby-end
-  :config
-  (setq ruby-end-insert-newline nil))
+(use-package ruby-end :config (setq ruby-end-insert-newline nil))
 
 (use-package enh-ruby-mode
   :config
