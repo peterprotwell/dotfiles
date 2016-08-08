@@ -85,9 +85,6 @@
 
 (setq-default cursor-type 'bar)
 (setq-default blink-cursor-blinks 0)
-(setq default-frame-alist
-      (append default-frame-alist
-              '((cursor-color . "#FFFFFF")) ))
 (setq blink-cursor-interval 0.8)
 
 ;; Scrolling
@@ -100,8 +97,6 @@
   :bind (("C-x m" . smex)
          ("C-x C-m" . smex)))
 
-(use-package rbenv :config (global-rbenv-mode))
-
 ;;------------------------------------------------------------------------------
 ;; Global modes
 
@@ -112,14 +107,14 @@
 (setq comment-style 'indent)
 (electric-pair-mode)
 
-(use-package discover :config (global-discover-mode 1))
-
 (global-set-key (kbd "C-<f5>") 'linum-mode)
 
 ;; DA-DA-DA DAAA, daa daa DAAT duh-DAAAAAA!
 (winner-mode)
 
+(use-package discover :config (global-discover-mode 1))
 (use-package drag-stuff :config (drag-stuff-global-mode))
+(use-package rbenv :config (global-rbenv-mode))
 
 ;;------------------------------------------------------------------------------
 ;; Saving
@@ -165,13 +160,43 @@
 (use-package zenburn-theme :defer t)
 
 ;;------------------------------------------------------------------------------
+;; Sound
+
+(unless (and (fboundp 'play-sound-internal)
+             (subrp (symbol-function 'play-sound-internal)))
+  (require 'play-sound))
+
+(defun miken-lightsaber (opt)
+  (interactive)
+  (let ((action (if opt "up" "down")))
+    (play-sound-file (concat user-emacs-directory "sounds/lightsaber-" action ".mp3"))))
+
+;;------------------------------------------------------------------------------
 ;; Frame management
+
+(setq default-frame-alist
+      (append default-frame-alist
+              '((cursor-color . "#FFFFFF")) ))
 
 (global-set-key (kbd "M-`") 'other-frame)
 
 ;; Full path in frame title
 (if window-system
   (setq frame-title-format '(buffer-file-name "%f" ("%b"))))
+
+(defun miken-make-frame-command ()
+  "Play a lightsaber ignition sound when making a new frame"
+  (interactive)
+  (miken-lightsaber t)
+  (make-frame-command))
+(global-set-key (kbd "C-x 5 2") 'miken-make-frame-command)
+
+(defun miken-delete-frame ()
+  "Play a lightsaber deactivate sound when killing a frame"
+  (interactive)
+  (miken-lightsaber nil)
+  (delete-frame))
+(global-set-key (kbd "C-x 5 0") 'miken-delete-frame)
 
 ;;------------------------------------------------------------------------------
 ;; Window management
@@ -309,6 +334,8 @@
 ;;------------------------------------------------------------------------------
 ;; Magit/git
 
+(setq vc-follow-symlinks t)
+
 (use-package magit
   :defer t
   :config
@@ -374,8 +401,6 @@
 ;;------------------------------------------------------------------------------
 ;; Speedbar
 
-;; sr-speedbar (safe require)
-;; (when (require 'sr-speedbar nil 'noerror)
 (use-package sr-speedbar
   :config
   (setq sr-speedbar-right-side nil)
@@ -523,7 +548,7 @@
                  (ruby-end-mode +1))))
 
 ;;------------------------------------------------------------------------------
-;; Indentation for languages
+;; Language modes config
 
 ;; Always spaces, always 2
 (setq-default indent-tabs-mode nil)
@@ -862,12 +887,6 @@
   (switch-to-buffer nil))               ; return to the initial buffer
 
 ;;------------------------------------------------------------------------------
-;; Misc. custom keybindings
-
-(global-set-key (kbd "C-x C-u") 'browse-url)
-(global-set-key (kbd "C-c C-a") 'calendar)
-
-;;------------------------------------------------------------------------------
 ;; Abbrev. Definitions
 
 ;; TODO: Transfer these to yasnippet
@@ -920,35 +939,13 @@
 ;;------------------------------------------------------------------------------
 ;; Server
 
-;; for using `emacsclient` in the shell
 (server-start)
-(setq vc-follow-symlinks t)
 
 ;;------------------------------------------------------------------------------
-;; Sound
+;; Misc. custom keybindings
 
-(unless (and (fboundp 'play-sound-internal)
-             (subrp (symbol-function 'play-sound-internal)))
-  (require 'play-sound))
-
-(defun miken-lightsaber (opt)
-  (interactive)
-  (let ((action (if opt "up" "down")))
-    (play-sound-file (concat user-emacs-directory "sounds/lightsaber-" action ".mp3"))))
-
-(defun miken-make-frame-command ()
-  "Play a lightsaber ignition sound when making a new frame"
-  (interactive)
-  (miken-lightsaber t)
-  (make-frame-command))
-(global-set-key (kbd "C-x 5 2") 'miken-make-frame-command)
-
-(defun miken-delete-frame ()
-  "Play a lightsaber deactivate sound when killing a frame"
-  (interactive)
-  (miken-lightsaber nil)
-  (delete-frame))
-(global-set-key (kbd "C-x 5 0") 'miken-delete-frame)
+(global-set-key (kbd "C-x C-u") 'browse-url)
+(global-set-key (kbd "C-c C-a") 'calendar)
 
 (use-package xkcd :defer true)
 
