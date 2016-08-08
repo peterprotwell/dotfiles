@@ -18,6 +18,9 @@
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("melpa" . "http://melpa.milkbox.net/packages/") ))
 
+(unless (file-directory-p (concat user-emacs-directory "elpa"))
+  (package-refresh-contents))
+
 (package-initialize)
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
@@ -25,8 +28,6 @@
 
 ;; Load packages now, not after init
 (setq package-enable-at-startup nil) ;; To avoid initializing twice
-(unless (file-directory-p (concat user-emacs-directory "elpa"))
-  (package-refresh-contents))
 
 (defvar my-packages
   ;; Must haves
@@ -356,7 +357,7 @@
 
 ;; From: http://endlessparentheses.com/Ido-Bury-Buffer.html
 (add-hook 'ido-setup-hook
-          (defun endless/define-ido-bury-key ()
+          (lambda ()
             (define-key ido-completion-map
               (kbd "C-b") 'endless/ido-bury-buffer-at-head)))
 
@@ -489,25 +490,26 @@
 ;;------------------------------------------------------------------------------
 ;; Rails settings
 
-(setq miken-rails-file-types
-      '(;; Ruby
-        ruby-mode-hook
-        enh-ruby-mode-hook
-        ;; JavaScript / CoffeeScript
-        javascript-mode-hook js2-mode-hook coffee-mode-hook
-        ;; Styles
-        css-mode-hook sass-mode-hook scss-mode-hook
-        ;; Markup
-        html-mode-hook html-erb-mode-hook slim-mode-hook haml-mode-hook yaml-mode-hook))
-
-;; Turn on projectile-rails-mode if we're in a rails project
-(dolist (hook miken-rails-file-types)
-  (add-hook hook
-            (lambda ()
-              (if (and
-                   (projectile-project-p)
-                   (file-exists-p (concat (projectile-project-root) "Gemfile")) )
-                  (projectile-rails-mode) ))))
+(use-package projectile-rails
+  :defer t
+  :config
+  (setq miken-rails-file-types
+        '(;; Ruby
+          ruby-mode-hook
+          enh-ruby-mode-hook
+          ;; JavaScript / CoffeeScript
+          javascript-mode-hook js2-mode-hook coffee-mode-hook
+          ;; Styles
+          css-mode-hook sass-mode-hook scss-mode-hook
+          ;; Markup
+          html-mode-hook html-erb-mode-hook slim-mode-hook haml-mode-hook yaml-mode-hook))
+  ;; Turn on projectile-rails-mode if we're in a rails project
+  (dolist (hook miken-rails-file-types)
+    (add-hook hook
+              (lambda ()
+                (if (and (projectile-project-p)
+                         (file-exists-p (concat (projectile-project-root) "Gemfile")) )
+                    (projectile-rails-mode) )))))
 
 ;; erb files
 (use-package mmm-mode
