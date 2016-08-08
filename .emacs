@@ -787,17 +787,6 @@
         (setq count (+ 1 count)) )
       (message "buffer contains %d words." count) )))
 
-(defun miken-goto-match-paren (arg)
-  "Go to the matching parenthesis if on parenthesis, otherwise insert
-the character typed."
-  (interactive "p")
-  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
-        ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
-        (t                    (self-insert-command (or arg 1))) ))
-;; TODO fix this to work if you're on either side of the paren
-(global-set-key (kbd "C-c 9") 'miken-goto-match-paren)
-(global-set-key (kbd "C-c C-9") 'miken-goto-match-paren)
-
 ;;------------------------------------------------------------------------------
 ;; Custom functions
 
