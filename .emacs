@@ -136,6 +136,7 @@
 (winner-mode)
 
 (use-package drag-stuff
+  :defer t
   :config
   (drag-stuff-global-mode))
 
@@ -163,6 +164,7 @@
 (setq rainbow-x-colors nil)
 
 (use-package rainbow-mode
+  :defer t
   :config
   (add-hook 'emacs-lisp-mode-hook
             (lambda () (if (string-match ".*theme.*" (buffer-name))
@@ -297,7 +299,7 @@
 ;;------------------------------------------------------------------------------
 ;; Projectile
 
-(use-package ag)
+(use-package ag :defer t)
 
 (use-package projectile
   :config
@@ -328,6 +330,7 @@
 ;; Magit/git
 
 (use-package magit
+  :defer t
   :config
   (setq magit-last-seen-setup-instructions "1.4.0")
   ;; Don't prompt when first line of commit is over 50 chars.
@@ -337,7 +340,7 @@
   (setq magit-commit-arguments '("--verbose")))
 
 ;;------------------------------------------------------------------------------
-;; Fuzzy file find
+;; ido and flx
 
 (ido-mode 1)
 (ido-ubiquitous-mode)
@@ -521,9 +524,9 @@
 (use-package rspec-mode
   :init
   (setq compilation-scroll-output nil)
-  (add-hook 'after-init-hook 'inf-ruby-switch-setup)
-  :config
   (setq rspec-use-rake-when-possible nil)
+  :config
+  (add-hook 'after-init-hook 'inf-ruby-switch-setup)
   (defun miken-rspec-toggle-flip ()
     (interactive)
     (split-window-below)
@@ -536,6 +539,7 @@
 ;; Alchemist / elixir
 
 (use-package alchemist
+  :defer t
   :init
   (setq alchemist-key-command-prefix (kbd "C-c ,"))
   :config
@@ -566,6 +570,7 @@
 
 ;; JavaScript etc.
 (use-package js2-mode
+  :defer t
   :config
   (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
   (customize-set-variable 'js2-basic-offset 2)
@@ -591,6 +596,7 @@
 
 ;; SASS
 (use-package sass-mode
+  :defer t
   :config
   (add-hook 'sass-mode-hook
             (lambda ()
@@ -599,6 +605,7 @@
 
 ;; SCSS
 (use-package scss-mode
+  :defer t
   :config
   (setq scss-compile-at-save nil)
   (add-hook 'scss-mode-hook
@@ -646,6 +653,7 @@
 
 ;; Markdown
 (use-package markdown-mode
+  :defer t
   :config
   (add-hook 'markdown-mode-hook
             (lambda () (miken-keys-minor-mode t)) ))
