@@ -121,6 +121,12 @@ alias sc="shellcheck"
 
 alias underscore2dash='rename "s/_/-/g" ./*'
 
+# nice path
+alias np="echo \"$PATH\" | tr : '\n'"
+
+# homebrew update all
+alias hbua="brew update && brew upgrade --all"
+
 # bundler
 alias b="bundle check || bundle install"
 alias bu="bundle update --source"
@@ -220,9 +226,6 @@ alias gx="gitx &"
 alias pwdp="pwd -P"
 
 alias killspring="ps aux | egrep 'spring (app|server)' | tr -s ' ' | cut -d' ' -f2 | xargs kill -9"
-
-# nice path
-alias np="echo \"$PATH\" | tr : '\n'"
 
 alias syncmusic="rsync -vr --size-only --delete /Volumes/yudkowsky/home/Music/iTunes/ ~/Music/iTunes"
 
