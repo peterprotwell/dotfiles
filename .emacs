@@ -26,19 +26,6 @@
   (package-install 'use-package))
 (setq use-package-always-ensure t)
 
-;; Load packages now, not after init
-(setq package-enable-at-startup nil) ;; To avoid initializing twice
-
-(defvar my-packages
-  ;; Must haves
-  '(flx-ido ido-ubiquitous))
-
-(dolist (p my-packages)
-  (unless (package-installed-p p)
-    (package-install p) ))
-
-;; TODO: Uninstall packages not defined or dependencies of existing packages
-
 ;; From package.el#package--get-deps:1703
 (defun miken-package-get-deps (pkg &optional only)
   "Get all packages on which PKG depends"
@@ -137,7 +124,6 @@
 (winner-mode)
 
 (use-package drag-stuff
-  :defer t
   :config
   (drag-stuff-global-mode))
 
@@ -199,8 +185,8 @@
 (use-package workgroups
   :config
   (workgroups-mode 1)
-  (if (file-exists-p "~/.emacs.d/workgroups")
-      (wg-load "~/.emacs.d/workgroups")))
+  (if (file-exists-p (concat user-emacs-directory "workgroups"))
+      (wg-load (concat user-emacs-directory "workgroups"))))
 
 (use-package zygospore
   :bind
@@ -322,7 +308,7 @@
    ("C-M-/" . ac-fuzzy-complete))
   :config
   (require 'auto-complete-config)
-  (add-to-list 'ac-dictionary-directories "~/.emacs.d/auto-complete/ac-dict")
+  (add-to-list 'ac-dictionary-directories (concat user-emacs-directory "auto-complete/ac-dict"))
   (ac-config-default)
   (setq-default completion-ignore-case 1)
   (add-to-list 'ac-modes 'elixir-mode))
@@ -344,16 +330,9 @@
 ;; ido and flx
 
 (ido-mode 1)
-(ido-ubiquitous-mode)
-(flx-ido-mode 1)
-;; disable ido faces to see flx highlights.
 (setq ido-enable-flex-matching t)
+;; disable ido faces to see flx highlights.
 (setq ido-use-faces nil)
-
-(add-hook 'minibuffer-inactive-mode-hook
-          (lambda ()
-            (global-set-key (kbd "C-.") 'ido-next-match)
-            (global-set-key (kbd "C-,") 'ido-prev-match) ))
 
 ;; From: http://endlessparentheses.com/Ido-Bury-Buffer.html
 (add-hook 'ido-setup-hook
@@ -379,6 +358,19 @@
             ido-text-init ido-text
             ido-exit 'refresh)
       (exit-minibuffer))))
+
+;; (add-hook 'minibuffer-inactive-mode-hook
+;;           (lambda ()
+;;             (global-set-key (kbd "C-.") 'ido-next-match)
+;;             (global-set-key (kbd "C-,") 'ido-prev-match) ))
+
+(use-package ido-ubiquitous
+  :config
+  (ido-ubiquitous-mode))
+
+(use-package flx-ido
+  :config
+  (flx-ido-mode 1))
 
 ;;------------------------------------------------------------------------------
 ;; Searching / Replacing
@@ -813,7 +805,7 @@ the character typed."
 (defun miken-reload ()
   "Reloads the .emacs file"
   (interactive)
-  (load-file "~/.emacs") )
+  (load-file user-init-file))
 
 (defun miken-copy-line-below (&optional n)
   "Duplicate current line, make more than 1 copy given a numeric argument"
