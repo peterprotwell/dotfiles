@@ -16,7 +16,7 @@ fi
 
 packages="bash cask cloc coreutils ctags docker docker-compose docker-machine elixir
  emacs ffmpeg gcc git htop-osx leiningen markdown p7zip postgresql rbenv rename
- ruby-build shellcheck the_silver_searcher thefuck tree youtube-dl zsh"
+ ruby-build sbt scala shellcheck the_silver_searcher thefuck tree youtube-dl zsh"
 
 for package in $packages; do
   brew install "$package"
