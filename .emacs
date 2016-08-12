@@ -12,11 +12,14 @@
   (setq mac-command-modifier 'meta
         mac-option-modifier 'super ))
 
+(add-to-list 'exec-path "/usr/local/bin")
+
 ;;------------------------------------------------------------------------------
 ;; Packages
 
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("melpa" . "http://melpa.milkbox.net/packages/") ))
+                         ("melpa" . "http://melpa.milkbox.net/packages/")
+                         ("melpa-stable" . "http://stable.melpa.org/packages/") ))
 
 (unless (file-directory-p (concat user-emacs-directory "elpa"))
   (package-refresh-contents))
@@ -484,9 +487,10 @@
 ;;------------------------------------------------------------------------------
 ;; Language modes config
 
-;; Always spaces, always 2
+;; Always spaces, always 2, always line numbers
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
+(add-hook 'prog-mode-hook (lambda () (linum-mode)))
 
 ;; shell
 (add-hook 'sh-mode-hook
@@ -505,14 +509,10 @@
   (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
   (customize-set-variable 'js2-basic-offset 2)
   (add-hook 'js2-mode-hook
-            (lambda ()
-              (linum-mode)
-              (define-key js2-mode-map (kbd "RET") 'newline-and-indent) )))
+            (lambda () (define-key js2-mode-map (kbd "RET") 'newline-and-indent) )))
 
 (add-hook 'js-mode-hook
-          (lambda ()
-            (linum-mode)
-            (define-key js-mode-map (kbd "RET") 'newline-and-indent) ))
+          (lambda () (define-key js-mode-map (kbd "RET") 'newline-and-indent) ))
 ;; JSX
 (use-package jsx-mode
   :config
@@ -566,18 +566,15 @@
   (add-hook 'enh-ruby-mode-hook
             (lambda ()
               (ruby-end-mode)
-              (linum-mode)
               (auto-complete-mode)
               (define-key enh-ruby-mode-map (kbd "RET") 'newline-and-indent)
               (define-key enh-ruby-mode-map (kbd "#") 'miken-ruby-interpolate) )))
 
 ;; C
-(add-hook 'c-mode-hook
-          (lambda () (setq tab-width 4)))
+(add-hook 'c-mode-hook (lambda () (setq tab-width 4)))
 
 ;; Java
-(add-hook 'java-mode-hook
-          (lambda () (setq tab-width 4)))
+(add-hook 'java-mode-hook (lambda () (setq tab-width 4)))
 
 ;; Markdown
 (use-package markdown-mode
@@ -586,9 +583,15 @@
   (add-hook 'markdown-mode-hook
             (lambda () (miken-keys-minor-mode t)) ))
 
+;; Scala
+(use-package ensime :defer t :pin melpa-stable)
+(use-package scala-mode
+  :defer t
+  :bind (("C-M-p" . miken-previous-line-five)
+         ("C-M-n" . miken-next-line-five)))
+
 (use-package clojure-mode :defer t)
 (use-package haml-mode :defer t)
-(use-package scala-mode :defer t)
 (use-package slim-mode :defer t)
 (use-package yaml-mode :defer t)
 
