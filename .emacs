@@ -482,72 +482,6 @@
   :config (setq ruby-refactor-add-parens t))
 
 ;;------------------------------------------------------------------------------
-;; Rails settings
-
-(use-package projectile-rails
-  :defer t
-  :config
-  (setq miken-rails-file-types
-        '(;; Ruby
-          ruby-mode-hook
-          enh-ruby-mode-hook
-          ;; JavaScript / CoffeeScript
-          javascript-mode-hook js2-mode-hook coffee-mode-hook
-          ;; Styles
-          css-mode-hook sass-mode-hook scss-mode-hook
-          ;; Markup
-          html-mode-hook html-erb-mode-hook slim-mode-hook haml-mode-hook yaml-mode-hook))
-  ;; Turn on projectile-rails-mode if we're in a rails project
-  (dolist (hook miken-rails-file-types)
-    (add-hook hook
-              (lambda ()
-                (if (and (projectile-project-p)
-                         (file-exists-p (concat (projectile-project-root) "Gemfile")) )
-                    (projectile-rails-mode) )))))
-
-;; erb files
-(use-package mmm-mode
-  :config
-  (setq mmm-global-mode 'maybe)
-  (mmm-add-mode-ext-class 'html-erb-mode "\\.erb\\'" 'erb)
-  (mmm-add-mode-ext-class 'html-erb-mode "\\.jst" 'ejs)
-  (add-to-list 'auto-mode-alist '("\\.erb\\'" . html-erb-mode))
-  (add-to-list 'auto-mode-alist '("\\.jst'"  . html-erb-mode)))
-
-;;------------------------------------------------------------------------------
-;; rspec
-
-(use-package rspec-mode
-  :init
-  (setq compilation-scroll-output nil)
-  (setq rspec-use-rake-when-possible nil)
-  :config
-  (add-hook 'after-init-hook 'inf-ruby-switch-setup)
-  (defun miken-rspec-toggle-flip ()
-    (interactive)
-    (split-window-below)
-    (windmove-down)
-    (rspec-toggle-spec-and-target))
-  :bind
-  ("M-s-t" . miken-rspec-toggle-flip))
-
-;;------------------------------------------------------------------------------
-;; Alchemist / elixir
-
-(use-package alchemist
-  :defer t
-  :init
-  (setq alchemist-key-command-prefix (kbd "C-c ,"))
-  :config
-  (setq alchemist-mix-test-task "espec")
-  (add-to-list 'elixir-mode-hook
-               (defun auto-activate-ruby-end-mode-for-elixir-mode ()
-                 (set (make-variable-buffer-local 'ruby-end-expand-keywords-before-re)
-                      "\\(?:^\\|\\s-+\\)\\(?:do\\)")
-                 (set (make-variable-buffer-local 'ruby-end-check-statement-modifiers) nil)
-                 (ruby-end-mode +1))))
-
-;;------------------------------------------------------------------------------
 ;; Language modes config
 
 ;; Always spaces, always 2
@@ -657,6 +591,72 @@
 (use-package scala-mode :defer t)
 (use-package slim-mode :defer t)
 (use-package yaml-mode :defer t)
+
+;;------------------------------------------------------------------------------
+;; Rails settings
+
+(use-package projectile-rails
+  :defer t
+  :config
+  (setq miken-rails-file-types
+        '(;; Ruby
+          ruby-mode-hook
+          enh-ruby-mode-hook
+          ;; JavaScript / CoffeeScript
+          javascript-mode-hook js2-mode-hook coffee-mode-hook
+          ;; Styles
+          css-mode-hook sass-mode-hook scss-mode-hook
+          ;; Markup
+          html-mode-hook html-erb-mode-hook slim-mode-hook haml-mode-hook yaml-mode-hook))
+  ;; Turn on projectile-rails-mode if we're in a rails project
+  (dolist (hook miken-rails-file-types)
+    (add-hook hook
+              (lambda ()
+                (if (and (projectile-project-p)
+                         (file-exists-p (concat (projectile-project-root) "Gemfile")) )
+                    (projectile-rails-mode) )))))
+
+;; erb files
+(use-package mmm-mode
+  :config
+  (setq mmm-global-mode 'maybe)
+  (mmm-add-mode-ext-class 'html-erb-mode "\\.erb\\'" 'erb)
+  (mmm-add-mode-ext-class 'html-erb-mode "\\.jst" 'ejs)
+  (add-to-list 'auto-mode-alist '("\\.erb\\'" . html-erb-mode))
+  (add-to-list 'auto-mode-alist '("\\.jst'"  . html-erb-mode)))
+
+;;------------------------------------------------------------------------------
+;; rspec
+
+(use-package rspec-mode
+  :init
+  (setq compilation-scroll-output nil)
+  (setq rspec-use-rake-when-possible nil)
+  :config
+  (add-hook 'after-init-hook 'inf-ruby-switch-setup)
+  (defun miken-rspec-toggle-flip ()
+    (interactive)
+    (split-window-below)
+    (windmove-down)
+    (rspec-toggle-spec-and-target))
+  :bind
+  ("M-s-t" . miken-rspec-toggle-flip))
+
+;;------------------------------------------------------------------------------
+;; Alchemist / elixir
+
+(use-package alchemist
+  :defer t
+  :init
+  (setq alchemist-key-command-prefix (kbd "C-c ,"))
+  :config
+  (setq alchemist-mix-test-task "espec")
+  (add-to-list 'elixir-mode-hook
+               (defun auto-activate-ruby-end-mode-for-elixir-mode ()
+                 (set (make-variable-buffer-local 'ruby-end-expand-keywords-before-re)
+                      "\\(?:^\\|\\s-+\\)\\(?:do\\)")
+                 (set (make-variable-buffer-local 'ruby-end-check-statement-modifiers) nil)
+                 (ruby-end-mode +1))))
 
 ;;------------------------------------------------------------------------------
 ;; ediff setup
