@@ -114,6 +114,8 @@ alias dogc="pygmentize -g "
 # zsh default aliases this to 'ls -l'
 alias ll="ls -hAl"
 
+alias o=open
+
 # Shows how much space each directory/file in the current directory is taking up
 alias dush="du -sh ./*"
 
@@ -129,8 +131,9 @@ alias hbua="brew update && brew upgrade --all"
 
 # bundler
 alias b="bundle check || bundle install"
-alias bu="bundle update --source"
-alias bua="bundle update"
+alias bi="bundle install"
+alias bus="bundle update --source"
+alias bu="bundle update"
 alias be="bundle exec"
 alias ber="bundle exec rake"
 alias bers="bundle exec rspec"

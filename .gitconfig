@@ -3,6 +3,7 @@
   name = Mike Nichols
 
 [alias]
+  ap = add -p
   b = branch
   bb = bisect bad
   bg = bisect good
@@ -24,14 +25,15 @@
   ds = diff --cached
   f = fetch
   fp = fetch --prune
+  it = !git init && git commit -m "root" --allow-empty
   kb = reset --hard HEAD~1
   l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
   mm = merge master
   mmours = merge -s recursive -X ours master
   oops = commit --amend -C HEAD
-  pirg = push -u origin HEAD
+  pirg = push --set-upstream origin HEAD
   phm = push heroku master
-  poh = push -u origin HEAD
+  poh = push --set-upstream origin HEAD
   pr = pull --rebase
   rb = reset --mixed HEAD~1
   r = rebase
@@ -44,7 +46,10 @@
   sa = stash apply
   sd = stash drop
   sp = stash pop
-  st = stash
+  st0 = stash --keep-index
+  st1 = stash
+  st2 = stash --include-untracked
+  st3 = stash --all
   tc = commit -am temp_commit
   up = rev-parse --abbrev-ref --symbolic-full-name @{u}
 

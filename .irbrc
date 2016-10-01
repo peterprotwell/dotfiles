@@ -13,6 +13,7 @@ rescue LoadError
 end
 
 IRB.conf[:AUTO_INDENT] = true
+IRB.conf[:SAVE_HISTORY] = 9999
 
 # from http://themomorohoax.com/2009/03/27/irb-tip-load-files-faster
 def ls
