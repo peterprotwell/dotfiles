@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 def find_backup_drive
-  %w(yudkowsky feynman Tyson).each do |disk|
+  %w(yudkowsky feynman Tyson SAGAN).each do |disk|
     return disk if File.exists? "/Volumes/#{disk}"
   end
 
@@ -12,8 +12,12 @@ drive = find_backup_drive
 backup_dir = "/Volumes/#{drive}/home"
 puts "Backing up to #{backup_dir}..."
 
-dirs = %w(books code Compositions Documents dotfiles emacs-book
+dirs = if 'SAGAN' == drive
+         %w(Music)
+       else
+         %w(books code Compositions Documents dotfiles emacs-book
 Movies Music Pictures thoughts)
+       end
 
 system("mkdir -p #{backup_dir}")
 Dir.chdir(Dir.home) do

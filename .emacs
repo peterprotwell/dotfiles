@@ -116,7 +116,10 @@
 (winner-mode)
 
 (use-package discover :config (global-discover-mode 1))
-(use-package drag-stuff :config (drag-stuff-global-mode))
+(use-package drag-stuff
+  :config (drag-stuff-global-mode)
+  :bind (("M-<up>" . drag-stuff-up)
+         ("M-<down>" . drag-stuff-down)))
 (use-package rbenv :config (global-rbenv-mode))
 
 ;;------------------------------------------------------------------------------
