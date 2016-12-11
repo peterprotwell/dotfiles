@@ -19,3 +19,4 @@ function ytdv {
 
 alias cdJ="cd ~/Documents/job"
 alias cdmtb="cd ~/code/rails/movie-trailer-bingo"
+alias cda="cd ~/code/actionizer"

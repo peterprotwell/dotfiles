@@ -153,6 +153,8 @@ alias rep="RAILS_ENV=production"
 alias taildev="tail -f log/development*"
 alias tailprod="tail -f log/production*"
 
+alias bs="bin/start"
+
 # rake aliases
 alias mst="bundle exec rake db:migrate:status"
 
