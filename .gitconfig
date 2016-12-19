@@ -22,7 +22,6 @@
   cpx = cherry-pick -x
   d = diff
   dc = diff --cached
-  ds = diff --cached
   f = fetch
   fp = fetch --prune
   it = !git init && git commit -m "root" --allow-empty
@@ -45,6 +44,7 @@
   s = status
   sa = stash apply
   sd = stash drop
+  sl = stash list
   sp = stash pop
   st0 = stash --keep-index
   st1 = stash

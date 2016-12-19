@@ -5,7 +5,8 @@ def find_backup_drive
     return disk if File.exists? "/Volumes/#{disk}"
   end
 
-  puts 'Please insert your backup drive' and exit 1
+  puts 'Please insert your backup drive'
+  exit 1
 end
 
 drive = find_backup_drive
