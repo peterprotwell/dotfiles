@@ -104,6 +104,16 @@ function change_shell {
   chsh -s "$new_shell" "$(whoami)"
 }
 
+function oci {
+  if [ -e "coverage/index.html" ]; then
+    open coverage/index.html
+  elif [ -e "cover/excoveralls.html" ]; then
+    open cover/excoveralls.html
+  else
+    echo "Nope."
+  fi
+}
+
 #-------------------------------------------------------------------------------
 # aliases
 
@@ -143,8 +153,6 @@ alias beru="bundle exec ruby"
 alias ru="bundle exec rspec && unicornleap -s 1.5"
 alias rr="bundle exec rubocop -D && bundle exec rspec && unicornleap -s 1.5"
 
-alias oci="open coverage/index.html"
-
 # rails stuff
 alias ret="RAILS_ENV=test"
 alias red="RAILS_ENV=development"
@@ -175,6 +183,9 @@ alias mps="mix phoenix.server"
 alias mpr="mix phoenix.routes"
 
 alias imps="iex -S mix phoenix.server"
+alias ie="iex -S mix espec"
+
+alias ee="mix espec --cover && unicornleap -s 1.2 --unicorn phoenix.png --sparkle flame.png"
 
 # emacs
 alias ce="cask exec"

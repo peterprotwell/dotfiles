@@ -17,3 +17,11 @@ links=".emacs .emacs.d .zprofile .zshrc .bash_profile .bashrc .gitconfig .irbrc 
 for link in $links; do
   make_symlink "$link"
 done
+
+if [ -L ~/.unicornleap/phoenix.png ]; then
+  echo "Unicorn leap images already linked"
+else
+  echo "Linking unicorn leap images"
+  ln -s ~/dotfiles/images/phoenix.png ~/.unicornleap
+  ln -s ~/dotfiles/images/flame.png ~/.unicornleap
+fi

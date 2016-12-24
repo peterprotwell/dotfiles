@@ -515,7 +515,8 @@
             (lambda () (define-key js2-mode-map (kbd "RET") 'newline-and-indent) )))
 
 (add-hook 'js-mode-hook
-          (lambda () (define-key js-mode-map (kbd "RET") 'newline-and-indent) ))
+          (lambda () (define-key js-mode-map (kbd "RET") 'newline-and-indent))
+          (customize-set-variable 'js-indent-level 2))
 ;; JSX
 (use-package jsx-mode
   :config
