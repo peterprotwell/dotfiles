@@ -84,7 +84,7 @@ function agi {
 # requires node and http-server:
 #   npm install http-server -g
 function serve {
-  local port=8080
+  local port=1234
 
   if [ "$1" ]; then
     port="$1"
@@ -174,6 +174,7 @@ alias dcms="bundle exec rake db:drop db:create db:migrate db:seed"
 
 # mix / elixir
 alias mc="mix compile"
+alias mch="mix coveralls.html"
 alias met="MIX_ENV=test"
 alias med="MIX_ENV=dev"
 alias me="mix espec --cover"
@@ -185,7 +186,8 @@ alias mpr="mix phoenix.routes"
 alias imps="iex -S mix phoenix.server"
 alias ie="iex -S mix espec"
 
-alias ee="mix espec --cover && unicornleap -s 1.2 --unicorn phoenix.png --sparkle flame.png"
+alias ee="mix credo --strict && mix espec --cover && unicornleap -s 1.2 --unicorn phoenix.png --sparkle flame.png"
+alias eov="mix coveralls.html && open cover/excoveralls.html"
 
 # emacs
 alias ce="cask exec"
