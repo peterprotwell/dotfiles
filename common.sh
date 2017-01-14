@@ -114,6 +114,15 @@ function oci {
   fi
 }
 
+function workfromhome {
+  if grep "\[user\]" .git/config > /dev/null; then
+    echo "Already set up"
+  else
+    echo "Setting work email for this repo..."
+    echo "[user]\n  email = mnichols@thecitybase.com\n  name = Mike Nichols" >> .git/config
+  fi
+}
+
 #-------------------------------------------------------------------------------
 # aliases
 
@@ -137,7 +146,7 @@ alias underscore2dash='rename "s/_/-/g" ./*'
 alias np="echo \"$PATH\" | tr : '\n'"
 
 # homebrew update all
-alias hbua="brew update && brew upgrade --all"
+alias hbua="brew update && brew upgrade"
 
 # bundler
 alias b="bundle check || bundle install"
