@@ -137,7 +137,8 @@
 (let ((font-size (cond
                   ((<= (display-pixel-height) 800) "14")
                   ((<= (display-pixel-height) 1200) "16")
-                  (t "18") )))
+                  ((<= (display-pixel-height) 1440) "18")
+                  (t "20") )))
   (set-face-attribute 'default nil :font (concat "Inconsolata-" font-size)) )
 
 ;;------------------------------------------------------------------------------
@@ -594,6 +595,7 @@
   :bind (("C-M-p" . miken-previous-line-five)
          ("C-M-n" . miken-next-line-five)))
 
+(use-package coffee-mode :defer t)
 (use-package clojure-mode :defer t)
 (use-package haml-mode :defer t)
 (use-package slim-mode :defer t)
