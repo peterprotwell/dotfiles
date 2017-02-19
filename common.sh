@@ -196,6 +196,7 @@ alias imps="iex -S mix phoenix.server"
 alias ie="iex -S mix espec"
 
 alias ee="mix credo --strict && mix espec --cover && unicornleap -s 1.2 --unicorn phoenix.png --sparkle flame.png"
+alias eee="mix credo --strict && mix espec --cover && npm test && unicornleap -s 1.2 --unicorn phoenix.png --sparkle flame.png"
 alias eov="mix coveralls.html; open cover/excoveralls.html"
 
 # emacs

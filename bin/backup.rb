@@ -16,8 +16,7 @@ puts "Backing up to #{backup_dir}..."
 dirs = if 'SAGAN' == drive
          %w(Music)
        else
-         %w(books code Compositions Documents dotfiles emacs-book
-Movies Music Pictures thoughts)
+         %w(books code Compositions Documents dotfiles Movies Music Pictures thoughts)
        end
 
 system("mkdir -p #{backup_dir}")
