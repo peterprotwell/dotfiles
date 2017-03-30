@@ -14,7 +14,7 @@ backup_dir = "/Volumes/#{drive}/home"
 puts "Backing up to #{backup_dir}..."
 
 dirs = if 'SAGAN' == drive
-         %w(Music)
+         %w(dotfiles Music)
        else
          %w(books code Compositions Documents dotfiles Movies Music Pictures thoughts)
        end

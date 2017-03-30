@@ -341,17 +341,17 @@
 ;;------------------------------------------------------------------------------
 ;; Magit/git
 
-(setq vc-follow-symlinks t)
+;; (setq vc-follow-symlinks t)
 
-(use-package magit
-  :defer t
-  :config
-  (setq magit-last-seen-setup-instructions "1.4.0")
-  ;; Don't prompt when first line of commit is over 50 chars.
-  (setq git-commit-finish-query-functions '())
-  ;; Don't set new branch to track parent branch's remote
-  (setq magit-branch-arguments (remove "--track" magit-branch-arguments))
-  (setq magit-commit-arguments '("--verbose")))
+;; (use-package magit
+;;   :defer t
+;;   :config
+;;   (setq magit-last-seen-setup-instructions "1.4.0")
+;;   ;; Don't prompt when first line of commit is over 50 chars.
+;;   (setq git-commit-finish-query-functions '())
+;;   ;; Don't set new branch to track parent branch's remote
+;;   (setq magit-branch-arguments (remove "--track" magit-branch-arguments))
+;;   (setq magit-commit-arguments '("--verbose")))
 
 ;;------------------------------------------------------------------------------
 ;; ido and flx
@@ -522,11 +522,13 @@
 (use-package jsx-mode
   :config
   (customize-set-variable 'jsx-indent-level 2)
-  (add-to-list 'auto-mode-alist '("\\.jsx$" . jsx-mode)))
+  (add-to-list 'auto-mode-alist '("\\.jsx$" . jsx-mode))
+  (add-hook 'jsx-mode-hook (lambda () (linum-mode))) )
 
 ;; CSS
 (add-hook 'css-mode-hook
           (lambda ()
+            (rainbow-mode)
             (setq css-indent-offset 2)))
 
 ;; SASS

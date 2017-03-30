@@ -3,8 +3,10 @@
 
 \*ielm\*
 
+.emacs.d/.cask
 .emacs.d/.emacs.desktop*
 .emacs.d/.mc-lists.el
+.emacs.d/abbrev_defs
 .emacs.d/ac-comphist.dat
 .emacs.d/bookmarks
 .emacs.d/elpa

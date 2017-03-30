@@ -30,8 +30,8 @@ brew services start postgresql
 #-------------------------------------------------------------------------------
 # Apps
 
-apps="alfred emacs firefox flux gitx google-chrome iterm2 macdown menumeters
- openoffice paintbrush scroll-reverser sizeup slack steam sublime-text utorrent vlc"
+apps="alfred emacs firefox flux rowanj-gitx google-chrome iterm2 macdown
+ yujitach-menumeters paintbrush scroll-reverser sizeup slack steam sublime-text vlc"
 
 for app in $apps; do
   brew cask install "$app"
