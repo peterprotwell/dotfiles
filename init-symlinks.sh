@@ -12,7 +12,7 @@ function make_symlink {
   ln -s ~/dotfiles/"$1" ~
 }
 
-links=".emacs .emacs.d .zprofile .zshrc .bash_profile .bashrc .gitconfig .irbrc .gemrc"
+links=".emacs .emacs.d .zprofile .zshrc .bash_profile .bashrc .gitconfig .irbrc .gemrc .tool-versions"
 
 for link in $links; do
   make_symlink "$link"
