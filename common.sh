@@ -109,6 +109,8 @@ function oci {
     open coverage/index.html
   elif [ -e "cover/excoveralls.html" ]; then
     open cover/excoveralls.html
+  elif [ -e "coverage/lcov-report/index.html" ]; then
+    open coverage/lcov-report/index.html
   else
     echo "Nope."
   fi
@@ -119,7 +121,7 @@ function workfromhome {
     echo "Already set up"
   else
     echo "Setting work email for this repo..."
-    echo "[user]\n  email = mnichols@thecitybase.com\n  name = Mike Nichols" >> .git/config
+    echo "[user]\n  email = me@miken.io\n  name = Mike Nichols" >> .git/config
   fi
 }
 
@@ -186,9 +188,8 @@ alias mc="mix compile"
 alias mch="mix coveralls.html"
 alias met="MIX_ENV=test"
 alias med="MIX_ENV=dev"
-alias me="mix espec --cover"
+alias me="mix espec"
 alias mdg="mix deps.get"
-alias mlh="mix local.hex"
 alias mps="mix phoenix.server"
 alias mpr="mix phoenix.routes"
 
