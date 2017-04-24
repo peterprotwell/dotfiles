@@ -336,7 +336,7 @@
   (add-to-list 'ac-dictionary-directories (concat user-emacs-directory "auto-complete/ac-dict"))
   (ac-config-default)
   (setq-default completion-ignore-case 1)
-  (add-to-list 'ac-modes 'elixir-mode))
+  (add-to-list 'ac-modes 'elixir-mode 'rjsx-mode))
 
 ;;------------------------------------------------------------------------------
 ;; Magit/git
@@ -519,11 +519,9 @@
           (lambda () (define-key js-mode-map (kbd "RET") 'newline-and-indent))
           (customize-set-variable 'js-indent-level 2))
 ;; JSX
-(use-package jsx-mode
+(use-package rjsx-mode
   :config
-  (customize-set-variable 'jsx-indent-level 2)
-  (add-to-list 'auto-mode-alist '("\\.jsx$" . jsx-mode))
-  (add-hook 'jsx-mode-hook (lambda () (linum-mode))) )
+  (customize-set-variable 'jsx-indent-level 2))
 
 ;; CSS
 (add-hook 'css-mode-hook
