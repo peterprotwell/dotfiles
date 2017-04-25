@@ -17,9 +17,13 @@
 ;;------------------------------------------------------------------------------
 ;; Packages
 
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("melpa" . "http://melpa.milkbox.net/packages/")
-                         ("melpa-stable" . "http://stable.melpa.org/packages/") ))
+(setq package-archives '(("melpa-stable" . "http://stable.melpa.org/packages/")
+                         ("melpa" . "http://melpa.org/packages/")
+                         ("gnu" . "http://elpa.gnu.org/packages/")))
+(setq package-archive-priorities '(("melpa-stable" . 3)
+                                   ("melpa" . 2)
+                                   ("gnu" . 1)))
+(setq package-menu-hide-low-priority t)
 
 (unless (file-directory-p (concat user-emacs-directory "elpa"))
   (package-refresh-contents))
@@ -161,10 +165,9 @@
   (load-theme (intern theme) t nil))
 
 (use-package railscasts-theme)
-(use-package molokai-theme :defer t)
-(use-package monokai-theme :defer t)
+(use-package sublime-themes :defer t)
+(use-package phoenix-dark-mono-theme :defer t)
 (use-package solarized-theme :defer t)
-(use-package zenburn-theme :defer t)
 
 ;;------------------------------------------------------------------------------
 ;; Sound
@@ -973,7 +976,7 @@
 
 (defadvice save-buffers-kill-emacs (around no-query-kill-emacs activate)
   "Prevent annoying \"Active processes exist\" query when you quit Emacs."
-  (flet ((process-list ())) ad-do-it))
+  (cl-flet ((process-list ())) ad-do-it))
 
 ;;------------------------------------------------------------------------------
 

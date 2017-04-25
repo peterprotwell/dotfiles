@@ -298,6 +298,9 @@ if type rbenv &> /dev/null; then
   eval "$(rbenv init -)"
 fi
 
+# For nokogiri to not shit the bed
+export PKG_CONFIG_PATH=/usr/local/opt/libxml2/lib/pkgconfig
+
 #-------------------------------------------------------------------------------
 
 # Seriously?
