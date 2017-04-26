@@ -138,12 +138,16 @@
 ;;------------------------------------------------------------------------------
 ;; Font size / text size
 
-(let ((font-size (cond
-                  ((<= (display-pixel-height) 800) "14")
-                  ((<= (display-pixel-height) 1200) "16")
-                  ((<= (display-pixel-height) 1440) "18")
-                  (t "20") )))
-  (set-face-attribute 'default nil :font (concat "Inconsolata-" font-size)) )
+(defun miken-font-size ()
+  (interactive)
+  (let ((font-size (cond
+                    ((<= (display-pixel-height) 800) "14")
+                    ((<= (display-pixel-height) 1200) "16")
+                    ((<= (display-pixel-height) 1440) "18")
+                    (t "20") )))
+    (set-face-attribute 'default nil :font (concat "Inconsolata-" font-size)) ))
+(miken-font-size)
+(global-set-key (kbd "C-M-s-f") 'miken-font-size)
 
 ;;------------------------------------------------------------------------------
 ;; Color themes
