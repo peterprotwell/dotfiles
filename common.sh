@@ -263,7 +263,7 @@ alias syncmusic="rsync -vr --size-only --delete /Volumes/yudkowsky/home/Music/iT
 
 if [ "$(whoami)" = "mike" ]; then
   source ~/dotfiles/home.sh
-elif [ "$(whoami)" = "mikenichols" ]; then
+elif [ "$(whoami)" = "mnicho29" ]; then
   source ~/dotfiles/work.sh
 fi
 
