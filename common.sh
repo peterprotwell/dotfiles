@@ -145,7 +145,7 @@ alias sc="shellcheck"
 alias underscore2dash='rename "s/_/-/g" ./*'
 
 # nice path
-alias np="echo \"$PATH\" | tr : '\n'"
+alias np="echo \"\$PATH\" | tr : '\n'"
 
 # homebrew update all
 alias hbua="brew update && brew upgrade"

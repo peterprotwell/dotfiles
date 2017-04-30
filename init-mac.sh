@@ -12,7 +12,16 @@ else
 fi
 
 #-------------------------------------------------------------------------------
-# Packages
+# xcode command line tools
+
+if [ "$(xcode-select -p)" = '/Applications/Xcode.app/Contents/Developer' ]; then
+  echo 'xcode command line tools already installed.'
+else
+  xcode-select --install
+fi
+
+#-------------------------------------------------------------------------------
+# homebrew packages
 
 packages="bash cask cdiff cloc coreutils ctags docker docker-compose docker-machine
  elixir emacs ffmpeg gcc git htop-osx libxml2 markdown p7zip postgresql rbenv rename
@@ -27,7 +36,7 @@ brew services start docker-machine
 brew services start postgresql
 
 #-------------------------------------------------------------------------------
-# Apps
+# homebrew cask apps
 
 apps="alfred emacs firefox flux rowanj-gitx google-chrome iterm2 macdown
  yujitach-menumeters paintbrush scroll-reverser sizeup slack steam sublime-text vlc"
