@@ -70,7 +70,7 @@ fi
 if [ "$SHELL" = "/usr/local/bin/zsh" ]; then
   echo "zsh already set as login shell"
 else
-  chsh -s "/usr/local/bin/zsh" "$(whoami)"
+  sudo chsh -s "/usr/local/bin/zsh" "$(whoami)"
 fi
 
 #-------------------------------------------------------------------------------
