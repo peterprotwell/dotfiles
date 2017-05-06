@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# 1. Install xcode
+# 2. Add ssh key to github
+# 3. Clone dotfiles
+# 4. Run this script
+
 #-------------------------------------------------------------------------------
 # Homebrew
 
@@ -25,7 +30,7 @@ fi
 
 packages="bash cask cdiff cloc coreutils ctags docker docker-compose docker-machine
  elixir emacs ffmpeg gcc git htop-osx libxml2 markdown p7zip postgresql rbenv rename
- ruby-build sbt scala shellcheck the_silver_searcher thefuck tree youtube-dl zsh"
+ ruby-build shellcheck the_silver_searcher thefuck tree youtube-dl zsh"
 
 for package in $packages; do
   brew install "$package"
@@ -38,7 +43,7 @@ brew services start postgresql
 #-------------------------------------------------------------------------------
 # homebrew cask apps
 
-apps="alfred emacs firefox flux rowanj-gitx google-chrome iterm2 macdown
+apps="alfred emacs firefox flux rowanj-gitx google-chrome hipchat iterm2 macdown
  yujitach-menumeters paintbrush scroll-reverser sizeup slack steam sublime-text vlc"
 
 for app in $apps; do
@@ -62,6 +67,12 @@ else
   echo "zsh theme already linked"
 fi
 
+if [ "$SHELL" = "/usr/local/bin/zsh" ]; then
+  echo "zsh already set as login shell"
+else
+  chsh -s "/usr/local/bin/zsh" "$(whoami)"
+fi
+
 #-------------------------------------------------------------------------------
 # Unicorn leap
 
@@ -75,3 +86,8 @@ if ! [ -e  ~/code/unicornleap ]; then
 else
   echo "unicornleap already installed"
 fi
+
+#-------------------------------------------------------------------------------
+# Symlinks
+
+./init-symlinks.sh

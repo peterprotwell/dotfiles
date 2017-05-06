@@ -18,10 +18,11 @@ for link in $links; do
   make_symlink "$link"
 done
 
-if [ -L ~/.unicornleap/phoenix.png ]; then
+if [ -L ~/.unicornleap/sweetjesus.png ]; then
   echo "Unicorn leap images already linked"
 else
   echo "Linking unicorn leap images"
   ln -s ~/dotfiles/images/phoenix.png ~/.unicornleap
   ln -s ~/dotfiles/images/flame.png ~/.unicornleap
+  ln -s ~/dotfiles/images/sweetjesus.png ~/.unicornleap
 fi
