@@ -121,7 +121,7 @@ function workfromhome {
     echo "Already set up"
   else
     echo "Setting work email for this repo..."
-    echo "[user]\n  email = me@miken.io\n  name = Mike Nichols" >> .git/config
+    echo "[user]\n  email = mike.nichols@avant.com\n  name = Mike Nichols" >> .git/config
   fi
 }
 
