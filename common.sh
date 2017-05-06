@@ -132,7 +132,7 @@ function workfromhome {
 alias dog="cat"
 alias dogc="pygmentize -g "
 
-# zsh default aliases this to 'ls -l'
+# oh-my-zsh default aliases this to 'ls -l'
 alias ll="ls -hAl"
 
 alias o=open

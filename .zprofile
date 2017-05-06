@@ -34,8 +34,10 @@ unsetopt correct
 unsetopt correct_all
 DISABLE_CORRECTION="true"
 
-# zsh default aliases this to 'ls -l'
+# oh-my-zsh default aliases this to 'ls -l'
 alias ll="ls -hAl"
+# and this to ls -G
+alias ls="ls --color=auto"
 
 #-------------------------------------------------------------------------------
 # zsh functions
