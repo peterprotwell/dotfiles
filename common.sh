@@ -15,7 +15,13 @@ function cu {
 }
 
 function fn {
-  find . -name "*$1*"
+  local dir="$2"
+
+  if [ -z "$dir" ]; then
+    dir='.'
+  fi
+
+  find "$dir" -name "*$1*"
 }
 
 function mkcd {
@@ -122,6 +128,22 @@ function workfromhome {
   else
     echo "Setting work email for this repo..."
     echo "[user]\n  email = mike.nichols@avant.com\n  name = Mike Nichols" >> .git/config
+  fi
+}
+
+function s {
+  local file="$1"
+
+  if [ -z "$file" ]; then
+    file='.'
+  fi
+
+  bundle exec rspec "$file"
+
+  if [ "$?" -eq '0' ]; then
+    unicornleap -s 1.5
+  else
+    unicornleap -s 1.5 --unicorn sweetjesus.png
   fi
 }
 

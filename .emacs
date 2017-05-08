@@ -505,8 +505,8 @@
 
 ;; shell
 (add-hook 'sh-mode-hook
-          (lambda () (setq sh-basic-offset 2
-                           sh-indentation 2) ))
+          (lambda () (setq-default sh-basic-offset 2
+                                   sh-indentation 2) ))
 
 ;; elisp
 (add-hook 'emacs-lisp-mode-hook
