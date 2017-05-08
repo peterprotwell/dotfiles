@@ -413,80 +413,22 @@
 (global-set-key (kbd "M-,") 'pop-tag-mark)
 
 ;;------------------------------------------------------------------------------
-;; Speedbar
+;; Neotree
 
-(use-package sr-speedbar
+(use-package neotree
+  :bind ([f8] . miken-neotree)
   :config
-  (setq sr-speedbar-right-side nil)
-  (setq sr-speedbar-skip-other-window-p t)
-  (setq sr-speedbar-width 40)
-  (speedbar-disable-update)
-  (sr-speedbar-refresh-turn-off)
-  (setq speedbar-show-unknown-files t)
-  (setq speedbar-indentation-width 3)
-  ;; I want stuff ignored a la carte
-  (setq speedbar-directory-unshown-regexp "^\\(\\.\\.?\\|.idea\\)$")
-
-  (defun miken-buffer-directory ()
-    (if (buffer-file-name) (file-name-directory (buffer-file-name))
-      (getenv "HOME") ))
-
-  ;; Pulled these functions from projectile-speedbar.el
-  (defun miken-find-project-root ()
-    (if (projectile-project-p) (projectile-project-root)
-      (miken-buffer-directory) ))
-
-  (defun miken-speedbar-project-refresh (root-dir)
-    "Refresh the context of speedbar based on project root"
-    (if (and (not (equal root-dir sr-speedbar-last-refresh-dictionary))
-             (not (sr-speedbar-window-p)))
-        (setq sr-speedbar-last-refresh-dictionary root-dir) )
-    (setq default-directory root-dir)
-    (speedbar-refresh) )
-
-  (defun miken-open-current-project-in-speedbar (root-dir)
-    "Refresh speedbar to show current project in tree"
-    (when (not (sr-speedbar-exist-p))
-      (while (windmove-find-other-window 'left)
-        (windmove-left) )
-      (while (windmove-find-other-window 'up)
-        (windmove-up) ))
-    (sr-speedbar-toggle)
-    (miken-speedbar-project-refresh root-dir) )
-
-  ;; This opens the directory where the calling buffer lives
-  (defun miken-speedbar-expand-line-list (&optional arg)
-    (when arg
-      (re-search-forward (concat " " (car arg) "$"))
-      (speedbar-expand-line (car arg))
-      (speedbar-next 1)
-      (miken-speedbar-expand-line-list (cdr arg)) ))
-
-  (defun miken-speedbar-open-current-buffer-in-tree ()
+  (setq neo-smart-open t
+        neo-autorefresh nil)
+  (defun miken-neotree ()
+    "Open neotree using the projectile-project-root."
     (interactive)
-    (let* ((root-dir (miken-find-project-root))
-           (prev-buffer-directory (miken-buffer-directory))
-           (relative-buffer-path (car (cdr (split-string prev-buffer-directory root-dir))))
-           (parents (butlast (split-string relative-buffer-path "/")))
-           (prev-buffer (buffer-name)) )
-      (save-excursion
-        (miken-open-current-project-in-speedbar root-dir)
-        (select-window (get-buffer-window speedbar-buffer))
-        (goto-char (point-min))
-        (miken-speedbar-expand-line-list parents)
-        (unless (string= prev-buffer "*SPEEDBAR*")
-          (switch-to-buffer  prev-buffer) ))))
-
-  (defun miken-speedbar ()
-    (interactive)
-    (if (sr-speedbar-exist-p)
-        (sr-speedbar-toggle)
-      (miken-speedbar-open-current-buffer-in-tree) ))
-
-  (global-set-key [f8] 'miken-speedbar)
-  )
-
-(use-package neotree :bind ([f7] . neotree-toggle))
+    (let ((project-dir (projectile-project-root))
+          (file-name (buffer-file-name)))
+      (neotree-toggle)
+      (when (and project-dir (neo-global--window-exists-p))
+        (neotree-dir project-dir)
+        (neotree-find file-name)))) )
 
 ;;------------------------------------------------------------------------------
 ;; Refactoring
