@@ -139,6 +139,7 @@
 (electric-pair-mode)
 
 (global-set-key (kbd "C-<f5>") 'linum-mode)
+(setq linum-format " %d")
 
 ;; DA-DA-DA DAAA, daa daa DAAT duh-DAAAAAA!
 (winner-mode)
