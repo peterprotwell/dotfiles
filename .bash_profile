@@ -16,7 +16,7 @@ bind 'set show-all-if-ambiguous on'
 bind 'TAB:menu-complete'
 
 #-------------------------------------------------------------------------------
-# Prompt
+# OSX settings
 
 if [[ $(uname) = "Darwin" ]]; then
   # Enables colors in Mac OS X iTerm2
@@ -31,6 +31,7 @@ else
 fi
 
 #-------------------------------------------------------------------------------
+# Prompt
 
 # Enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then

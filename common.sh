@@ -174,6 +174,7 @@ alias hbua="brew update && brew upgrade"
 
 # bundler
 alias b="bundle check || bundle install"
+alias bb="bundle check || bundle config --local frozen false  && bundle install && bundle config --local frozen true"
 alias bi="bundle install"
 alias bus="bundle update --source"
 alias bu="bundle update"
