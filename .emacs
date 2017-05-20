@@ -12,6 +12,9 @@
   (setq mac-command-modifier 'meta
         mac-option-modifier 'super ))
 
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+
 (add-to-list 'exec-path "/usr/local/bin")
 
 ;;------------------------------------------------------------------------------
