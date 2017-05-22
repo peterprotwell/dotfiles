@@ -6,18 +6,6 @@
 (eval-when-compile (require 'cl-lib))
 
 ;;------------------------------------------------------------------------------
-;; OS settings
-
-(when (eq system-type 'darwin)
-  (setq mac-command-modifier 'meta
-        mac-option-modifier 'super ))
-
-(when (memq window-system '(mac ns x))
-  (exec-path-from-shell-initialize))
-
-(add-to-list 'exec-path "/usr/local/bin")
-
-;;------------------------------------------------------------------------------
 ;; Packages
 
 (setq package-archives '(("melpa-stable" . "http://stable.melpa.org/packages/")
@@ -87,6 +75,18 @@
 ;;   call-interactively(eval-defun nil nil)
 ;;   command-execute(eval-defun)
 
+;;------------------------------------------------------------------------------
+;; OS settings
+
+(when (eq system-type 'darwin)
+  (setq mac-command-modifier 'meta
+        mac-option-modifier 'super ))
+
+(when (memq window-system '(mac ns x))
+  (use-package exec-path-from-shell
+    :init (exec-path-from-shell-initialize)))
+
+(add-to-list 'exec-path "/usr/local/bin")
 
 ;;------------------------------------------------------------------------------
 ;; Included lisp and required libraries
@@ -142,7 +142,6 @@
 (electric-pair-mode)
 
 (global-set-key (kbd "C-<f5>") 'linum-mode)
-(setq linum-format " %d")
 
 ;; DA-DA-DA DAAA, daa daa DAAT duh-DAAAAAA!
 (winner-mode)
