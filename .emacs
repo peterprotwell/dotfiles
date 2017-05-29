@@ -242,8 +242,9 @@
 (use-package workgroups
   :config
   (workgroups-mode 1)
-  (if (file-exists-p (concat user-emacs-directory "workgroups"))
-      (wg-load (concat user-emacs-directory "workgroups"))))
+  (setq wg-morph-on nil)
+  (let ((workgroups-file (concat user-emacs-directory "workgroups")))
+    (if (file-exists-p workgroups-file) (wg-load workgroups-file))))
 
 (use-package zygospore
   :bind ("C-x 1" . zygospore-toggle-delete-other-windows))
@@ -351,6 +352,7 @@
   :bind
   (("M-s-f" . projectile-find-file)
    ("M-s-v" . projectile-vc)
+   ("M-s-b" . projectile-ibuffer)
    ("M-s-s" . projectile-ag)))
 
 (recentf-mode)
@@ -915,6 +917,7 @@
 (global-set-key (kbd "C-c C-a") 'calendar)
 
 (use-package xkcd :defer true)
+(wg-revert-workgroup (wg-current-workgroup))
 
 ;;------------------------------------------------------------------------------
 ;; Exit
