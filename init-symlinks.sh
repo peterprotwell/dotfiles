@@ -18,6 +18,14 @@ for link in $links; do
   make_symlink "$link"
 done
 
+if [ -L ~.ssh/config ]; then
+  rm ~/.ssh/config
+fi
+
+echo "Linking ~/dotfiles/ssh_config as ~/.ssh/config"
+mkdir -p ~/.ssh
+ln -s ~/dotfiles/ssh_config ~/.ssh/config
+
 if [ -L ~/.unicornleap/sweetjesus.png ]; then
   echo "Unicorn leap images already linked"
 else

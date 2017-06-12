@@ -278,8 +278,11 @@ alias gx="gitx &"
 alias pwdp="pwd -P"
 
 alias killspring="ps aux | egrep 'spring (app|server)' | tr -s ' ' | cut -d' ' -f2 | xargs kill -9"
+alias killpuma="ps aux | grep -v grep | grep puma | cut -d ' ' -f10 | xargs kill"
 
 alias syncmusic="rsync -vr --size-only --delete /Volumes/yudkowsky/home/Music/iTunes/ ~/Music/iTunes"
+
+alias wh="which"
 
 #-------------------------------------------------------------------------------
 # machine-specific setup
@@ -296,6 +299,11 @@ elif [ "$(uname)" = "linux-gnu" -o "$(uname)" = "Linux" ]; then
   source ~/dotfiles/common-linux.sh
 fi
 
+
+#-------------------------------------------------------------------------------
+# SSH
+
+eval "$(ssh-agent -s)" > /dev/null
 
 #-------------------------------------------------------------------------------
 # Docker
