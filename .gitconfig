@@ -50,6 +50,7 @@
   s = status
   sa = stash apply
   sd = stash drop
+  sh = show head
   sl = stash list
   sp = stash pop
   st0 = stash --keep-index
