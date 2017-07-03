@@ -29,8 +29,8 @@ fi
 # homebrew packages
 
 packages="bash cask cdiff cloc coreutils ctags docker docker-compose docker-machine
- elixir emacs ffmpeg gcc git htop-osx libxml2 markdown p7zip postgresql rbenv rename
- ruby-build shellcheck the_silver_searcher thefuck tree youtube-dl zsh"
+ elixir emacs ffmpeg gcc git htop-osx libxml2 markdown node p7zip postgresql rbenv
+ rename ruby-build shellcheck the_silver_searcher thefuck tree youtube-dl zsh"
 
 for package in $packages; do
   brew install "$package"
@@ -43,8 +43,9 @@ brew services start postgresql
 #-------------------------------------------------------------------------------
 # homebrew cask apps
 
-apps="alfred emacs firefox flux rowanj-gitx google-chrome hipchat iterm2 macdown
- yujitach-menumeters paintbrush scroll-reverser sizeup slack steam sublime-text vlc"
+apps="alfred emacs firefox flux google-chrome hipchat iterm2 macdown
+ yujitach-menumeters paintbrush scroll-reverser sizeup slack steam sublime-text
+ virtualbox vlc"
 
 for app in $apps; do
   brew cask install "$app"

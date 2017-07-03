@@ -228,15 +228,6 @@ alias ce="cask exec"
 alias cee="cask exec ecukes"
 alias cer="cask exec ert-runner"
 
-# docker
-alias di="docker images"
-alias dp="docker ps -a"
-alias dbuild="docker build -t $(basename $(pwd)) ."
-alias drun="docker run -p 9001:4000 -v $(pwd):/$(basename $(pwd)) $(basename $(pwd))"
-alias dcb="docker-compose build"
-alias dcu="docker-compose up"
-alias dcbu="docker-compose build && docker-compose up"
-
 # postgresql
 alias pginit="initdb /usr/local/var/postgres -E utf8 -U mike"
 alias pgstart="pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start"
@@ -308,9 +299,20 @@ eval "$(ssh-agent -s)" > /dev/null
 #-------------------------------------------------------------------------------
 # Docker
 
-# if [[ "$(docker-machine status default)" == "Running" ]]; then
-#  eval "$(docker-machine env default)"
-# fi
+alias dm="docker-machine"
+alias dc="docker-compose"
+
+alias di="docker images"
+alias dp="docker ps -a"
+alias dbuild="docker build -t $(basename $(pwd)) ."
+
+alias dcleani='docker rmi $(docker images | grep "^<none>" | cut -d" " -f29)'
+alias dcleanc="docker ps -aq -f status=exited | xargs docker rm -v"
+
+if [[ "$(docker-machine status default)" == "Running" ]]; then
+  export DOCKER_IP="$(docker-machine ip)"
+  eval "$(docker-machine env default)"
+fi
 
 #-------------------------------------------------------------------------------
 # Misc.
