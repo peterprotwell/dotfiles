@@ -265,6 +265,8 @@ alias un7zip="7z x"
 
 alias g="git"
 alias gx="gitx &"
+alias git-prune-merged-remote="git branch --remote --merged | grep -v /master | sed 's/origin\///' | xargs -n 1 git push --delete origin"
+alias git-prune-merged-local="git checkout master && git branch --merged | grep -v '* master' | xargs git branch --delete"
 
 alias pwdp="pwd -P"
 
@@ -301,18 +303,25 @@ eval "$(ssh-agent -s)" > /dev/null
 
 alias dm="docker-machine"
 alias dc="docker-compose"
-
 alias di="docker images"
 alias dp="docker ps -a"
-alias dbuild="docker build -t $(basename $(pwd)) ."
 
-alias dcleani='docker rmi $(docker images | grep "^<none>" | cut -d" " -f29)'
+alias dattach='docker attach "$(basename $(pwd)"'
+alias dbuild='docker build -t "$(basename $(pwd))" .'
+alias dshell='docker exec -it "$(basename $(pwd))" /bin/bash'
+alias dshelli='docker run -it "$(basename $(pwd))" /bin/bash'
+
+alias dcleani='docker rmi $(docker images | grep "^<none>" | cut -d" " -f33)'
 alias dcleanc="docker ps -aq -f status=exited | xargs docker rm -v"
 
 if [[ "$(docker-machine status default)" == "Running" ]]; then
   export DOCKER_IP="$(docker-machine ip)"
   eval "$(docker-machine env default)"
 fi
+
+drun() {
+  docker run "$(basename $(pwd))" "$1"
+}
 
 #-------------------------------------------------------------------------------
 # Misc.
