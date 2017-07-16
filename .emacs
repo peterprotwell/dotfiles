@@ -5,6 +5,9 @@
 ;; Load common lisp extensions
 (eval-when-compile (require 'cl-lib))
 
+;; Fuck you unless. Just fuck you.
+(defalias 'ifnot 'unless)
+
 ;;------------------------------------------------------------------------------
 ;; Packages
 
@@ -16,11 +19,11 @@
                                    ("gnu" . 1)))
 (setq package-menu-hide-low-priority t)
 
-(unless (file-directory-p (concat user-emacs-directory "elpa"))
+(ifnot (file-directory-p (concat user-emacs-directory "elpa"))
   (package-refresh-contents))
 
 (package-initialize)
-(unless (package-installed-p 'use-package)
+(ifnot (package-installed-p 'use-package)
   (package-install 'use-package))
 (setq use-package-always-ensure t)
 
@@ -33,7 +36,7 @@
                                for name = (car p)
                                when (assq name package-alist)
                                collect name))
-         (indirect-deps (unless (eq only 'direct)
+         (indirect-deps (ifnot (eq only 'direct)
                           (cl-remove-duplicates
                            (cl-loop for p in direct-deps
                                     append (miken-package-get-deps p))))))
@@ -201,7 +204,7 @@
 ;;------------------------------------------------------------------------------
 ;; Sound
 
-(unless (and (fboundp 'play-sound-internal)
+(ifnot (and (fboundp 'play-sound-internal)
              (subrp (symbol-function 'play-sound-internal)))
   (require 'play-sound))
 
@@ -328,7 +331,7 @@
           (goto-char (match-end 0))
         (goto-char (if (> n 0) (point-max) (point-min)))))
     ;; If mark wasn't active, I like to indent the line too.
-    (unless m
+    (ifnot m
       (indent-according-to-mode)
       ;; This looks redundant, but it's surprisingly necessary.
       (back-to-indentation))))
@@ -798,7 +801,7 @@
 (defun miken-open-line-above ()
   "Insert a newline above the current line and indent point."
   (interactive)
-  (unless (bolp) (beginning-of-line))
+  (ifnot (bolp) (beginning-of-line))
   (newline)
   (forward-line -1)
   (indent-according-to-mode))
