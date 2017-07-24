@@ -489,6 +489,33 @@
   :config
   (customize-set-variable 'jsx-indent-level 2))
 
+(defun miken-setup-tide-mode ()
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1))
+  ;; company is an optional dependency. You have to
+  ;; install it separately via package-install
+  ;; `M-x package-install [ret] company`
+  ;; (company-mode +1))
+
+;; TypeScript
+(use-package tide
+  :config
+  (add-hook 'before-save-hook 'tide-format-before-save)
+  (add-hook 'typescript-mode-hook #'miken-setup-tide-mode))
+
+;; TSX
+(use-package web-mode
+  :config
+  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+  (add-hook 'web-mode-hook
+            (lambda ()
+              (when (string-equal "tsx" (file-name-extension buffer-file-name))
+                (miken-setup-tide-mode)))))
+
 ;; CSS
 (add-hook 'css-mode-hook
           (lambda ()
