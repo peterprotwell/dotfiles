@@ -178,7 +178,6 @@
                     (t "20") )))
     (set-face-attribute 'default nil :font (concat "Inconsolata-" font-size)) ))
 (miken-font-size)
-(global-set-key (kbd "C-M-s-f") 'miken-font-size)
 
 ;;------------------------------------------------------------------------------
 ;; Color themes
@@ -239,6 +238,15 @@
   (miken-lightsaber nil)
   (delete-frame))
 (global-set-key (kbd "C-x 5 0") 'miken-delete-frame)
+
+(defun miken-maximus-frame ()
+  "Stretch a frame across two monitors"
+  (interactive)
+  (miken-font-size)
+  (set-frame-position (selected-frame) 5 25)
+  (set-frame-size (selected-frame) 237 93))
+
+(global-set-key (kbd "C-M-s-f") 'miken-maximus-frame)
 
 ;;------------------------------------------------------------------------------
 ;; Window management
@@ -458,8 +466,8 @@
 ;; Language modes config
 
 ;; Always spaces, always 2, always line numbers
-(setq-default indent-tabs-mode nil)
-(setq-default tab-width 2)
+(setq-default indent-tabs-mode nil
+              tab-width 2)
 (add-hook 'prog-mode-hook (lambda () (linum-mode)))
 
 ;; shell
@@ -505,10 +513,13 @@
 (use-package tide
   :config
   (add-hook 'before-save-hook 'tide-format-before-save)
-  (add-hook 'typescript-mode-hook #'miken-setup-tide-mode))
+  (add-hook 'typescript-mode-hook #'miken-setup-tide-mode)
+  (setq typescript-indent-level 2))
 
 ;; TSX
 (use-package web-mode
+  :init
+  (setq standard-indent 2)
   :config
   (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
   (add-hook 'web-mode-hook

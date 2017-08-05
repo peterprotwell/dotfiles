@@ -223,6 +223,9 @@ alias ee="mix credo --strict && mix espec --cover && unicornleap -s 1.2 --unicor
 alias eee="mix credo --strict && mix espec --cover && npm test && unicornleap -s 1.2 --unicorn phoenix.png --sparkle flame.png"
 alias eov="mix coveralls.html; open cover/excoveralls.html"
 
+# javascript / npm
+alias ne="npm run exec -- "
+
 # emacs
 alias ce="cask exec"
 alias cee="cask exec ecukes"
@@ -277,6 +280,8 @@ alias syncmusic="rsync -vr --size-only --delete /Volumes/yudkowsky/home/Music/iT
 
 alias wh="which"
 
+alias tree="tree -I node_modules "
+
 #-------------------------------------------------------------------------------
 # machine-specific setup
 
@@ -311,7 +316,7 @@ alias dbuild='docker build -t "$(basename $(pwd))" .'
 alias dshell='docker exec -it "$(basename $(pwd))" /bin/bash'
 alias dshelli='docker run -it "$(basename $(pwd))" /bin/bash'
 
-alias dcleani='docker rmi $(docker images | grep "^<none>" | cut -d" " -f33)'
+alias dcleani='docker rmi $(docker images -aq)'
 alias dcleanc="docker ps -aq -f status=exited | xargs docker rm -v"
 
 if [[ "$(docker-machine status default)" == "Running" ]]; then
