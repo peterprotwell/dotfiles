@@ -10,11 +10,11 @@ alias e="emacsclient -n"
 # functions
 
 # change up a directory
-function cu {
+cu() {
   cd ../"$1"
 }
 
-function fn {
+fn() {
   local dir="$2"
 
   if [ -z "$dir" ]; then
@@ -24,24 +24,24 @@ function fn {
   find "$dir" -name "*$1*"
 }
 
-function mkcd {
+mkcd() {
   mkdir "$1" && cd "$1"
 }
 
 # Rename in current directory
-function rn {
+rn() {
   rename -n "s/$1/$2/g" ./*
 }
 
-function hpg {
+hpg() {
   history | grep "$1"
 }
 
-function hpgw {
+hpgw() {
   history | grep "\b$1\b"
 }
 
-function biggest {
+biggest() {
   if type gsort > /dev/null; then
     du -sh ./* | gsort -h -r | head -15
   else
@@ -50,7 +50,7 @@ function biggest {
   fi
 }
 
-function make_symlink_safe {
+make_symlink_safe() {
   if [ -h "$2" ]; then
     echo "Symlink $2 already exists"
   elif [ -f "$2" ]; then
@@ -63,7 +63,7 @@ function make_symlink_safe {
   fi
 }
 
-function gh {
+gh() {
   local orig_dir="$(pwd)"
 
   while ! [ -e .git ]; do
@@ -83,13 +83,13 @@ function gh {
   open "$repo_url"
 }
 
-function agi {
+agi() {
   ag $(echo "$*" | sed 's/ / --ignore /g')
 }
 
 # requires node and http-server:
 #   npm install http-server -g
-function serve {
+serve() {
   local port=1234
 
   if [ "$1" ]; then
@@ -99,7 +99,7 @@ function serve {
   http-server ./ -p ${port}
 }
 
-function change_shell {
+change_shell() {
   local new_shell="$1"
 
   if ! [ -e "$new_shell" ]; then
@@ -110,7 +110,7 @@ function change_shell {
   chsh -s "$new_shell" "$(whoami)"
 }
 
-function oci {
+oci() {
   if [ -e "coverage/index.html" ]; then
     open coverage/index.html
   elif [ -e "cover/excoveralls.html" ]; then
@@ -122,7 +122,7 @@ function oci {
   fi
 }
 
-function workfromhome {
+workfromhome() {
   if grep "\[user\]" .git/config > /dev/null; then
     echo "Already set up"
   else
@@ -131,7 +131,7 @@ function workfromhome {
   fi
 }
 
-function s {
+s() {
   local file="$1"
 
   if [ -z "$file" ]; then
@@ -225,6 +225,7 @@ alias eov="mix coveralls.html; open cover/excoveralls.html"
 
 # javascript / npm
 alias ne="npm run exec -- "
+alias tt="npm run lint && CI=true npm run test && unicornleap -s 1.2 --unicorn narwhal.png"
 
 # emacs
 alias ce="cask exec"
