@@ -389,6 +389,7 @@
 ;; ido and flx
 
 (ido-mode 1)
+(ido-everywhere 1)
 (setq ido-enable-flex-matching t)
 ;; disable ido faces to see flx highlights.
 (setq ido-use-faces nil)
@@ -418,7 +419,7 @@
             ido-exit 'refresh)
       (exit-minibuffer))))
 
-(use-package ido-ubiquitous :config (ido-ubiquitous-mode))
+(use-package ido-completing-read+ :config (ido-ubiquitous-mode))
 (use-package flx-ido :config (flx-ido-mode 1))
 
 ;;------------------------------------------------------------------------------
@@ -846,11 +847,6 @@
 (global-set-key (kbd "C-c o") 'miken-open-line-above)
 (global-set-key (kbd "C-c C-o") 'miken-open-line-above)
 
-(global-set-key [S-return]
-                (lambda () (interactive)
-                  (end-of-line)
-                  (newline-and-indent) ))
-
 ;; In the pipe, five-by-five
 (defun miken-previous-line-five () (interactive) (forward-line -5))
 (global-set-key (kbd "M-p") 'miken-previous-line-five)
@@ -963,6 +959,11 @@
 
 (use-package xkcd :defer true)
 (wg-revert-workgroup (wg-current-workgroup))
+
+(global-set-key [S-return]
+                (lambda () (interactive)
+                  (end-of-line)
+                  (newline-and-indent) ))
 
 ;;------------------------------------------------------------------------------
 ;; Exit
