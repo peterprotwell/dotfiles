@@ -7,7 +7,7 @@
 
 # Download a video or playlist from youtube to an mp3
 function ytd {
-  youtube-dl -o '%(title)s.%(ext)s' --ignore-errors --yes-playlist -x --audio-format mp3 --audio-quality 192k "$1"
+  youtube-dl -o '%(title)s.%(ext)s' --format best --ignore-errors --yes-playlist -x --audio-format mp3 --audio-quality 192k "$1"
 }
 
 function ytdv {

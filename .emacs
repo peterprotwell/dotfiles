@@ -160,7 +160,6 @@
 ;; Saving
 
 (global-set-key [f9] 'save-buffer)
-(global-set-key [f10] 'save-buffer)
 (desktop-save-mode t)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (global-auto-revert-mode 1)
@@ -204,7 +203,7 @@
 ;; Sound
 
 (ifnot (and (fboundp 'play-sound-internal)
-             (subrp (symbol-function 'play-sound-internal)))
+            (subrp (symbol-function 'play-sound-internal)))
   (require 'play-sound))
 
 (defun miken-lightsaber (opt)
@@ -527,6 +526,9 @@
             (lambda ()
               (when (string-equal "tsx" (file-name-extension buffer-file-name))
                 (miken-setup-tide-mode)))))
+
+;; HTML
+(global-set-key (kbd "C-c e") 'sgml-close-tag)
 
 ;; CSS
 (add-hook 'css-mode-hook
