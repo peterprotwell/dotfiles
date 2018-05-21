@@ -320,7 +320,7 @@ alias dshelli='docker run -it "$(basename $(pwd))" /bin/bash'
 alias dcleani='docker rmi $(docker images -aq)'
 alias dcleanc="docker ps -aq -f status=exited | xargs docker rm -v"
 
-if [[ "$(docker-machine status default)" == "Running" ]]; then
+if [[ "$(docker-machine status default)" == "Running" ]] 2> /dev/null; then
   export DOCKER_IP="$(docker-machine ip)"
   eval "$(docker-machine env default)"
 fi

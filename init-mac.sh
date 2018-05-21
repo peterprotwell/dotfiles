@@ -28,16 +28,15 @@ fi
 #-------------------------------------------------------------------------------
 # homebrew packages
 
-packages="bash cask cdiff cloc coreutils ctags docker docker-compose docker-machine
- elixir emacs ffmpeg gcc git htop-osx libxml2 markdown node p7zip postgresql rbenv
- rename ruby-build shellcheck the_silver_searcher thefuck tree youtube-dl zsh"
+packages="bash cask cdiff cloc coreutils ctags elixir emacs ffmpeg gcc git htop-osx
+ libxml2 markdown node p7zip postgresql rbenv rename ruby-build shellcheck
+ the_silver_searcher thefuck tree youtube-dl zsh"
 
 for package in $packages; do
   brew install "$package"
 done
 
 # Post-install stuff
-brew services start docker-machine
 brew services start postgresql
 
 #-------------------------------------------------------------------------------

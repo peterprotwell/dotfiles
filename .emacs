@@ -599,6 +599,7 @@
 (use-package clojure-mode :defer t)
 (use-package dockerfile-mode :defer t)
 (use-package haml-mode :defer t)
+(use-package haskell-mode :defer t)
 (use-package slim-mode :defer t)
 (use-package yaml-mode :defer t)
 
