@@ -282,6 +282,10 @@ alias syncmusic="rsync -vr --size-only --delete /Volumes/yudkowsky/home/Music/iT
 alias wh="which"
 
 alias tree="tree -I node_modules "
+alias t1="tree -L 1"
+alias t2="tree -L 2"
+alias t3="tree -L 3"
+alias t4="tree -L 4"
 
 #-------------------------------------------------------------------------------
 # machine-specific setup

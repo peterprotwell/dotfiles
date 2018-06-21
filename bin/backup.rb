@@ -33,4 +33,6 @@ Dir.chdir(Dir.home) do
     # --delete: delete files in dest that aren't in source
     system("rsync -vr --size-only --delete #{Dir.home}/#{dir}/ #{backup_dir}/#{dir}")
   end
+
+  system("cp ~/Library/Application\\ Support/Google/Chrome/Default/Bookmarks #{backup_dir}/bookmarks.json")
 end

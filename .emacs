@@ -315,7 +315,7 @@
 ;;------------------------------------------------------------------------------
 ;; Paragraph management
 
-(setq-default fill-column 85)
+(setq-default fill-column 100)
 
 (defun endless/forward-paragraph (&optional n)
   "Advance just past next blank line."
@@ -600,6 +600,7 @@
 (use-package dockerfile-mode :defer t)
 (use-package haml-mode :defer t)
 (use-package haskell-mode :defer t)
+(use-package scala-mode :defer t)
 (use-package slim-mode :defer t)
 (use-package yaml-mode :defer t)
 
