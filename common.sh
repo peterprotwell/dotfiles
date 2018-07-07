@@ -152,7 +152,15 @@ s() {
 
 # I'm really more of a dog person
 alias dog="cat"
-alias dogc="pygmentize -g "
+
+# dog with color
+dogc() {
+  if ! type pygmentize &> /dev/null; then
+    pip3 install pygments
+  fi
+
+  pygmentize -g $@
+}
 
 # oh-my-zsh default aliases this to 'ls -l'
 alias ll="ls -hAl"
@@ -170,7 +178,7 @@ alias underscore2dash='rename "s/_/-/g" ./*'
 alias np="echo \"\$PATH\" | tr : '\n'"
 
 # homebrew update all
-alias hbua="brew update && brew upgrade"
+alias hbua="brew update && brew upgrade && brew cleanup"
 
 # bundler
 alias b="bundle check || bundle install"
