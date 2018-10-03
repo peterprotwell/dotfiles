@@ -22,11 +22,11 @@
   cop6 = checkout @{-6}
   cp = cherry-pick
   cpx = cherry-pick -x
-  d = !cdiff
+  d = !ydiff
   da = diff --word-diff=color
-  dc = !cdiff --cached
-  dcs = !cdiff --side-by-side --width=55 --cached
-  ds = !cdiff --side-by-side --width=55
+  dc = !ydiff --cached
+  dcs = !ydiff --side-by-side --width=55 --cached
+  ds = !ydiff --side-by-side --width=55
   f = fetch
   fp = fetch --prune
   it = !git init && git commit --message "root" --allow-empty

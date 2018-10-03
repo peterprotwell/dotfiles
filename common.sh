@@ -3,7 +3,7 @@
 ##
 
 # There can be only one
-export EDITOR="emacs -q"
+export EDITOR="emacs -q -nw"
 alias e="emacsclient -n"
 
 #-------------------------------------------------------------------------------
@@ -247,21 +247,24 @@ alias pgstop="pg_ctl -D /usr/local/var/postgres stop -s -m fast"
 alias pgstatus="pg_ctl -D /usr/local/var/postgres status"
 alias pg="psql -h localhost -d postgres"
 
+# terraform
+alias tf="terraform"
+
 # cd aliases
 alias cdA="cd /Applications"
 alias cdb="cd ~/books"
 alias cdc="cd ~/code"
-alias cdcc="cd ~/code/c"
-alias cdcj="cd ~/code/javascript"
-alias cdcl="cd ~/code/lisp"
-alias cdclj="cd ~/code/clojure"
+alias cdC="cd ~/code/c"
+alias cdcj="cd ~/code/clojure"
 alias cdd="cd ~/Downloads"
 alias cdD="cd ~/Desktop"
 alias cd.="cd ~/dotfiles"
 alias cde="cd ~/thoughts/emacs"
+alias cdj="cd ~/code/javascript"
+alias cdl="cd ~/code/lisp"
 alias cdm="cd ~/code/mikendotio"
 alias cdM="cd ~/Movies"
-alias cdp="cd ~/Pictures"
+alias cdP="cd ~/Pictures"
 alias cdpm="cd ~/code/rails/programmer-mike"
 alias cdr="cd ~/code/ruby"
 alias cdra="cd ~/code/rails"
