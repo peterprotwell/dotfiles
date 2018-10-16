@@ -18,8 +18,10 @@ for link in $links; do
   make_symlink "$link"
 done
 
-if [ -L ~.ssh/config ]; then
+if [ -L ~/.ssh/config ]; then
   rm ~/.ssh/config
+elif [ -e ~/.ssh/config ]; then
+  mv ~/.ssh/config ~/.ssh/backup_of_config
 fi
 
 echo "Linking ~/dotfiles/ssh_config as ~/.ssh/config"
