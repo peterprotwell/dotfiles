@@ -257,7 +257,7 @@ respectively."
   (interactive)
   (let ((font-size (cond
                     ((<= (display-pixel-height) 800) "14")
-                    ((<= (display-pixel-height) 1200) "16")
+                    ((<= (display-pixel-height) 1200) "18")
                     ((<= (display-pixel-height) 1440) "18")
                     ((<= (display-pixel-height) 1920) "18")
                     (t "20") )))
@@ -858,10 +858,10 @@ respectively."
         (message "Buffer '%s' is not visiting a file!" name)
       (if (get-buffer new-name)
           (message "A buffer named '%s' already exists!" new-name)
-        (progn (rename-file name new-name 1)
-               (rename-buffer new-name)
-               (set-visited-file-name new-name)
-               (set-buffer-modified-p nil) )))))
+        (rename-file name new-name 1)
+        (rename-buffer new-name)
+        (set-visited-file-name new-name)
+        (set-buffer-modified-p nil)))))
 
 ;; Never understood why Emacs doesn't have this function, either.
 (defun miken-move-buffer-and-file (dir)
@@ -875,10 +875,10 @@ respectively."
          (newname (concat dir "/" name)) )
     (if (not filename)
         (message "Buffer '%s' is not visiting a file!" name)
-      (progn (copy-file filename newname 1)
-             (delete-file filename)
-             (set-visited-file-name newname)
-             (set-buffer-modified-p nil) t))))
+      (copy-file filename newname 1)
+      (delete-file filename)
+      (set-visited-file-name newname)
+      (set-buffer-modified-p nil))))
 
 ;; Word count
 (defun miken-count-words-buffer ()
