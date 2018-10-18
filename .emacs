@@ -5,8 +5,8 @@
 ;; Load common lisp extensions
 (eval-when-compile (require 'cl-lib))
 
-;; Fuck you unless. Just fuck you.
-(defalias 'ifnot 'unless)
+;; Not a fan
+(defalias 'ifnot #'unless)
 
 ;;------------------------------------------------------------------------------
 ;; Packages
@@ -142,7 +142,7 @@
 (global-hl-line-mode 1) ;; Highlight current line
 (setq comment-style 'indent)
 
-(global-set-key (kbd "C-<f5>") 'linum-mode)
+(global-set-key (kbd "C-<f5>") #'linum-mode)
 
 ;; DA-DA-DA DAAA, daa daa DAAT duh-DAAAAAA!
 (winner-mode)
@@ -245,9 +245,9 @@ respectively."
 ;;------------------------------------------------------------------------------
 ;; Saving
 
-(global-set-key [f9] 'save-buffer)
+(global-set-key [f9] #'save-buffer)
 (desktop-save-mode t)
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(add-hook 'before-save-hook #'delete-trailing-whitespace)
 (global-auto-revert-mode 1)
 
 ;;------------------------------------------------------------------------------
@@ -304,7 +304,7 @@ respectively."
       (append default-frame-alist
               '((cursor-color . "#FFFFFF")) ))
 
-(global-set-key (kbd "M-`") 'other-frame)
+(global-set-key (kbd "M-`") #'other-frame)
 
 ;; Full path in frame title
 (if window-system
@@ -315,14 +315,14 @@ respectively."
   (interactive)
   (miken-lightsaber t)
   (make-frame-command))
-(global-set-key (kbd "C-x 5 2") 'miken-make-frame-command)
+(global-set-key (kbd "C-x 5 2") #'miken-make-frame-command)
 
 (defun miken-delete-frame ()
   "Play a lightsaber deactivate sound when killing a frame"
   (interactive)
   (miken-lightsaber nil)
   (delete-frame))
-(global-set-key (kbd "C-x 5 0") 'miken-delete-frame)
+(global-set-key (kbd "C-x 5 0") #'miken-delete-frame)
 
 (defun miken-maximus-frame ()
   "Stretch a frame across two monitors"
@@ -331,7 +331,7 @@ respectively."
   (set-frame-position (selected-frame) 5 25)
   (set-frame-size (selected-frame) 237 93))
 
-(global-set-key (kbd "C-M-s-f") 'miken-maximus-frame)
+(global-set-key (kbd "C-M-s-f") #'miken-maximus-frame)
 
 ;;------------------------------------------------------------------------------
 ;; Window management
@@ -346,15 +346,15 @@ respectively."
 (use-package zygospore
   :bind ("C-x 1" . zygospore-toggle-delete-other-windows))
 
-(global-set-key (kbd "C-x =") 'balance-windows)
+(global-set-key (kbd "C-x =") #'balance-windows)
 ;; Previously bound to C-x =
-(global-set-key (kbd "C-x +") 'what-cursor-position)
+(global-set-key (kbd "C-x +") #'what-cursor-position)
 
 ;; Move cursor to other window
-(global-set-key (kbd "M-s-h") 'windmove-left)
-(global-set-key (kbd "M-s-j") 'windmove-down)
-(global-set-key (kbd "M-s-k") 'windmove-up)
-(global-set-key (kbd "M-s-l") 'windmove-right)
+(global-set-key (kbd "M-s-h") #'windmove-left)
+(global-set-key (kbd "M-s-j") #'windmove-down)
+(global-set-key (kbd "M-s-k") #'windmove-up)
+(global-set-key (kbd "M-s-l") #'windmove-right)
 
 ;; Move buffer to other window
 (use-package buffer-move
@@ -373,17 +373,17 @@ respectively."
 ;;------------------------------------------------------------------------------
 ;; Buffer management
 
-(global-set-key (kbd "C-c k") 'kill-buffer-and-window)
-(global-set-key (kbd "C-c C-k") 'kill-buffer-and-window)
+(global-set-key (kbd "C-c k") #'kill-buffer-and-window)
+(global-set-key (kbd "C-c C-k") #'kill-buffer-and-window)
 
-(global-set-key (kbd "C-c b") 'switch-to-buffer-other-window)
-(global-set-key (kbd "C-c C-b") 'switch-to-buffer-other-window)
+(global-set-key (kbd "C-c b") #'switch-to-buffer-other-window)
+(global-set-key (kbd "C-c C-b") #'switch-to-buffer-other-window)
 
 ;; Already bound to C-x b
-(global-set-key (kbd "C-x C-b") 'switch-to-buffer)
+(global-set-key (kbd "C-x C-b") #'switch-to-buffer)
 
 ;; Previously bound to C-x C-b
-(global-set-key (kbd "C-x C-l") 'list-buffers)
+(global-set-key (kbd "C-x C-l") #'list-buffers)
 
 (setq-default uniquify-buffer-name-style 'post-forward)
 
@@ -434,8 +434,8 @@ respectively."
   (interactive "p")
   (endless/forward-paragraph (- n)))
 
-(global-set-key (kbd "M-a") 'endless/backward-paragraph)
-(global-set-key (kbd "M-e") 'endless/forward-paragraph)
+(global-set-key (kbd "M-a") #'endless/backward-paragraph)
+(global-set-key (kbd "M-e") #'endless/forward-paragraph)
 
 ;;------------------------------------------------------------------------------
 ;; Projectile
@@ -483,7 +483,7 @@ respectively."
 (add-hook 'ido-setup-hook
           (lambda ()
             (define-key ido-completion-map
-              (kbd "C-b") 'endless/ido-bury-buffer-at-head)))
+              (kbd "C-b") #'endless/ido-bury-buffer-at-head)))
 
 (defun endless/ido-bury-buffer-at-head ()
   "Bury the buffer at the head of `ido-matches'."
@@ -510,8 +510,8 @@ respectively."
 ;;------------------------------------------------------------------------------
 ;; Searching / Replacing
 
-(global-set-key (kbd "s-s") 'isearch-forward-regexp)
-(global-set-key (kbd "s-r") 'isearch-backward-regexp)
+(global-set-key (kbd "s-s") #'isearch-forward-regexp)
+(global-set-key (kbd "s-r") #'isearch-backward-regexp)
 
 (use-package visual-regexp :bind ("C-x M-r" . vr/query-replace))
 
@@ -520,8 +520,8 @@ respectively."
 
 (use-package avy :bind ("M-s-g" . avy-goto-word-or-subword-1))
 
-(global-set-key (kbd "M-g") 'goto-line)
-(global-set-key (kbd "M-,") 'pop-tag-mark)
+(global-set-key (kbd "M-g") #'goto-line)
+(global-set-key (kbd "M-,") #'pop-tag-mark)
 
 ;;------------------------------------------------------------------------------
 ;; Neotree
@@ -564,7 +564,7 @@ respectively."
 ;; elisp
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
-            (define-key emacs-lisp-mode-map (kbd "RET") 'newline-and-indent) ))
+            (define-key emacs-lisp-mode-map (kbd "RET") #'newline-and-indent) ))
 
 ;; JavaScript etc.
 (use-package js2-mode
@@ -573,10 +573,10 @@ respectively."
   (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
   (customize-set-variable 'js2-basic-offset 2)
   (add-hook 'js2-mode-hook
-            (lambda () (define-key js2-mode-map (kbd "RET") 'newline-and-indent) )))
+            (lambda () (define-key js2-mode-map (kbd "RET") #'newline-and-indent) )))
 
 (add-hook 'js-mode-hook
-          (lambda () (define-key js-mode-map (kbd "RET") 'newline-and-indent))
+          (lambda () (define-key js-mode-map (kbd "RET") #'newline-and-indent))
           (customize-set-variable 'js-indent-level 2))
 ;; JSX
 (use-package rjsx-mode
@@ -598,7 +598,7 @@ respectively."
 ;; TypeScript
 (use-package tide
   :config
-  (add-hook 'before-save-hook 'tide-format-before-save)
+  (add-hook 'before-save-hook #'tide-format-before-save)
   (add-hook 'typescript-mode-hook #'miken-setup-tide-mode)
   (setq typescript-indent-level 2))
 
@@ -614,7 +614,7 @@ respectively."
                 (miken-setup-tide-mode)))))
 
 ;; HTML
-(global-set-key (kbd "C-c e") 'sgml-close-tag)
+(global-set-key (kbd "C-c e") #'sgml-close-tag)
 
 ;; CSS
 (add-hook 'css-mode-hook
@@ -665,8 +665,8 @@ respectively."
             (lambda ()
               (ruby-end-mode)
               (auto-complete-mode)
-              (define-key enh-ruby-mode-map (kbd "RET") 'newline-and-indent)
-              (define-key enh-ruby-mode-map (kbd "#") 'miken-ruby-interpolate) )))
+              (define-key enh-ruby-mode-map (kbd "RET") #'newline-and-indent)
+              (define-key enh-ruby-mode-map (kbd "#") #'miken-ruby-interpolate) )))
 
 ;; C
 (add-hook 'c-mode-hook (lambda () (setq tab-width 4)))
@@ -731,7 +731,7 @@ respectively."
   (setq compilation-scroll-output nil)
   (setq rspec-use-rake-when-possible nil)
   :config
-  (add-hook 'after-init-hook 'inf-ruby-switch-setup)
+  (add-hook 'after-init-hook #'inf-ruby-switch-setup)
   (defun miken-rspec-toggle-flip ()
     (interactive)
     (split-window-below)
@@ -765,7 +765,7 @@ respectively."
 ;;------------------------------------------------------------------------------
 ;; ediff setup
 
-(add-hook 'ediff-quit-hook 'winner-undo)
+(add-hook 'ediff-quit-hook #'winner-undo)
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 (setq ediff-split-window-function 'split-window-horizontally)
 
@@ -840,10 +840,10 @@ respectively."
       (let ((end (point)))
         (replace-match new-c)
         (replace-string new-c old-c nil (1+ start) end)))))
-(global-set-key (kbd "C-c t") 'miken-toggle-quotes)
-(global-set-key (kbd "C-c C-t") 'miken-toggle-quotes)
+(global-set-key (kbd "C-c t") #'miken-toggle-quotes)
+(global-set-key (kbd "C-c C-t") #'miken-toggle-quotes)
 
-(global-set-key (kbd "C-x \\") 'align-regexp)
+(global-set-key (kbd "C-x \\") #'align-regexp)
 
 ;;------------------------------------------------------------------------------
 ;; Functions that should exist already
@@ -914,8 +914,8 @@ respectively."
         (insert current-line)
         (decf n) )))
   (forward-line))
-(global-set-key (kbd "C-c d") 'miken-copy-line-below)
-(global-set-key (kbd "C-c C-d") 'miken-copy-line-below)
+(global-set-key (kbd "C-c d") #'miken-copy-line-below)
+(global-set-key (kbd "C-c C-d") #'miken-copy-line-below)
 
 ;; Emulate vim's half-screen scrolling
 (defun miken-window-half-height ()
@@ -934,15 +934,15 @@ respectively."
   (newline)
   (forward-line -1)
   (indent-according-to-mode))
-(global-set-key (kbd "C-c o") 'miken-open-line-above)
-(global-set-key (kbd "C-c C-o") 'miken-open-line-above)
+(global-set-key (kbd "C-c o") #'miken-open-line-above)
+(global-set-key (kbd "C-c C-o") #'miken-open-line-above)
 
 ;; In the pipe, five-by-five
 (defun miken-previous-line-five () (interactive) (forward-line -5))
-(global-set-key (kbd "M-p") 'miken-previous-line-five)
+(global-set-key (kbd "M-p") #'miken-previous-line-five)
 
 (defun miken-next-line-five () (interactive) (forward-line 5))
-(global-set-key (kbd "M-n") 'miken-next-line-five)
+(global-set-key (kbd "M-n") #'miken-next-line-five)
 
 (defun miken-current-buffer-filepath ()
   "Put the current file path on the clipboard"
@@ -953,7 +953,7 @@ respectively."
         (insert filename)
         (clipboard-kill-region (point-min) (point-max)) )
       (message filename) )))
-(global-set-key (kbd "C-c `") 'miken-current-buffer-filepath)
+(global-set-key (kbd "C-c `") #'miken-current-buffer-filepath)
 
 (defun miken-comment-dwim-line (&optional arg)
   "Replacement for the comment-dwim command.
@@ -964,14 +964,14 @@ respectively."
   (if (not (region-active-p))
       (comment-or-uncomment-region (line-beginning-position) (line-end-position))
     (comment-dwim arg)))
-(global-set-key (kbd "M-;") 'miken-comment-dwim-line)
+(global-set-key (kbd "M-;") #'miken-comment-dwim-line)
 
 (defun miken-comment-dwim-line-and-move-down (&optional arg)
   "Comment the current line and move to the next line"
   (interactive)
   (miken-comment-dwim-line arg)
   (forward-line) )
-(global-set-key (kbd "C-M-;") 'miken-comment-dwim-line-and-move-down)
+(global-set-key (kbd "C-M-;") #'miken-comment-dwim-line-and-move-down)
 
 (defun save-macro (name)
   "save a macro. Take a name as argument
@@ -1029,8 +1029,8 @@ respectively."
 
 (defvar miken-keys-minor-mode-map (make-keymap) "miken-keys-minor-mode keymap.")
 
-(define-key miken-keys-minor-mode-map (kbd "M-n") 'miken-next-line-five)
-(define-key miken-keys-minor-mode-map (kbd "M-p") 'miken-previous-line-five)
+(define-key miken-keys-minor-mode-map (kbd "M-n") #'miken-next-line-five)
+(define-key miken-keys-minor-mode-map (kbd "M-p") #'miken-previous-line-five)
 
 (define-minor-mode miken-keys-minor-mode
   "A minor mode so that my key settings override annoying major modes."
@@ -1044,8 +1044,8 @@ respectively."
 ;;------------------------------------------------------------------------------
 ;; Misc. custom keybindings
 
-(global-set-key (kbd "C-x C-u") 'browse-url)
-(global-set-key (kbd "C-c C-a") 'calendar)
+(global-set-key (kbd "C-x C-u") #'browse-url)
+(global-set-key (kbd "C-c C-a") #'calendar)
 
 (use-package xkcd :defer true)
 (wg-revert-workgroup (wg-current-workgroup))
