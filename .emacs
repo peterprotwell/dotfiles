@@ -83,7 +83,7 @@
 
 (when (eq system-type 'darwin)
   (setq mac-command-modifier 'meta
-        mac-option-modifier 'super ))
+        mac-option-modifier 'super))
 
 (when (memq window-system '(mac ns x))
   (use-package exec-path-from-shell
@@ -98,7 +98,7 @@
 (cl-labels
     ((add-path (p) (add-to-list 'load-path (concat user-emacs-directory p))))
   (add-path "lisp")
-  (add-path "themes") )
+  (add-path "themes"))
 
 (add-to-list 'custom-theme-load-path (concat user-emacs-directory "themes"))
 
@@ -261,7 +261,7 @@ respectively."
                     ((<= (display-pixel-height) 1440) "18")
                     ((<= (display-pixel-height) 1920) "18")
                     (t "20") )))
-    (set-face-attribute 'default nil :font (concat "Inconsolata-" font-size)) ))
+    (set-face-attribute 'default nil :font (concat "Inconsolata-" font-size))))
 (miken-font-size)
 
 ;;------------------------------------------------------------------------------
@@ -274,7 +274,7 @@ respectively."
   :config
   (add-hook 'emacs-lisp-mode-hook
             (lambda () (if (string-match ".*theme.*" (buffer-name))
-                           (rainbow-mode) ))))
+                           (rainbow-mode)))))
 
 (defun miken-override-theme (theme)
   "Clear out the active themes and load a theme freshly"
@@ -302,7 +302,7 @@ respectively."
 
 (setq default-frame-alist
       (append default-frame-alist
-              '((cursor-color . "#FFFFFF")) ))
+              '((cursor-color . "#FFFFFF"))))
 
 (global-set-key (kbd "M-`") #'other-frame)
 
@@ -539,7 +539,7 @@ respectively."
       (neotree-toggle)
       (when (and project-dir (neo-global--window-exists-p))
         (neotree-dir project-dir)
-        (neotree-find file-name)))) )
+        (neotree-find file-name)))))
 
 ;;------------------------------------------------------------------------------
 ;; Refactoring
@@ -554,17 +554,17 @@ respectively."
 ;; Always spaces, always 2, always line numbers
 (setq-default indent-tabs-mode nil
               tab-width 2)
-(add-hook 'prog-mode-hook (lambda () (linum-mode)))
+(add-hook 'prog-mode-hook #'linum-mode)
 
 ;; shell
 (add-hook 'sh-mode-hook
           (lambda () (setq-default sh-basic-offset 2
-                                   sh-indentation 2) ))
+                                   sh-indentation 2)))
 
 ;; elisp
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
-            (define-key emacs-lisp-mode-map (kbd "RET") #'newline-and-indent) ))
+            (define-key emacs-lisp-mode-map (kbd "RET") #'newline-and-indent)))
 
 ;; JavaScript etc.
 (use-package js2-mode
@@ -573,7 +573,7 @@ respectively."
   (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
   (customize-set-variable 'js2-basic-offset 2)
   (add-hook 'js2-mode-hook
-            (lambda () (define-key js2-mode-map (kbd "RET") #'newline-and-indent) )))
+            (lambda () (define-key js2-mode-map (kbd "RET") #'newline-and-indent))))
 
 (add-hook 'js-mode-hook
           (lambda () (define-key js-mode-map (kbd "RET") #'newline-and-indent))
@@ -617,29 +617,24 @@ respectively."
 (global-set-key (kbd "C-c e") #'sgml-close-tag)
 
 ;; CSS
-(add-hook 'css-mode-hook
-          (lambda ()
-            (rainbow-mode)
-            (setq css-indent-offset 2)))
+(defun miken-css-mode-setup ()
+  "Setup mode for CSS/SASS/SCSS"
+  (rainbow-mode)
+  (setq css-indent-offset 2))
+
+(add-hook 'css-mode-hook #'miken-css-mode-setup)
 
 ;; SASS
 (use-package sass-mode
   :defer t
-  :config
-  (add-hook 'sass-mode-hook
-            (lambda ()
-              (rainbow-mode)
-              (setq css-indent-offset 2))))
+  :config (add-hook 'sass-mode-hook #'miken-css-mode-setup))
 
 ;; SCSS
 (use-package scss-mode
   :defer t
   :config
   (setq scss-compile-at-save nil)
-  (add-hook 'scss-mode-hook
-            (lambda ()
-              (rainbow-mode)
-              (setq css-indent-offset 2))))
+  (add-hook 'scss-mode-hook #'miken-css-mode-setup))
 
 ;; Ruby
 (use-package ruby-hash-syntax :defer t)
@@ -666,7 +661,7 @@ respectively."
               (ruby-end-mode)
               (auto-complete-mode)
               (define-key enh-ruby-mode-map (kbd "RET") #'newline-and-indent)
-              (define-key enh-ruby-mode-map (kbd "#") #'miken-ruby-interpolate) )))
+              (define-key enh-ruby-mode-map (kbd "#") #'miken-ruby-interpolate))))
 
 ;; C
 (add-hook 'c-mode-hook (lambda () (setq tab-width 4)))
@@ -679,7 +674,7 @@ respectively."
   :defer t
   :config
   (add-hook 'markdown-mode-hook
-            (lambda () (miken-keys-minor-mode t)) ))
+            (lambda () (miken-keys-minor-mode t))))
 
 (use-package coffee-mode :defer t)
 (use-package clojure-mode :defer t)
@@ -711,8 +706,8 @@ respectively."
     (add-hook hook
               (lambda ()
                 (if (and (projectile-project-p)
-                         (file-exists-p (concat (projectile-project-root) "Gemfile")) )
-                    (projectile-rails-mode) )))))
+                         (file-exists-p (concat (projectile-project-root) "Gemfile")))
+                    (projectile-rails-mode))))))
 
 ;; erb files
 (use-package mmm-mode
@@ -781,7 +776,7 @@ respectively."
     (let ((term-name (concat "*terminal<" index ">*")))
       (if (get-buffer term-name)
           (switch-to-buffer term-name)
-        (switch-to-buffer (multi-term)) )))
+        (switch-to-buffer (multi-term)))))
 
   (dolist (index '("1" "2" "3" "4" "5" "6" "7" "8" "9"))
     (global-set-key (kbd (concat "M-s-" index))
@@ -808,13 +803,13 @@ respectively."
        (replace-match
         (concat "http://www.amazon.com/o/asin/"
                 (match-string 1)
-                (match-string 3) ))))
+                (match-string 3)))))
 
 (defun miken-xml-format ()
   "Formats a region of XML to look nice"
   (interactive)
   (save-excursion
-    (shell-command-on-region (mark) (point) "xmllint --format -" (buffer-name) t) ))
+    (shell-command-on-region (mark) (point) "xmllint --format -" (buffer-name) t)))
 
 (defun miken-json-format ()
   (interactive)
@@ -853,7 +848,7 @@ respectively."
   "Renames both current buffer and file it's visiting to NEW-NAME."
   (interactive "sNew name: ")
   (let ((name (buffer-name))
-        (filename (buffer-file-name)) )
+        (filename (buffer-file-name)))
     (if (not filename)
         (message "Buffer '%s' is not visiting a file!" name)
       (if (get-buffer new-name)
@@ -872,7 +867,7 @@ respectively."
          (dir
           (if (string-match dir "\\(?:/\\|\\\\)$")
               (substring dir 0 -1) dir))
-         (newname (concat dir "/" name)) )
+         (newname (concat dir "/" name)))
     (if (not filename)
         (message "Buffer '%s' is not visiting a file!" name)
       (copy-file filename newname 1)
@@ -890,7 +885,7 @@ respectively."
       (while (< (point) (point-max))
         (forward-word 1)
         (setq count (+ 1 count)) )
-      (message "buffer contains %d words." count) )))
+      (message "buffer contains %d words." count))))
 
 ;;------------------------------------------------------------------------------
 ;; Custom functions
@@ -912,20 +907,20 @@ respectively."
       ;; now insert as many time as requested
       (while (> n 0)
         (insert current-line)
-        (decf n) )))
+        (decf n))))
   (forward-line))
 (global-set-key (kbd "C-c d") #'miken-copy-line-below)
 (global-set-key (kbd "C-c C-d") #'miken-copy-line-below)
 
 ;; Emulate vim's half-screen scrolling
 (defun miken-window-half-height ()
-  (max 1 (/ (+ 1 (window-height (selected-window))) 2)) )
+  (max 1 (/ (+ 1 (window-height (selected-window))) 2)))
 (global-set-key (kbd "C-v")
                 (lambda () (interactive)
-                  (scroll-up (miken-window-half-height)) ))
+                  (scroll-up (miken-window-half-height))))
 (global-set-key (kbd "M-v")
                 (lambda () (interactive)
-                  (scroll-down (miken-window-half-height)) ))
+                  (scroll-down (miken-window-half-height))))
 
 (defun miken-open-line-above ()
   "Insert a newline above the current line and indent point."
@@ -934,6 +929,7 @@ respectively."
   (newline)
   (forward-line -1)
   (indent-according-to-mode))
+
 (global-set-key (kbd "C-c o") #'miken-open-line-above)
 (global-set-key (kbd "C-c C-o") #'miken-open-line-above)
 
@@ -951,8 +947,9 @@ respectively."
     (when filename
       (with-temp-buffer
         (insert filename)
-        (clipboard-kill-region (point-min) (point-max)) )
-      (message filename) )))
+        (clipboard-kill-region (point-min) (point-max)))
+      (message filename))))
+
 (global-set-key (kbd "C-c `") #'miken-current-buffer-filepath)
 
 (defun miken-comment-dwim-line (&optional arg)
@@ -964,13 +961,15 @@ respectively."
   (if (not (region-active-p))
       (comment-or-uncomment-region (line-beginning-position) (line-end-position))
     (comment-dwim arg)))
+
 (global-set-key (kbd "M-;") #'miken-comment-dwim-line)
 
 (defun miken-comment-dwim-line-and-move-down (&optional arg)
   "Comment the current line and move to the next line"
   (interactive)
   (miken-comment-dwim-line arg)
-  (forward-line) )
+  (forward-line))
+
 (global-set-key (kbd "C-M-;") #'miken-comment-dwim-line-and-move-down)
 
 (defun save-macro (name)
@@ -1053,7 +1052,7 @@ respectively."
 (global-set-key [S-return]
                 (lambda () (interactive)
                   (end-of-line)
-                  (newline-and-indent) ))
+                  (newline-and-indent)))
 
 ;;------------------------------------------------------------------------------
 ;; Exit
