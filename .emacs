@@ -169,13 +169,13 @@ STRING is a single-character string that marks the opening character.
   (def-pairs ((paren . \"(\")
               (bracket . \"[\"))
 
-defines the functions WRAP-WITH-PAREN and WRAP-WITH-BRACKET,
+defines the functions MIKEN-WRAP-WITH-PAREN and MIKEN-WRAP-WITH-BRACKET,
 respectively."
   `(progn
      ,@(cl-loop for (key . val) in pairs
              collect
              `(defun ,(read (concat
-                             "wrap-with-"
+                             "miken-wrap-with-"
                              (prin1-to-string key)
                              "s"))
                   (&optional arg)
@@ -209,9 +209,9 @@ respectively."
          ("C-S-f" . sp-forward-symbol)
          ("C-S-b" . sp-backward-symbol)
 
-         ("C-<right>" . sp-forward-slurp-sexp)
+         ("C-c C-l" . sp-forward-slurp-sexp)
          ("M-<right>" . sp-forward-barf-sexp)
-         ("C-<left>"  . sp-backward-slurp-sexp)
+         ("C-c C-h"  . sp-backward-slurp-sexp)
          ("M-<left>"  . sp-backward-barf-sexp)
 
          ("C-M-t" . sp-transpose-sexp)
@@ -230,13 +230,13 @@ respectively."
 
          ("C-x C-t" . sp-transpose-hybrid-sexp)
 
-         ("C-c (" . wrap-with-parens)
-         ("C-c [" . wrap-with-brackets)
-         ("C-c {" . wrap-with-braces)
-         ("C-c '" . wrap-with-single-quotes)
-         ("C-c \"" . wrap-with-double-quotes)
-         ("C-c _" . wrap-with-underscores)
-         ("C-c `" . wrap-with-back-quotes)))
+         ("C-c (" . miken-wrap-with-parens)
+         ("C-c [" . miken-wrap-with-brackets)
+         ("C-c {" . miken-wrap-with-braces)
+         ("C-c '" . miken-wrap-with-single-quotes)
+         ("C-c \"" . miken-wrap-with-double-quotes)
+         ("C-c _" . miken-wrap-with-underscores)
+         ("C-c `" . miken-wrap-with-back-quotes)))
 
 
 ;; (add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
@@ -402,6 +402,7 @@ respectively."
 ;; Paragraph management
 
 (setq-default fill-column 85)
+(setq sentence-end-double-space nil)
 
 (defun endless/forward-paragraph (&optional n)
   "Advance just past next blank line."

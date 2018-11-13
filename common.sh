@@ -214,6 +214,10 @@ alias dcls="bundle exec rake db:drop db:create db:schema:load db:seed"
 alias dcm="bundle exec rake db:drop db:create db:migrate"
 alias dcms="bundle exec rake db:drop db:create db:migrate db:seed"
 
+# clojure
+alias lt="lein test"
+alias lr="lein repl"
+
 # mix / elixir
 alias mc="mix compile"
 alias mch="mix coveralls.html"
