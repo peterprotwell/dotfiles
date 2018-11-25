@@ -6,31 +6,41 @@
 # 4. Run this script
 
 #-------------------------------------------------------------------------------
-# Homebrew
+# xcode command line tools
+
+if [ "$(xcode-select -p)" = '/Applications/Xcode.app/Contents/Developer' ]; then
+  echo 'xcode or command line tools already installed.'
+else
+  echo 'Please install xcode and add your ssh key to github before running this script.'
+  exit 1
+fi
+
+#-------------------------------------------------------------------------------
+# homebrew
 
 if ! type brew > /dev/null; then
   echo "Homebrew not found, installing..."
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 else
   echo "Homebrew already installed"
-  brew update
 fi
 
 #-------------------------------------------------------------------------------
-# xcode command line tools
+# homebrew cask apps
 
-if [ "$(xcode-select -p)" = '/Applications/Xcode.app/Contents/Developer' ]; then
-  echo 'xcode command line tools already installed.'
-else
-  xcode-select --install
-fi
+apps="alfred emacs firefox flux google-chrome iterm2 java libreoffice macdown
+ paintbrush scroll-reverser sizeup slack steam sublime-text vlc yujitach-menumeters"
+
+for app in $apps; do
+  brew cask install "$app"
+done
 
 #-------------------------------------------------------------------------------
 # homebrew packages
 
-packages="bash cask cloc clojure coreutils ctags elixir emacs ffmpeg gcc git
- haskell-stack htop leiningen libxml2 markdown node p7zip postgresql rbenv rename
- ruby-build sbt shellcheck the_silver_searcher thefuck tree ydiff youtube-dl zsh"
+packages="bash cask cloc clojure coreutils ctags ffmpeg gcc git haskell-stack htop
+ leiningen markdown node p7zip postgresql rbenv rename sbt shellcheck
+ the_silver_searcher thefuck tree ydiff youtube-dl zsh"
 
 for package in $packages; do
   brew install "$package"
@@ -38,17 +48,6 @@ done
 
 # Post-install stuff
 brew services start postgresql
-
-#-------------------------------------------------------------------------------
-# homebrew cask apps
-
-apps="alfred firefox flux google-chrome hipchat iterm2 java libreoffice macdown
-  paintbrush rowanj-gitx scroll-reverser sizeup slack steam sublime-text virtualbox
-  vlc yujitach-menumeters"
-
-for app in $apps; do
-  brew cask install "$app"
-done
 
 #-------------------------------------------------------------------------------
 # zsh
@@ -90,4 +89,6 @@ fi
 #-------------------------------------------------------------------------------
 # Symlinks
 
-./init-symlinks.sh
+~/dotfiles/init-symlinks.sh
+
+## End init-mac.sh
