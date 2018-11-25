@@ -301,13 +301,16 @@ alias t1="tree -L 1"
 alias t2="tree -L 2"
 alias t3="tree -L 3"
 alias t4="tree -L 4"
+alias t5="tree -L 5"
+alias t6="tree -L 6"
+alias t7="tree -L 7"
 
 #-------------------------------------------------------------------------------
 # machine-specific setup
 
 if [ "$(whoami)" = "mike" ]; then
   source ~/dotfiles/home.sh
-elif [ "$(whoami)" = "mnicho29" ]; then
+elif [ "$(whoami)" = "mike.nichols" ]; then
   source ~/dotfiles/work.sh
 fi
 
