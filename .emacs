@@ -53,41 +53,19 @@
            for deps = (miken-package-get-deps pkg)
            when (memq dependency deps)
            collect pkg))
+
 ;; (miken-package-get-dependees 'dash)
-;; TODO: Debug this error
-;; Debugger entered--Lisp error: (wrong-type-argument arrayp nil)
-;;   aref(nil 0)
-;;   (memq (aref pkg-desc 0) cl-struct-package-desc-tags)
-;;   (and (memq (aref pkg-desc 0) cl-struct-package-desc-tags))
-;;   (or (and (memq (aref pkg-desc 0) cl-struct-package-desc-tags)) (signal (quote wrong-type-argument) (list (quote package-desc) pkg-desc)))
-;;   (progn nil (or (and (memq (aref pkg-desc 0) cl-struct-package-desc-tags)) (signal (quote wrong-type-argument) (list (quote package-desc) pkg-desc))) (aref pkg-desc 4))
-;;   (let* ((--cl-var-- (progn nil (or (and (memq (aref pkg-desc 0) cl-struct-package-desc-tags)) (signal (quote wrong-type-argument) (list (quote package-desc) pkg-desc))) (aref pkg-desc 4))) (p nil) (name nil) (--cl-var-- nil)) (while (consp --cl-var--) (setq p (car --cl-var--)) (setq name (car p)) (if (assq name package-alist) (progn (setq --cl-var-- (cons name --cl-var--)))) (setq --cl-var-- (cdr --cl-var--))) (nreverse --cl-var--))
-;;   (let* ((pkg-desc (car (cdr (assq pkg package-alist)))) (direct-deps (let* ((--cl-var-- (progn nil (or ... ...) (aref pkg-desc 4))) (p nil) (name nil) (--cl-var-- nil)) (while (consp --cl-var--) (setq p (car --cl-var--)) (setq name (car p)) (if (assq name package-alist) (progn (setq --cl-var-- ...))) (setq --cl-var-- (cdr --cl-var--))) (nreverse --cl-var--))) (indirect-deps (if (eq only (quote direct)) nil (cl-remove-duplicates (let* ((--cl-var-- direct-deps) (p nil) (--cl-var-- nil)) (while (consp --cl-var--) (setq p ...) (setq --cl-var-- ...) (setq --cl-var-- ...)) (nreverse --cl-var--)))))) (cond ((eql only (quote direct)) direct-deps) ((eql only (quote separate)) (list direct-deps indirect-deps)) ((eql only (quote indirect)) indirect-deps) (t (cl-remove-duplicates (append direct-deps indirect-deps)))))
-;;   miken-package-get-deps(with-editor)
-;;   (setq deps (miken-package-get-deps pkg))
-;;   (while (consp --cl-var--) (setq pkg (car --cl-var--)) (setq deps (miken-package-get-deps pkg)) (if (memq dependency deps) (progn (setq --cl-var-- (cons pkg --cl-var--)))) (setq --cl-var-- (cdr --cl-var--)))
-;;   (let* ((--cl-var-- (cl-remove-duplicates package-activated-list)) (pkg nil) (deps nil) (--cl-var-- nil)) (while (consp --cl-var--) (setq pkg (car --cl-var--)) (setq deps (miken-package-get-deps pkg)) (if (memq dependency deps) (progn (setq --cl-var-- (cons pkg --cl-var--)))) (setq --cl-var-- (cdr --cl-var--))) (nreverse --cl-var--))
-;;   miken-package-get-dependees(dash)
-;;   eval-region(2243 2278 t #[257 "\300\242b\210\301\207" [(2278) (miken-package-get-dependees (quote dash))] 2 "\n\n(fn IGNORE)"])  ; Reading at buffer position 2277
-;;   elisp--eval-defun()
-;;   eval-defun(nil)
-;;   funcall-interactively(eval-defun nil)
-;;   #<subr call-interactively>(eval-defun nil nil)
-;;   ad-Advice-call-interactively(#<subr call-interactively> eval-defun nil nil)
-;;   apply(ad-Advice-call-interactively #<subr call-interactively> (eval-defun nil nil))
-;;   call-interactively(eval-defun nil nil)
-;;   command-execute(eval-defun)
 
 ;;------------------------------------------------------------------------------
 ;; OS settings
 
-(when (eq system-type 'darwin)
-  (setq mac-command-modifier 'meta
-        mac-option-modifier 'super))
+(if (eq system-type 'darwin)
+    (setq mac-command-modifier 'meta
+          mac-option-modifier 'super))
 
-(when (memq window-system '(mac ns x))
-  (use-package exec-path-from-shell
-    :init (exec-path-from-shell-initialize)))
+(if (memq window-system '(mac ns x))
+    (use-package exec-path-from-shell
+      :init (exec-path-from-shell-initialize)))
 
 (add-to-list 'exec-path "/usr/local/bin")
 
@@ -536,24 +514,13 @@ respectively."
         (neotree-find file-name)))))
 
 ;;------------------------------------------------------------------------------
-;; Refactoring
-
-(use-package ruby-refactor
-  :defer t
-  :config (setq ruby-refactor-add-parens t))
-
-;;------------------------------------------------------------------------------
 ;; Language modes config
 
 ;; Always spaces, always 2, always line numbers
 (setq-default indent-tabs-mode nil
-              tab-width 2)
+              tab-width 2
+              sh-basic-offset 2)
 (add-hook 'prog-mode-hook #'linum-mode)
-
-;; shell
-(add-hook 'sh-mode-hook
-          (lambda () (setq-default sh-basic-offset 2
-                                   sh-indentation 2)))
 
 ;; elisp
 (add-hook 'emacs-lisp-mode-hook
@@ -630,8 +597,33 @@ respectively."
   (setq scss-compile-at-save nil)
   (add-hook 'scss-mode-hook #'miken-css-mode-setup))
 
-;; Ruby
+;; C
+(add-hook 'c-mode-hook (lambda () (setq tab-width 4)))
+
+;; Java
+(add-hook 'java-mode-hook (lambda () (setq tab-width 4)))
+
+;; Markdown
+(use-package markdown-mode
+  :defer t
+  :config
+  (add-hook 'markdown-mode-hook
+            (lambda () (miken-keys-minor-mode t))))
+
+(use-package coffee-mode :defer t)
+(use-package clojure-mode :defer t)
+(use-package dockerfile-mode :defer t)
+(use-package haml-mode :defer t)
+(use-package haskell-mode :defer t)
+(use-package scala-mode :defer t)
+(use-package slim-mode :defer t)
+(use-package yaml-mode :defer t)
+
+;;------------------------------------------------------------------------------
+;; ruby/rails settings
+
 (use-package ruby-hash-syntax :defer t)
+
 (use-package ruby-end :config (setq ruby-end-insert-newline nil))
 
 (use-package enh-ruby-mode
@@ -657,30 +649,9 @@ respectively."
               (define-key enh-ruby-mode-map (kbd "RET") #'newline-and-indent)
               (define-key enh-ruby-mode-map (kbd "#") #'miken-ruby-interpolate))))
 
-;; C
-(add-hook 'c-mode-hook (lambda () (setq tab-width 4)))
-
-;; Java
-(add-hook 'java-mode-hook (lambda () (setq tab-width 4)))
-
-;; Markdown
-(use-package markdown-mode
+(use-package ruby-refactor
   :defer t
-  :config
-  (add-hook 'markdown-mode-hook
-            (lambda () (miken-keys-minor-mode t))))
-
-(use-package coffee-mode :defer t)
-(use-package clojure-mode :defer t)
-(use-package dockerfile-mode :defer t)
-(use-package haml-mode :defer t)
-(use-package haskell-mode :defer t)
-(use-package scala-mode :defer t)
-(use-package slim-mode :defer t)
-(use-package yaml-mode :defer t)
-
-;;------------------------------------------------------------------------------
-;; Rails settings
+  :config (setq ruby-refactor-add-parens t))
 
 (use-package projectile-rails
   :defer t
@@ -730,7 +701,7 @@ respectively."
   ("M-s-t" . miken-rspec-toggle-flip))
 
 ;;------------------------------------------------------------------------------
-;; Alchemist / elixir
+;; alchemist / elixir
 
 (use-package alchemist
   :defer t
@@ -785,17 +756,17 @@ respectively."
 ;;------------------------------------------------------------------------------
 ;; Text manipulation
 
-;; From the Yegge blog post "Saving Time"
+;; From https://sites.google.com/site/steveyegge2/saving-time
 (defun miken-fix-amazon-url ()
-  "Minimizes the Amazon URL under the point.  You can paste an Amazon
+  "Minimizes the Amazon URL under the point. You can paste an Amazon
   URL out of your browser, put the cursor in it somewhere, and invoke
   this method to convert it."
   (interactive)
-  (and (search-backward "http://www.amazon.com" (point-at-bol) t)
+  (and (search-backward "https://www.amazon.com" (point-at-bol) t)
        (search-forward-regexp
         ".+/\\([A-Z0-9]\\{10\\}\\)/[^[:space:]\"]+" (point-at-eol) t)
        (replace-match
-        (concat "http://www.amazon.com/o/asin/"
+        (concat "https://www.amazon.com/o/asin/"
                 (match-string 1)
                 (match-string 3)))))
 
@@ -830,7 +801,6 @@ respectively."
         (replace-match new-c)
         (replace-string new-c old-c nil (1+ start) end)))))
 (global-set-key (kbd "C-c t") #'miken-toggle-quotes)
-(global-set-key (kbd "C-c C-t") #'miken-toggle-quotes)
 
 (global-set-key (kbd "C-x \\") #'align-regexp)
 
@@ -904,7 +874,6 @@ respectively."
         (decf n))))
   (forward-line))
 (global-set-key (kbd "C-c d") #'miken-copy-line-below)
-(global-set-key (kbd "C-c C-d") #'miken-copy-line-below)
 
 ;; Emulate vim's half-screen scrolling
 (defun miken-window-half-height ()
@@ -925,7 +894,6 @@ respectively."
   (indent-according-to-mode))
 
 (global-set-key (kbd "C-c o") #'miken-open-line-above)
-(global-set-key (kbd "C-c C-o") #'miken-open-line-above)
 
 ;; In the pipe, five-by-five
 (defun miken-previous-line-five () (interactive) (forward-line -5))
@@ -947,14 +915,14 @@ respectively."
 (global-set-key (kbd "C-c `") #'miken-current-buffer-filepath)
 
 (defun miken-comment-dwim-line (&optional arg)
-  "Replacement for the comment-dwim command.
-   If no region is selected and current line is not blank, then comment current line.
-   Replaces default behaviour of comment-dwim, when it inserts comment at the end of the line."
+  "Replacement for the comment-dwim command. If no region is selected and current
+   line is not blank, then comment current line. Replaces default behaviour of
+   comment-dwim, when it inserts comment at the end of the line."
   (interactive "*P")
   (comment-normalize-vars)
-  (if (not (region-active-p))
-      (comment-or-uncomment-region (line-beginning-position) (line-end-position))
-    (comment-dwim arg)))
+  (if (region-active-p)
+      (comment-dwim arg)
+    (comment-or-uncomment-region (line-beginning-position) (line-end-position))))
 
 (global-set-key (kbd "M-;") #'miken-comment-dwim-line)
 
@@ -1038,7 +1006,7 @@ respectively."
 ;; Misc. custom keybindings
 
 (global-set-key (kbd "C-x C-u") #'browse-url)
-(global-set-key (kbd "C-c C-a") #'calendar)
+(global-set-key (kbd "C-c a") #'calendar)
 
 (use-package xkcd :defer true)
 (wg-revert-workgroup (wg-current-workgroup))
