@@ -192,8 +192,8 @@ respectively."
 
          ("C-<down>" . sp-down-sexp)
          ("C-<up>"   . sp-up-sexp)
-         ("M-<down>" . sp-backward-down-sexp)
-         ("M-<up>"   . sp-backward-up-sexp)
+         ;; ("M-<down>" . sp-backward-down-sexp)
+         ;; ("M-<up>"   . sp-backward-up-sexp)
 
          ("C-M-f" . sp-forward-sexp)
          ("C-M-b" . sp-backward-sexp)
@@ -211,7 +211,7 @@ respectively."
 
          ("C-M-t" . sp-transpose-sexp)
          ("C-M-k" . sp-kill-sexp)
-         ("C-k"   . sp-kill-hybrid-sexp)
+         ;; ("C-k"   . sp-kill-hybrid-sexp)
          ("M-k"   . sp-backward-kill-sexp)
          ("C-M-w" . sp-copy-sexp)
          ("C-M-d" . delete-sexp)
@@ -368,14 +368,11 @@ respectively."
 ;;------------------------------------------------------------------------------
 ;; Buffer management
 
-(global-set-key (kbd "C-c k") #'kill-buffer-and-window)
-(global-set-key (kbd "C-c C-k") #'kill-buffer-and-window)
+(defun miken-remind () (interactive) (message "C-x 4 0 to kill buffer and window"))
+(global-set-key (kbd "C-c k") #'miken-remind)
+(global-set-key (kbd "C-c C-k") #'miken-remind)
 
-(global-set-key (kbd "C-c b") #'switch-to-buffer-other-window)
-(global-set-key (kbd "C-c C-b") #'switch-to-buffer-other-window)
-
-;; Already bound to C-x b
-(global-set-key (kbd "C-x C-b") #'switch-to-buffer)
+(global-set-key (kbd "C-x C-b") #'switch-to-buffer-other-window)
 
 ;; Previously bound to C-x C-b
 (global-set-key (kbd "C-x C-l") #'list-buffers)
@@ -444,6 +441,7 @@ respectively."
   :config
   (projectile-global-mode)
   (setq projectile-mode-line " Pj")
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   :bind
   (("M-s-f" . projectile-find-file)
    ("M-s-v" . projectile-vc)
