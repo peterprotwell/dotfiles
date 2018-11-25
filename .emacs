@@ -105,28 +105,27 @@
 ;;------------------------------------------------------------------------------
 ;; Global config
 
-(setq inhibit-startup-message t)
+(setq-default cursor-type 'bar
+              blink-cursor-blinks 0)
 
 ;; We don't need no stinkin' GUI
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 
-(setq make-backup-files nil)
-(setq ring-bell-function 'ignore)
-
-;; Disable some annoying prompts
 (fset 'yes-or-no-p 'y-or-n-p)
-(setq confirm-nonexistent-file-or-buffer nil)
-(setq ido-create-new-buffer 'always)
 
-(setq-default cursor-type 'bar)
-(setq-default blink-cursor-blinks 0)
-(setq blink-cursor-interval 0.8)
-
-;; Scrolling
-(setq scroll-preserve-screen-position t)
-(setq mouse-wheel-progressive-speed nil)
+(setq blink-cursor-interval 0.8
+      column-number-mode t
+      comment-style 'indent
+      confirm-nonexistent-file-or-buffer nil
+      ido-create-new-buffer 'always
+      inhibit-startup-message t
+      line-number-mode t
+      make-backup-files nil
+      mouse-wheel-progressive-speed nil
+      ring-bell-function 'ignore
+      scroll-preserve-screen-position t)
 
 ;; Replaces M-x to run commands
 (use-package smex
@@ -137,11 +136,7 @@
 ;;------------------------------------------------------------------------------
 ;; Global modes
 
-(setq line-number-mode t)
-(setq column-number-mode t)
 (global-hl-line-mode 1) ;; Highlight current line
-(setq comment-style 'indent)
-
 (global-set-key (kbd "C-<f5>") #'linum-mode)
 
 ;; DA-DA-DA DAAA, daa daa DAAT duh-DAAAAAA!
