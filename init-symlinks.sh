@@ -28,11 +28,13 @@ echo "Linking ~/dotfiles/ssh_config as ~/.ssh/config"
 mkdir -p ~/.ssh
 ln -s ~/dotfiles/ssh_config ~/.ssh/config
 
-if [ -L ~/.unicornleap/sweetjesus.png ]; then
+if ! [ -d ~/.unicornleap ]; then
+  echo "Please install unicornleap"
+elif [ -L ~/.unicornleap/sweetjesus.png]; then
   echo "Unicorn leap images already linked"
 else
   echo "Linking unicorn leap images"
-  ln -s ~/dotfiles/images/phoenix.png ~/.unicornleap
-  ln -s ~/dotfiles/images/flame.png ~/.unicornleap
-  ln -s ~/dotfiles/images/sweetjesus.png ~/.unicornleap
+  ln -s ~/dotfiles/images/phoenix.png ~/.unicornleap/phoenix.png
+  ln -s ~/dotfiles/images/flame.png ~/.unicornleap/flame.png
+  ln -s ~/dotfiles/images/sweetjesus.png ~/.unicornleap/sweetjesus.png
 fi

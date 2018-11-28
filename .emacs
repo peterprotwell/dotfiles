@@ -125,7 +125,7 @@
   :config (drag-stuff-global-mode)
   :bind (("M-<up>" . drag-stuff-up)
          ("M-<down>" . drag-stuff-down)))
-(use-package rbenv :config (global-rbenv-mode))
+(use-package rbenv :defer true :config (global-rbenv-mode))
 
 ;;------------------------------------------------------------------------------
 ;; Parens
