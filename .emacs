@@ -350,6 +350,8 @@ respectively."
 (global-set-key (kbd "C-c k") #'miken-remind)
 (global-set-key (kbd "C-c C-k") #'miken-remind)
 
+(global-set-key (kbd "C-x C-k") #'ido-kill-buffer)
+
 (global-set-key (kbd "C-x C-b") #'switch-to-buffer-other-window)
 
 ;; Previously bound to C-x C-b

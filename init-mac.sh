@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
 # 1. Install xcode
-# 2. Add ssh key to github
-# 3. Clone dotfiles
-# 4. Run this script
+# 2. Open xcode and select command line tools under "locations"
+# 3. Add ssh key to github
+# 4. Clone dotfiles
+# 5. Run this script
+# 6. Install fonts, open apps
 
 #-------------------------------------------------------------------------------
 # xcode command line tools

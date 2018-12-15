@@ -179,6 +179,7 @@ alias np="echo \"\$PATH\" | tr : '\n'"
 
 # homebrew update all
 alias hbua="brew update && brew upgrade && brew cleanup"
+alias bs="brew services"
 
 # bundler
 alias b="bundle check || bundle install"
@@ -203,8 +204,6 @@ alias rep="RAILS_ENV=production"
 alias taildev="tail -f log/development*"
 alias tailprod="tail -f log/production*"
 
-alias bs="bin/start"
-
 # rake aliases
 alias mst="bundle exec rake db:migrate:status"
 
@@ -215,8 +214,10 @@ alias dcm="bundle exec rake db:drop db:create db:migrate"
 alias dcms="bundle exec rake db:drop db:create db:migrate db:seed"
 
 # clojure
-alias lt="lein test"
+alias lt="lein spec"
 alias lr="lein repl"
+alias lc="lein clean"
+alias lds="lein deps"
 
 # mix / elixir
 alias mc="mix compile"
@@ -237,7 +238,7 @@ alias eov="mix coveralls.html; open cover/excoveralls.html"
 
 # javascript / npm
 alias ne="npm run exec -- "
-alias tt="npm run lint && CI=true npm run test && unicornleap -s 1.2 --unicorn narwhal.png"
+alias tt="npm run lint && CI=true npm run test && unicornleap -s 1.5 --unicorn ~/.unicornleap/narwhal.png"
 
 # emacs
 alias ce="cask exec"
@@ -305,12 +306,14 @@ alias t5="tree -L 5"
 alias t6="tree -L 6"
 alias t7="tree -L 7"
 
+alias mt="make test"
+
 #-------------------------------------------------------------------------------
 # machine-specific setup
 
 if [ "$(whoami)" = "mike" ]; then
   source ~/dotfiles/home.sh
-elif [ "$(whoami)" = "mike.nichols" ]; then
+elif [ "$(whoami)" = "mikenichols" ]; then
   source ~/dotfiles/work.sh
 fi
 
@@ -359,6 +362,11 @@ export TERM=xterm-256color
 
 if type fuck &> /dev/null; then
   eval "$(thefuck --alias)"
+fi
+
+export NVM_DIR="$HOME/.nvm"
+if [ -f "/usr/local/opt/nvm/nvm.sh" ]; then
+  . "/usr/local/opt/nvm/nvm.sh"
 fi
 
 #-------------------------------------------------------------------------------
