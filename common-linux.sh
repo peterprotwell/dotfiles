@@ -1,3 +1,5 @@
+## common-linux.sh
+
 alias normal-scrolling="xmodmap ~/dotfiles/.Xmodmap"
 alias reverse-scrolling="xmodmap ~/dotfiles/.Xmodmap-touchpad"
 
@@ -9,3 +11,5 @@ if [ -f ~/dotfiles/.Xmodmap ]; then
     export XMODMAP_LOADED="1"
   fi
 fi
+
+## end common-linux.sh

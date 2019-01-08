@@ -14,12 +14,15 @@
   cf = commit --fixup
   ci = commit
   co = checkout
+  cod = checkout env/development
   com = checkout master
   cop2 = checkout @{-2}
   cop3 = checkout @{-3}
   cop4 = checkout @{-4}
   cop5 = checkout @{-5}
   cop6 = checkout @{-6}
+  coprod = checkout env/production
+  cos = checkout env/staging
   cp = cherry-pick
   cpx = cherry-pick -x
   d = !ydiff
@@ -32,6 +35,7 @@
   it = !git init && git commit --message "root" --allow-empty
   kb = reset --hard HEAD~1
   l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+  ma = merge abort
   mm = merge master
   mmours = merge --strategy recursive --strategy-option ours master
   oops = commit --amend --reuse-message HEAD

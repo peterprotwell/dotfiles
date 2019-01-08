@@ -1,6 +1,4 @@
-##
-## Mike's common shell config file
-##
+## common.sh
 
 # There can be only one
 export EDITOR="emacs -q -nw"
@@ -21,7 +19,7 @@ fn() {
     dir='.'
   fi
 
-  find "$dir" -name "*$1*"
+  find "$dir" -name "*$1*" -not -path "*/node_modules/*"
 }
 
 mkcd() {
@@ -251,6 +249,7 @@ alias pgstart="pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/serv
 alias pgstop="pg_ctl -D /usr/local/var/postgres stop -s -m fast"
 alias pgstatus="pg_ctl -D /usr/local/var/postgres status"
 alias pg="psql -h localhost -d postgres"
+alias pgc="pgcli"
 
 # terraform
 alias tf="terraform"
@@ -298,6 +297,7 @@ alias syncmusic="rsync -vr --size-only --delete /Volumes/yudkowsky/home/Music/iT
 alias wh="which"
 
 alias tree="tree -I node_modules "
+alias t="tree"
 alias t1="tree -L 1"
 alias t2="tree -L 2"
 alias t3="tree -L 3"
@@ -306,7 +306,8 @@ alias t5="tree -L 5"
 alias t6="tree -L 6"
 alias t7="tree -L 7"
 
-alias mt="make test"
+# make
+alias mt="make test && unicornleap -s 1.5"
 
 #-------------------------------------------------------------------------------
 # machine-specific setup
