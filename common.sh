@@ -1,5 +1,8 @@
 ## common.sh
 
+#-------------------------------------------------------------------------------
+# emacs
+
 # There can be only one
 export EDITOR="emacs -q -nw"
 alias e="emacsclient -n"

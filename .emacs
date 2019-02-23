@@ -254,10 +254,10 @@ respectively."
                            (rainbow-mode)))))
 
 (defun miken-override-theme (theme)
-  "Clear out the active themes and load a theme freshly"
-  (interactive "sOverride with custom theme: ")
-  (while custom-enabled-themes
-    (disable-theme (car custom-enabled-themes)))
+  "Disables any active themes and loads a new theme."
+  (interactive
+   (list (completing-read "Override with custom theme: " (custom-available-themes))))
+  (mapc #'disable-theme custom-enabled-themes)
   (load-theme (intern theme) t nil))
 
 (use-package railscasts-theme
