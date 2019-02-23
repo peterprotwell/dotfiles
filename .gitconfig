@@ -79,3 +79,6 @@
 
 [interactive]
   singleKey = true
+
+[transfer]
+  fsckObjects = true

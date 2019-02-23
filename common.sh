@@ -296,7 +296,7 @@ alias syncmusic="rsync -vr --size-only --delete /Volumes/yudkowsky/home/Music/iT
 
 alias wh="which"
 
-alias tree="tree -I node_modules "
+alias tree="tree -I node_modules -I coverage "
 alias t="tree"
 alias t1="tree -L 1"
 alias t2="tree -L 2"
@@ -354,6 +354,12 @@ fi
 drun() {
   docker run "$(basename $(pwd))" "$1"
 }
+
+#-------------------------------------------------------------------------------
+# games
+
+export D2_SAVE_DIR="/Applications/Games.localized/Diablo 2.app/Contents/Resources/drive_c/Program Files/Diablo II/Save"
+cdd2="cd $D2_SAVE_DIR"
 
 #-------------------------------------------------------------------------------
 # Misc.

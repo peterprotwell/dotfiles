@@ -2,6 +2,9 @@
 ;;; Mike's .emacs file
 ;;;
 
+;;------------------------------------------------------------------------------
+;; Syntax
+
 ;; Load common lisp extensions
 (eval-when-compile (require 'cl-lib))
 
@@ -219,6 +222,7 @@ respectively."
 ;; Saving
 
 (global-set-key [f9] #'save-buffer)
+(global-set-key (kbd "M-s-r") #'save-buffer)
 (desktop-save-mode t)
 (add-hook 'before-save-hook #'delete-trailing-whitespace)
 (global-auto-revert-mode 1)
@@ -256,7 +260,8 @@ respectively."
     (disable-theme (car custom-enabled-themes)))
   (load-theme (intern theme) t nil))
 
-(use-package railscasts-theme)
+(use-package railscasts-theme
+  :config (miken-override-theme "railscasts"))
 
 ;;------------------------------------------------------------------------------
 ;; Sound
@@ -350,7 +355,7 @@ respectively."
 (global-set-key (kbd "C-c k") #'miken-remind)
 (global-set-key (kbd "C-c C-k") #'miken-remind)
 
-(global-set-key (kbd "C-x C-k") #'ido-kill-buffer)
+(global-set-key (kbd "C-x C-k") (lambda () (interactive) (kill-buffer (current-buffer))))
 
 (global-set-key (kbd "C-x C-b") #'switch-to-buffer-other-window)
 
@@ -501,7 +506,8 @@ respectively."
 ;; Neotree
 
 (use-package neotree
-  :bind ([f8] . miken-neotree)
+  :bind (("M-s-a" . miken-neotree)
+         ([f8] . miken-neotree))
   :config
   (setq neo-smart-open t
         neo-autorefresh nil)
@@ -630,6 +636,7 @@ respectively."
 (use-package ruby-end :config (setq ruby-end-insert-newline nil))
 
 (use-package enh-ruby-mode
+  :bind (("M-s-p" . miken-insert-ruby-pry))
   :config
   (add-to-list 'auto-mode-alist
                '("\\.\\(?:gemspec\\|irbrc\\|gemrc\\|pryrc\\|rake\\|rb\\|ru\\|thor\\)\\'" . enh-ruby-mode))
@@ -644,6 +651,13 @@ respectively."
     (when (and (looking-back "\".*") (looking-at ".*\""))
       (insert "{}")
       (backward-char 1)))
+
+  (defun miken-insert-ruby-pry ()
+    "Inserts the line `require 'pry'; binding.pry'"
+    (interactive)
+    (save-excursion
+      (miken-open-line-above)
+      (insert "require 'pry'; binding.pry")))
 
   (add-hook 'enh-ruby-mode-hook
             (lambda ()
