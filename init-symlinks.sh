@@ -30,7 +30,7 @@ ln -s ~/dotfiles/ssh_config ~/.ssh/config
 
 if ! [ -d ~/.unicornleap ]; then
   echo "Please install unicornleap"
-elif [ -L ~/.unicornleap/sweetjesus.png]; then
+elif [ -L ~/.unicornleap/sweetjesus.png ]; then
   echo "Unicorn leap images already linked"
 else
   echo "Linking unicorn leap images"

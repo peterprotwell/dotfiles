@@ -223,7 +223,6 @@ respectively."
 
 (global-set-key [f9] #'save-buffer)
 (global-set-key (kbd "M-s-r") #'save-buffer)
-(desktop-save-mode t)
 (add-hook 'before-save-hook #'delete-trailing-whitespace)
 (global-auto-revert-mode 1)
 
@@ -1026,7 +1025,6 @@ respectively."
 (global-set-key (kbd "C-c a") #'calendar)
 
 (use-package xkcd :defer true)
-(wg-revert-workgroup (wg-current-workgroup))
 
 (global-set-key [S-return]
                 (lambda () (interactive)
