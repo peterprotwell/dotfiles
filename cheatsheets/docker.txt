@@ -1,0 +1,33 @@
+Docker is a software containerization platform
+
+== Docker Philosophy
+Containers need to be run on a homogeneous system because they share a kernel with their host OS. This is why you need to install a (Linux) VM to run (Linux) containers. If your dev machine runs Linux, you don't need the VM. Note that docker refers to the OS in which containers run to be the host, which will be referred to as the docker host to avoid confusion.
+
+Ideally, each container should only run a single process.
+
+== Docker Images
+Docker has images, which are a frozen read-only state of an OS and file system, possibly after some commands have been run. docker images have layers and each "RUN" command in a Dockerfile creates a new layer. docker uses a union file system to make it look like all these layers are a single layer. Each layer in a docker image is read-only. When a new layer is built, all processes are stopped, which means long-lived processes like databases and daemons needs to be restarted with a "CMD" or "ENTRYPOINT" command in the Dockerfile.
+
+The standard way to create a docker image is with docker build which uses a Dockerfile. An example command would be "docker build -t test/myapp ." The "-t" flag specifies the name of the newly created image and optionally a tag in the format of "repository/image-name:tag-name". The "." is the build context. This directory is zipped into a tarball and passed to the docker daemon to build the image. This is what allows you to run "COPY" commands in a Dockerfile.
+
+You can specify a .dockerignore file to ignore files when creating a build context.
+
+Docker caches layers to speed up building of docker images. The caching is naive and will be used only if: 1) the previous instruction was found in the cache and 2) there is a layer in the cache that has exactly the same instruction and parent layer. This means that if you do something like "RUN git clone <REPO_URL>" it could cache that instruction and give you a stale version of the repo. Use "docker build --no-cache" to not using caching.
+
+Similarly, base docker images specified in the "FROM" command are also cached. This means if there is an important security update, a "docker build" won't be sufficient; you'll have to "docker pull" the latest base docker image or "docker rm" the base docker image to trigger a new download.
+
+== Docker Image commands
+docker image ls # list all docker images
+
+== Docker Containers
+From an image, you can run or create a docker container. A docker container is a docker image with a read/write filesystem placed on top.
+
+== Docker Container commands
+docker ps # see running docker containers
+docker ps -a # see all docker containers
+# docker run creates a new container
+docker run -it <IMAGE_NAME> /bin/bash # run a container from an image and hand you a shell
+docker run -d <IMAGE_NAME> # run a container detached
+
+== Volumes
+Volumes are how you share files between a docker container and the host or between multiple docker containers.
