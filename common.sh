@@ -148,6 +148,14 @@ s() {
   fi
 }
 
+trim_end() {
+  if [ -e trimmed.mp3 ]; then
+    rm trimmed.mp3
+  fi
+
+  ffmpeg -i "$1" -ss 0 -to "$2" -c copy trimmed.mp3
+}
+
 #-------------------------------------------------------------------------------
 # aliases
 
