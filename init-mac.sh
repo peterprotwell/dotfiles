@@ -27,11 +27,13 @@ else
   echo "Homebrew already installed"
 fi
 
+brew tap caskroom/versions
+
 #-------------------------------------------------------------------------------
 # homebrew cask apps
 
-apps="alfred emacs firefox flux google-chrome iterm2 java libreoffice macdown
- paintbrush scroll-reverser sizeup slack steam sublime-text vlc yujitach-menumeters"
+apps="alfred emacs firefox flux google-chrome iterm2 macdown paintbrush
+ scroll-reverser sizeup vlc yujitach-menumeters"
 
 for app in $apps; do
   brew cask install "$app"
@@ -40,16 +42,18 @@ done
 #-------------------------------------------------------------------------------
 # homebrew packages
 
-packages="bash cask cloc clojure coreutils ctags ffmpeg gcc git haskell-stack htop
- leiningen markdown node p7zip postgresql rbenv rename sbt shellcheck
- the_silver_searcher thefuck tree ydiff youtube-dl zsh"
+packages="bash cloc coreutils ctags ffmpeg fzf git haskell-stack htop markdown p7zip
+ rbenv rename shellcheck the_silver_searcher thefuck tree ydiff youtube-dl zsh"
 
 for package in $packages; do
   brew install "$package"
 done
 
-# Post-install stuff
-brew services start postgresql
+#-------------------------------------------------------------------------------
+# java 1.8
+
+brew tap AdoptOpenJDK/openjdk
+brew cask install adoptopenjdk8
 
 #-------------------------------------------------------------------------------
 # zsh
