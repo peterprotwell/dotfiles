@@ -22,7 +22,7 @@ fn() {
     dir='.'
   fi
 
-  find "$dir" -name "*$1*" -not -path "*/node_modules/*"
+  find "$dir" -iname "*$1*" -not -path "*/node_modules/*"
 }
 
 mkcd() {

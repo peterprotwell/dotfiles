@@ -143,4 +143,9 @@ export PATH="/usr/local/bin:$PATH"
 export NODE_PATH=/usr/local/lib/node_modules
 
 #-------------------------------------------------------------------------------
+# fzf
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+#-------------------------------------------------------------------------------
 ## end .bash_profile
