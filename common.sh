@@ -156,11 +156,33 @@ trim_end() {
   ffmpeg -i "$1" -ss 0 -to "$2" -c copy trimmed.mp3
 }
 
+syncmusic() {
+  rsync -vr --size-only --delete /Volumes/home-silver/home/Music/iTunes/ ~/Music/iTunes
+}
+
+fco() {
+  local branches branch
+  branches=$(git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format="%(refname:short)") &&
+  branch=$(echo "$branches" |
+           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
+  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+}
+
+fshow_preview() {
+    glNoGraph |
+        fzf --no-sort --reverse --tiebreak=index --no-multi \
+            --ansi --preview="$_viewGitLogLine" \
+                --header "enter to view, alt-y to copy hash" \
+                --bind "enter:execute:$_viewGitLogLine   | less -R" \
+                --bind "alt-y:execute:$_gitLogLineToHash | xclip"
+}
+
 #-------------------------------------------------------------------------------
 # aliases
 
 # I'm really more of a dog person
 alias dog="cat"
+alias less="bat"
 
 # dog with color
 dogc() {
@@ -223,10 +245,11 @@ alias dcm="bundle exec rake db:drop db:create db:migrate"
 alias dcms="bundle exec rake db:drop db:create db:migrate db:seed"
 
 # clojure
-alias lt="lein spec"
+alias lt="lein test"
 alias lr="lein repl"
 alias lc="lein clean"
 alias lds="lein deps"
+alias lfa="lein cljfmt fix && lein how-to-ns fix"
 
 # mix / elixir
 alias mc="mix compile"
@@ -303,8 +326,6 @@ alias pwdp="pwd -P"
 alias killspring="ps aux | egrep 'spring (app|server)' | tr -s ' ' | cut -d' ' -f2 | xargs kill -9"
 alias killpuma="ps aux | grep -v grep | grep puma | cut -d ' ' -f10 | xargs kill"
 
-alias syncmusic="rsync -vr --size-only --delete /Volumes/yudkowsky/home/Music/iTunes/ ~/Music/iTunes"
-
 alias wh="which"
 
 alias tree="tree -I node_modules -I coverage "
@@ -320,6 +341,9 @@ alias t7="tree -L 7"
 # make
 alias mt="make test && unicornleap -s 1.5"
 
+# haskell
+alias cdh="cd ~/code/haskell"
+
 #-------------------------------------------------------------------------------
 # machine-specific setup
 
@@ -334,7 +358,6 @@ if [ "$(uname)" = "Darwin" ]; then
 elif [ "$(uname)" = "linux-gnu" -o "$(uname)" = "Linux" ]; then
   source ~/dotfiles/common-linux.sh
 fi
-
 
 #-------------------------------------------------------------------------------
 # SSH

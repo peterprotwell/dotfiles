@@ -1,7 +1,13 @@
 main :: IO ()
 main = putStrLn "Hello, what is a Haskell!"
--- Run the funcion with:
+
+-- Run the function with:
 -- ghci> main
+
+-- '->' in type signatures group to the right
+--   a -> b -> c === a -> (b -> c)
+-- Function application groups to the left
+--   f a b c === ((f a) b) c
 
 a = 2 + 3
 
@@ -24,7 +30,7 @@ list1 = [1,2,3]
 list2 = [4,5,6]
 list3 = list1 ++ list2
 
--- Strings are just lists
+-- Strings are just lists of characters
 woot = ['w','o'] ++ ['o','t']
 
 -- Behold! the cons:
@@ -50,7 +56,7 @@ dropped = drop 2 onMe
 
 -- include? is called elem
 included = elem 2 [1,2,3]
--- You can infix everything (even chicken)
+-- You can infix everything
 included = 2 `elem` [1,2,3]
 
 -- ranges

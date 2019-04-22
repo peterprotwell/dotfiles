@@ -424,7 +424,12 @@ respectively."
 (use-package projectile
   :config
   (projectile-global-mode)
-  (setq projectile-mode-line " Pj")
+  (setq projectile-mode-line " Pj"
+        projectile-project-root-files-functions
+        '(projectile-root-local
+          projectile-root-top-down
+          projectile-root-bottom-up
+          projectile-root-top-down-recurring))
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   :bind
   (("M-s-f" . projectile-find-file)
@@ -617,8 +622,11 @@ respectively."
   (add-hook 'markdown-mode-hook
             (lambda () (miken-keys-minor-mode t))))
 
+(use-package clojure-mode
+  :defer t
+  :config (setq clojure-indent-style 'align-arguments))
+
 (use-package coffee-mode :defer t)
-(use-package clojure-mode :defer t)
 (use-package dockerfile-mode :defer t)
 (use-package haml-mode :defer t)
 (use-package haskell-mode :defer t)
@@ -634,6 +642,21 @@ respectively."
 
 (use-package ruby-end :config (setq ruby-end-insert-newline nil))
 
+(defun miken-ruby-interpolate ()
+  "In a double quoted string, interpolate."
+  (interactive)
+  (insert "#")
+  (when (and (looking-back "\".*") (looking-at ".*\""))
+    (insert "{}")
+    (backward-char 1)))
+
+(defun miken-insert-ruby-pry ()
+  "Inserts the line `require 'pry'; binding.pry'"
+  (interactive)
+  (save-excursion
+    (miken-open-line-above)
+    (insert "require 'pry'; binding.pry")))
+
 (use-package enh-ruby-mode
   :bind (("M-s-p" . miken-insert-ruby-pry))
   :config
@@ -642,21 +665,6 @@ respectively."
   (add-to-list 'auto-mode-alist
                '("\\(Capfile\\|Gemfile\\(?:\\.[a-zA-Z0-9._-]+\\)?\\|[rR]akefile\\)\\'" . enh-ruby-mode))
   (setq enh-ruby-hanging-brace-deep-indent-level 1)
-
-  (defun miken-ruby-interpolate ()
-    "In a double quoted string, interpolate."
-    (interactive)
-    (insert "#")
-    (when (and (looking-back "\".*") (looking-at ".*\""))
-      (insert "{}")
-      (backward-char 1)))
-
-  (defun miken-insert-ruby-pry ()
-    "Inserts the line `require 'pry'; binding.pry'"
-    (interactive)
-    (save-excursion
-      (miken-open-line-above)
-      (insert "require 'pry'; binding.pry")))
 
   (add-hook 'enh-ruby-mode-hook
             (lambda ()
@@ -1030,6 +1038,19 @@ respectively."
                 (lambda () (interactive)
                   (end-of-line)
                   (newline-and-indent)))
+
+;;------------------------------------------------------------------------------
+;; Familiar key bindings
+
+(global-set-key (kbd "<home>") #'move-beginning-of-line)
+(global-set-key (kbd "<end>") #'move-end-of-line)
+(global-set-key (kbd "<next>")
+                (lambda () (interactive)
+                  (scroll-up (miken-window-half-height))))
+(global-set-key (kbd "<prior>")
+                (lambda () (interactive)
+                  (scroll-down (miken-window-half-height))))
+
 
 ;;------------------------------------------------------------------------------
 ;; Exit
