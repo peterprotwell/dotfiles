@@ -313,13 +313,6 @@ respectively."
 ;;------------------------------------------------------------------------------
 ;; Window management
 
-(use-package workgroups
-  :config
-  (workgroups-mode 1)
-  (setq wg-morph-on nil)
-  (let ((workgroups-file (concat user-emacs-directory "workgroups")))
-    (if (file-exists-p workgroups-file) (wg-load workgroups-file))))
-
 (use-package zygospore
   :bind ("C-x 1" . zygospore-toggle-delete-other-windows))
 
@@ -657,13 +650,14 @@ respectively."
     (miken-open-line-above)
     (insert "require 'pry'; binding.pry")))
 
+(add-to-list 'auto-mode-alist
+             '("\\.\\(?:gemspec\\|irbrc\\|gemrc\\|pryrc\\|rake\\|rb\\|ru\\|thor\\)\\'" . enh-ruby-mode))
+(add-to-list 'auto-mode-alist
+             '("\\(Capfile\\|Gemfile\\(?:\\.[a-zA-Z0-9._-]+\\)?\\|[rR]akefile\\)\\'" . enh-ruby-mode))
+
 (use-package enh-ruby-mode
   :bind (("M-s-p" . miken-insert-ruby-pry))
   :config
-  (add-to-list 'auto-mode-alist
-               '("\\.\\(?:gemspec\\|irbrc\\|gemrc\\|pryrc\\|rake\\|rb\\|ru\\|thor\\)\\'" . enh-ruby-mode))
-  (add-to-list 'auto-mode-alist
-               '("\\(Capfile\\|Gemfile\\(?:\\.[a-zA-Z0-9._-]+\\)?\\|[rR]akefile\\)\\'" . enh-ruby-mode))
   (setq enh-ruby-hanging-brace-deep-indent-level 1)
 
   (add-hook 'enh-ruby-mode-hook
@@ -776,6 +770,16 @@ respectively."
            '(("M-<backspace>" . term-send-backward-kill-word)
              ("M-d" . term-send-forward-kill-word)))
     (add-to-list 'term-bind-key-alist key-command)))
+
+;;------------------------------------------------------------------------------
+;; Workgroups
+
+(use-package workgroups
+  :config
+  (workgroups-mode 1)
+  (setq wg-morph-on nil)
+  (let ((workgroups-file (concat user-emacs-directory "workgroups")))
+    (if (file-exists-p workgroups-file) (wg-load workgroups-file))))
 
 ;;------------------------------------------------------------------------------
 ;; Text manipulation
