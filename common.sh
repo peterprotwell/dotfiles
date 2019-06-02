@@ -85,7 +85,11 @@ gh() {
 }
 
 agi() {
-  ag $(echo "$*" | sed 's/ / --ignore /g')
+  \ag $(echo "$*" | sed 's/ / --ignore /g')
+}
+
+rgi() {
+  \rg $(echo "$*" | sed 's/ / -g !/g')
 }
 
 # requires node and http-server:
@@ -183,15 +187,6 @@ fshow_preview() {
 # I'm really more of a dog person
 alias dog="cat"
 alias less="bat"
-
-# dog with color
-dogc() {
-  if ! type pygmentize &> /dev/null; then
-    pip3 install pygments
-  fi
-
-  pygmentize -g $@
-}
 
 # oh-my-zsh default aliases this to 'ls -l'
 alias ll="ls -hAl"
@@ -319,12 +314,12 @@ alias un7zip="7z x"
 alias g="git"
 alias gx="gitx &"
 alias git-prune-merged-remote="git branch --remote --merged | grep -v /master | sed 's/origin\///' | xargs -n 1 git push --delete origin"
-alias git-prune-merged-local="git checkout master && git branch --merged | grep -v '* master' | xargs git branch --delete"
+alias git-prune-merged-local="git checkout master && git branch --merged | grep -v '* master' | xargs -n 1 git branch --delete"
 
 alias pwdp="pwd -P"
 
-alias killspring="ps aux | egrep 'spring (app|server)' | tr -s ' ' | cut -d' ' -f2 | xargs kill -9"
-alias killpuma="ps aux | grep -v grep | grep puma | cut -d ' ' -f10 | xargs kill"
+alias killspring="ps aux | egrep 'spring (app|server)' | tr -s ' ' | cut -d' ' -f2 | xargs -n 1 kill -9"
+alias killpuma="ps aux | grep -v grep | grep puma | cut -d ' ' -f10 | xargs -n 1 kill"
 
 alias wh="which"
 
@@ -344,6 +339,10 @@ alias mt="make test && unicornleap -s 1.5"
 # haskell
 alias cdh="cd ~/code/haskell"
 
+alias hst="history"
+
+alias rg="rg -S"
+
 #-------------------------------------------------------------------------------
 # machine-specific setup
 
@@ -357,18 +356,12 @@ if [ "$(uname)" = "Darwin" ]; then
   source ~/dotfiles/common-mac.sh
 elif [ "$(uname)" = "linux-gnu" -o "$(uname)" = "Linux" ]; then
   source ~/dotfiles/common-linux.sh
+  eval "$(ssh-agent -s)" > /dev/null
 fi
-
-#-------------------------------------------------------------------------------
-# SSH
-
-eval "$(ssh-agent -s)" > /dev/null
 
 #-------------------------------------------------------------------------------
 # Docker
 
-alias dm="docker-machine"
-alias dc="docker-compose"
 alias di="docker images"
 alias dp="docker ps -a"
 
@@ -378,22 +371,11 @@ alias dshell='docker exec -it "$(basename $(pwd))" /bin/bash'
 alias dshelli='docker run -it "$(basename $(pwd))" /bin/bash'
 
 alias dcleani='docker rmi $(docker images -aq)'
-alias dcleanc="docker ps -aq -f status=exited | xargs docker rm -v"
-
-if [[ "$(docker-machine status default)" == "Running" ]] 2> /dev/null; then
-  export DOCKER_IP="$(docker-machine ip)"
-  eval "$(docker-machine env default)"
-fi
+alias dcleanc="docker ps -aq -f status=exited | xargs -n 1 docker rm -v"
 
 drun() {
   docker run "$(basename $(pwd))" "$1"
 }
-
-#-------------------------------------------------------------------------------
-# games
-
-export D2_SAVE_DIR="/Applications/Games.localized/Diablo 2.app/Contents/Resources/drive_c/Program Files/Diablo II/Save"
-cdd2="cd $D2_SAVE_DIR"
 
 #-------------------------------------------------------------------------------
 # Misc.
@@ -409,6 +391,16 @@ export NVM_DIR="$HOME/.nvm"
 if [ -f "/usr/local/opt/nvm/nvm.sh" ]; then
   . "/usr/local/opt/nvm/nvm.sh"
 fi
+
+# Add some colour to LESS/MAN pages
+export LESS_TERMCAP_mb=$'\E[01;31m'
+export LESS_TERMCAP_md=$'\E[01;33m'
+export LESS_TERMCAP_me=$'\E[0m'
+export LESS_TERMCAP_se=$'\E[0m'
+export LESS_TERMCAP_so=$'\E[01;42;30m'
+export LESS_TERMCAP_ue=$'\E[0m'
+export LESS_TERMCAP_us=$'\E[01;36m'
+export LESS_TERMCAP_zzz=$'\E[0m'
 
 #-------------------------------------------------------------------------------
 # rbenv

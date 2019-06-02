@@ -21,3 +21,9 @@ alias cdJ="cd ~/Documents/job"
 alias cdmtb="cd ~/code/rails/movie-trailer-bingo"
 alias cda="cd ~/code/actionizer"
 alias cder="cd ~/code/elixir/rumbl"
+
+#-------------------------------------------------------------------------------
+# games
+
+export D2_SAVE_DIR="/Applications/Games.localized/Diablo 2.app/Contents/Resources/drive_c/Program Files/Diablo II/Save"
+cdd2="cd $D2_SAVE_DIR"

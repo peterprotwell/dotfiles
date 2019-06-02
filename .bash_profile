@@ -148,4 +148,9 @@ export NODE_PATH=/usr/local/lib/node_modules
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 #-------------------------------------------------------------------------------
+# history
+
+shopt -s histappend
+
+#-------------------------------------------------------------------------------
 ## end .bash_profile
