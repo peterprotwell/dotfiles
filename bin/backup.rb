@@ -15,11 +15,7 @@ drive = find_backup_drive
 backup_dir = "/Volumes/#{drive}/home"
 puts "Backing up to #{backup_dir}..."
 
-dirs = if drive.start_with?('home-')
-         %w(books dotfiles Music)
-       else
-         %w(books code Compositions Documents dotfiles Movies Music Pictures thoughts)
-       end
+dirs = %w(books code Compositions Documents dotfiles Movies Music Pictures thoughts)
 
 if !Dir.exists?(backup_dir)
   puts "Please create directory '#{backup_dir}'"
