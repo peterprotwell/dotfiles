@@ -392,15 +392,29 @@ if [ -f "/usr/local/opt/nvm/nvm.sh" ]; then
   . "/usr/local/opt/nvm/nvm.sh"
 fi
 
+# termcap terminfo
+# ks      smkx      make the keypad send commands
+# ke      rmkx      make the keypad send digits
+# vb      flash     emit visual bell
+# mb      blink     start blink
+# md      bold      start bold
+# me      sgr0      turn off bold, blink and underline
+# so      smso      start standout (reverse video)
+# se      rmso      stop standout
+# us      smul      start underline
+# ue      rmul      stop underline
+
 # Add some colour to LESS/MAN pages
 export LESS_TERMCAP_mb=$'\E[01;31m'
-export LESS_TERMCAP_md=$'\E[01;33m'
+export LESS_TERMCAP_md=$(tput bold; tput setaf 4)
 export LESS_TERMCAP_me=$'\E[0m'
 export LESS_TERMCAP_se=$'\E[0m'
-export LESS_TERMCAP_so=$'\E[01;42;30m'
+export LESS_TERMCAP_so=$(tput bold; tput setaf 160; tput setab 11)
 export LESS_TERMCAP_ue=$'\E[0m'
-export LESS_TERMCAP_us=$'\E[01;36m'
+export LESS_TERMCAP_us=$(tput bold; tput setaf 2)
 export LESS_TERMCAP_zzz=$'\E[0m'
+
+# screen -S mike<n> "-e^Ss"
 
 #-------------------------------------------------------------------------------
 # rbenv

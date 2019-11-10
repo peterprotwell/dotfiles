@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 def find_backup_drive
-  %w(yudkowsky feynman Tyson SAGAN home-silver home-gold home-rose).each do |disk|
+  %w(home-silver home-gold home-rose SAGAN).each do |disk|
     if File.exists? "/Volumes/#{disk}"
       return disk
     end

@@ -5,6 +5,8 @@
 ;; Don't quote the empty list
 ;; In the repl, _ from irb is called *1
 
+;; Run one test: lein test :only namespace_name/test_name
+
 ;; Number
 42
 ;; String
@@ -100,3 +102,6 @@
 
 (cube-deriv 4) ;=> 48.00120000993502
 (three-x-squared 4) ;=> 48
+
+;; require
+(require '[path.to.file :as alias])
