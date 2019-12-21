@@ -208,8 +208,8 @@ alias hbua="brew update && brew upgrade && brew cleanup"
 alias bs="brew services"
 
 # bundler
-alias b="bundle check || bundle install"
-alias bb="bundle check || bundle config --local frozen false  && bundle install && bundle config --local frozen true"
+alias b="bundle check 2>/dev/null || bundle install"
+alias bb="bundle check 2>/dev/null || bundle config --local frozen false  && bundle install && bundle config --local frozen true"
 alias bi="bundle install"
 alias bus="bundle update --source"
 alias bu="bundle update"
@@ -303,6 +303,7 @@ alias cdr="cd ~/code/ruby"
 alias cdra="cd ~/code/rails"
 alias cdrr="cd ~/code/ruby-refactor"
 alias cdrw="cd ~/code/rails/recursewords"
+alias cdsq="cd ~/code/sendql"
 alias cdt="cd ~/thoughts"
 
 # Java command line
