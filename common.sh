@@ -181,6 +181,12 @@ fshow_preview() {
                 --bind "alt-y:execute:$_gitLogLineToHash | xclip"
 }
 
+restore() {
+  for dir in /Volumes/home-*/home/*; do
+    rsync -vr --size-only --delete "$dir/" ~/"$(basename $dir)/"
+  done
+}
+
 #-------------------------------------------------------------------------------
 # aliases
 
