@@ -1,5 +1,5 @@
 ;;;
-;;; Peter's .emacs file
+;;; Mike's .emacs file
 ;;;
 
 ;;------------------------------------------------------------------------------
@@ -31,7 +31,7 @@
 (setq use-package-always-ensure t)
 
 ;; From package.el#package--get-deps:1703
-(defun protwell-package-get-deps (pkg &optional only)
+(defun miken-package-get-deps (pkg &optional only)
   "Get all packages on which PKG depends"
   (interactive)
   (let* ((pkg-desc (cadr (assq pkg package-alist)))
@@ -42,22 +42,22 @@
          (indirect-deps (ifnot (eq only 'direct)
                           (cl-remove-duplicates
                            (cl-loop for p in direct-deps
-                                    append (protwell-package-get-deps p))))))
+                                    append (miken-package-get-deps p))))))
     (cl-case only
       (direct   direct-deps)
       (separate (list direct-deps indirect-deps))
       (indirect indirect-deps)
       (t        (cl-remove-duplicates (append direct-deps indirect-deps))))))
 
-(defun protwell-package-get-dependees (dependency)
+(defun miken-package-get-dependees (dependency)
   "Get all packages which depend on DEPENDENCY"
   (interactive)
   (cl-loop for pkg in (cl-remove-duplicates package-activated-list)
-           for deps = (protwell-package-get-deps pkg)
+           for deps = (miken-package-get-deps pkg)
            when (memq dependency deps)
            collect pkg))
 
-;; (protwell-package-get-dependees 'dash)
+;; (miken-package-get-dependees 'dash)
 
 ;;------------------------------------------------------------------------------
 ;; OS settings
@@ -145,13 +145,13 @@ STRING is a single-character string that marks the opening character.
   (def-pairs ((paren . \"(\")
               (bracket . \"[\"))
 
-defines the functions PROTWELL-WRAP-WITH-PAREN and PROTWELL-WRAP-WITH-BRACKET,
+defines the functions MIKEN-WRAP-WITH-PAREN and MIKEN-WRAP-WITH-BRACKET,
 respectively."
   `(progn
      ,@(cl-loop for (key . val) in pairs
              collect
              `(defun ,(read (concat
-                             "protwell-wrap-with-"
+                             "miken-wrap-with-"
                              (prin1-to-string key)
                              "s"))
                   (&optional arg)
@@ -206,13 +206,13 @@ respectively."
 
          ("C-x C-t" . sp-transpose-hybrid-sexp)
 
-         ("C-c (" . protwell-wrap-with-parens)
-         ("C-c [" . protwell-wrap-with-brackets)
-         ("C-c {" . protwell-wrap-with-braces)
-         ("C-c '" . protwell-wrap-with-single-quotes)
-         ("C-c \"" . protwell-wrap-with-double-quotes)
-         ("C-c _" . protwell-wrap-with-underscores)
-         ("C-c `" . protwell-wrap-with-back-quotes)))
+         ("C-c (" . miken-wrap-with-parens)
+         ("C-c [" . miken-wrap-with-brackets)
+         ("C-c {" . miken-wrap-with-braces)
+         ("C-c '" . miken-wrap-with-single-quotes)
+         ("C-c \"" . miken-wrap-with-double-quotes)
+         ("C-c _" . miken-wrap-with-underscores)
+         ("C-c `" . miken-wrap-with-back-quotes)))
 
 
 ;; (add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
@@ -229,7 +229,7 @@ respectively."
 ;;------------------------------------------------------------------------------
 ;; Font size / text size
 
-(defun protwell-font-size ()
+(defun miken-font-size ()
   (interactive)
   (let ((font-size (cond
                     ((<= (display-pixel-height) 800) "14")
@@ -238,7 +238,7 @@ respectively."
                     ((<= (display-pixel-height) 1920) "18")
                     (t "20") )))
     (set-face-attribute 'default nil :font (concat "Inconsolata-" font-size))))
-(protwell-font-size)
+(miken-font-size)
 
 ;;------------------------------------------------------------------------------
 ;; Color themes
@@ -252,7 +252,7 @@ respectively."
             (lambda () (if (string-match ".*theme.*" (buffer-name))
                            (rainbow-mode)))))
 
-(defun protwell-override-theme (theme)
+(defun miken-override-theme (theme)
   "Disables any active themes and loads a new theme."
   (interactive
    (list (completing-read "Override with custom theme: " (custom-available-themes))))
@@ -260,7 +260,7 @@ respectively."
   (load-theme (intern theme) t nil))
 
 (use-package railscasts-theme
-  :config (protwell-override-theme "railscasts"))
+  :config (miken-override-theme "railscasts"))
 
 ;;------------------------------------------------------------------------------
 ;; Sound
@@ -269,7 +269,7 @@ respectively."
             (subrp (symbol-function 'play-sound-internal)))
   (require 'play-sound))
 
-(defun protwell-lightsaber (opt)
+(defun miken-lightsaber (opt)
   (interactive)
   (let ((action (if opt "up" "down")))
     (play-sound-file (concat user-emacs-directory "sounds/lightsaber-" action ".mp3"))))
@@ -287,28 +287,28 @@ respectively."
 (if window-system
   (setq frame-title-format '(buffer-file-name "%f" ("%b"))))
 
-(defun protwell-make-frame-command ()
+(defun miken-make-frame-command ()
   "Play a lightsaber ignition sound when making a new frame"
   (interactive)
-  (protwell-lightsaber t)
+  (miken-lightsaber t)
   (make-frame-command))
-(global-set-key (kbd "C-x 5 2") #'protwell-make-frame-command)
+(global-set-key (kbd "C-x 5 2") #'miken-make-frame-command)
 
-(defun protwell-delete-frame ()
+(defun miken-delete-frame ()
   "Play a lightsaber deactivate sound when killing a frame"
   (interactive)
-  (protwell-lightsaber nil)
+  (miken-lightsaber nil)
   (delete-frame))
-(global-set-key (kbd "C-x 5 0") #'protwell-delete-frame)
+(global-set-key (kbd "C-x 5 0") #'miken-delete-frame)
 
-(defun protwell-maximus-frame ()
+(defun miken-maximus-frame ()
   "Stretch a frame across two monitors"
   (interactive)
-  (protwell-font-size)
+  (miken-font-size)
   (set-frame-position (selected-frame) 5 25)
   (set-frame-size (selected-frame) 237 93))
 
-(global-set-key (kbd "C-M-s-f") #'protwell-maximus-frame)
+(global-set-key (kbd "C-M-s-f") #'miken-maximus-frame)
 
 ;;------------------------------------------------------------------------------
 ;; Window management
@@ -343,9 +343,9 @@ respectively."
 ;;------------------------------------------------------------------------------
 ;; Buffer management
 
-(defun protwell-remind () (interactive) (message "C-x 4 0 to kill buffer and window"))
-(global-set-key (kbd "C-c k") #'protwell-remind)
-(global-set-key (kbd "C-c C-k") #'protwell-remind)
+(defun miken-remind () (interactive) (message "C-x 4 0 to kill buffer and window"))
+(global-set-key (kbd "C-c k") #'miken-remind)
+(global-set-key (kbd "C-c C-k") #'miken-remind)
 
 (global-set-key (kbd "C-x C-k") (lambda () (interactive) (kill-buffer (current-buffer))))
 
@@ -503,12 +503,12 @@ respectively."
 ;; Neotree
 
 (use-package neotree
-  :bind (("M-s-a" . protwell-neotree)
-         ([f8] . protwell-neotree))
+  :bind (("M-s-a" . miken-neotree)
+         ([f8] . miken-neotree))
   :config
   (setq neo-smart-open t
         neo-autorefresh nil)
-  (defun protwell-neotree ()
+  (defun miken-neotree ()
     "Open neotree using the projectile-project-root."
     (interactive)
     (let ((project-dir (projectile-project-root))
@@ -549,7 +549,7 @@ respectively."
   :config
   (customize-set-variable 'jsx-indent-level 2))
 
-(defun protwell-setup-tide-mode ()
+(defun miken-setup-tide-mode ()
   (interactive)
   (tide-setup)
   (flycheck-mode +1)
@@ -565,7 +565,7 @@ respectively."
 (use-package tide
   :config
   (add-hook 'before-save-hook #'tide-format-before-save)
-  (add-hook 'typescript-mode-hook #'protwell-setup-tide-mode)
+  (add-hook 'typescript-mode-hook #'miken-setup-tide-mode)
   (setq typescript-indent-level 2))
 
 ;; TSX
@@ -577,30 +577,30 @@ respectively."
   (add-hook 'web-mode-hook
             (lambda ()
               (when (string-equal "tsx" (file-name-extension buffer-file-name))
-                (protwell-setup-tide-mode)))))
+                (miken-setup-tide-mode)))))
 
 ;; HTML
 (global-set-key (kbd "C-c e") #'sgml-close-tag)
 
 ;; CSS
-(defun protwell-css-mode-setup ()
+(defun miken-css-mode-setup ()
   "Setup mode for CSS/SASS/SCSS"
   (rainbow-mode)
   (setq css-indent-offset 2))
 
-(add-hook 'css-mode-hook #'protwell-css-mode-setup)
+(add-hook 'css-mode-hook #'miken-css-mode-setup)
 
 ;; SASS
 (use-package sass-mode
   :defer t
-  :config (add-hook 'sass-mode-hook #'protwell-css-mode-setup))
+  :config (add-hook 'sass-mode-hook #'miken-css-mode-setup))
 
 ;; SCSS
 (use-package scss-mode
   :defer t
   :config
   (setq scss-compile-at-save nil)
-  (add-hook 'scss-mode-hook #'protwell-css-mode-setup))
+  (add-hook 'scss-mode-hook #'miken-css-mode-setup))
 
 ;; C
 (add-hook 'c-mode-hook (lambda () (setq tab-width 4)))
@@ -613,7 +613,7 @@ respectively."
   :defer t
   :config
   (add-hook 'markdown-mode-hook
-            (lambda () (protwell-keys-minor-mode t))))
+            (lambda () (miken-keys-minor-mode t))))
 
 (use-package clojure-mode
   :defer t
@@ -635,7 +635,7 @@ respectively."
 
 (use-package ruby-end :config (setq ruby-end-insert-newline nil))
 
-(defun protwell-ruby-interpolate ()
+(defun miken-ruby-interpolate ()
   "In a double quoted string, interpolate."
   (interactive)
   (insert "#")
@@ -643,11 +643,11 @@ respectively."
     (insert "{}")
     (backward-char 1)))
 
-(defun protwell-insert-ruby-pry ()
+(defun miken-insert-ruby-pry ()
   "Inserts the line `require 'pry'; binding.pry'"
   (interactive)
   (save-excursion
-    (protwell-open-line-above)
+    (miken-open-line-above)
     (insert "require 'pry'; binding.pry")))
 
 (add-to-list 'auto-mode-alist
@@ -656,7 +656,7 @@ respectively."
              '("\\(Capfile\\|Gemfile\\(?:\\.[a-zA-Z0-9._-]+\\)?\\|[rR]akefile\\)\\'" . enh-ruby-mode))
 
 (use-package enh-ruby-mode
-  :bind (("M-s-p" . protwell-insert-ruby-pry))
+  :bind (("M-s-p" . miken-insert-ruby-pry))
   :config
   (setq enh-ruby-hanging-brace-deep-indent-level 1)
 
@@ -665,7 +665,7 @@ respectively."
               (ruby-end-mode)
               (auto-complete-mode)
               (define-key enh-ruby-mode-map (kbd "RET") #'newline-and-indent)
-              (define-key enh-ruby-mode-map (kbd "#") #'protwell-ruby-interpolate))))
+              (define-key enh-ruby-mode-map (kbd "#") #'miken-ruby-interpolate))))
 
 (use-package ruby-refactor
   :defer t
@@ -674,7 +674,7 @@ respectively."
 (use-package projectile-rails
   :defer t
   :config
-  (setq protwell-rails-file-types
+  (setq miken-rails-file-types
         '(;; Ruby
           ruby-mode-hook
           enh-ruby-mode-hook
@@ -685,7 +685,7 @@ respectively."
           ;; Markup
           html-mode-hook html-erb-mode-hook slim-mode-hook haml-mode-hook yaml-mode-hook))
   ;; Turn on projectile-rails-mode if we're in a rails project
-  (dolist (hook protwell-rails-file-types)
+  (dolist (hook miken-rails-file-types)
     (add-hook hook
               (lambda ()
                 (if (and (projectile-project-p)
@@ -710,13 +710,13 @@ respectively."
   (setq rspec-use-rake-when-possible nil)
   :config
   (add-hook 'after-init-hook #'inf-ruby-switch-setup)
-  (defun protwell-rspec-toggle-flip ()
+  (defun miken-rspec-toggle-flip ()
     (interactive)
     (split-window-below)
     (windmove-down)
     (rspec-toggle-spec-and-target))
   :bind
-  ("M-s-t" . protwell-rspec-toggle-flip))
+  ("M-s-t" . miken-rspec-toggle-flip))
 
 ;;------------------------------------------------------------------------------
 ;; alchemist / elixir
@@ -726,10 +726,10 @@ respectively."
   :init
   (setq alchemist-key-command-prefix (kbd "C-c ,"))
   :config
-  (defun protwell-insert-iex-pry ()
+  (defun miken-insert-iex-pry ()
     "Inserts the line `require IEx; IEx.pry'"
     (interactive)
-    (protwell-open-line-above)
+    (miken-open-line-above)
     (insert "require IEx; IEx.pry"))
   (setq alchemist-mix-test-task "espec")
   (add-to-list 'elixir-mode-hook
@@ -738,7 +738,7 @@ respectively."
                       "\\(?:^\\|\\s-+\\)\\(?:do\\)")
                  (set (make-variable-buffer-local 'ruby-end-check-statement-modifiers) nil)
                  (ruby-end-mode +1)))
-  :bind (("M-s-p" . protwell-insert-iex-pry)))
+  :bind (("M-s-p" . miken-insert-iex-pry)))
 
 ;;------------------------------------------------------------------------------
 ;; ediff setup
@@ -753,7 +753,7 @@ respectively."
 ;; For term-bind-key-alist
 (use-package multi-term
   :config
-  (defun protwell-switch-to-or-create-shell-buffer (index)
+  (defun miken-switch-to-or-create-shell-buffer (index)
     "Switches to *terminal<INDEX>* if it exists, or creates a new terminal."
     (interactive)
     (let ((term-name (concat "*terminal<" index ">*")))
@@ -764,7 +764,7 @@ respectively."
   (dolist (index '("1" "2" "3" "4" "5" "6" "7" "8" "9"))
     (global-set-key (kbd (concat "M-s-" index))
                     `(lambda () (interactive)
-                       (protwell-switch-to-or-create-shell-buffer ,index))))
+                       (miken-switch-to-or-create-shell-buffer ,index))))
 
   (dolist (key-command
            '(("M-<backspace>" . term-send-backward-kill-word)
@@ -785,7 +785,7 @@ respectively."
 ;; Text manipulation
 
 ;; From https://sites.google.com/site/steveyegge2/saving-time
-(defun protwell-fix-amazon-url ()
+(defun miken-fix-amazon-url ()
   "Minimizes the Amazon URL under the point. You can paste an Amazon
   URL out of your browser, put the cursor in it somewhere, and invoke
   this method to convert it."
@@ -798,19 +798,19 @@ respectively."
                 (match-string 1)
                 (match-string 3)))))
 
-(defun protwell-xml-format ()
+(defun miken-xml-format ()
   "Formats a region of XML to look nice"
   (interactive)
   (save-excursion
     (shell-command-on-region (mark) (point) "xmllint --format -" (buffer-name) t)))
 
-(defun protwell-json-format ()
+(defun miken-json-format ()
   (interactive)
   (let ((begin (if mark-active (min (point) (mark)) (point-min)))
         (end (if mark-active (max (point) (mark)) (point-max))))
     (shell-command-on-region begin end "python -mjson.tool" (current-buffer) t)))
 
-(defun protwell-toggle-quotes ()
+(defun miken-toggle-quotes ()
   "Toggle single quoted string to double or vice versa, and
   flip the internal quotes as well. Best to run on the first
   character of the string."
@@ -828,7 +828,7 @@ respectively."
       (let ((end (point)))
         (replace-match new-c)
         (replace-string new-c old-c nil (1+ start) end)))))
-(global-set-key (kbd "C-c t") #'protwell-toggle-quotes)
+(global-set-key (kbd "C-c t") #'miken-toggle-quotes)
 
 (global-set-key (kbd "C-x \\") #'align-regexp)
 
@@ -836,7 +836,7 @@ respectively."
 ;; Functions that should exist already
 
 ;; Never understood why Emacs doesn't have this function.
-(defun protwell-rename-buffer-and-file (new-name)
+(defun miken-rename-buffer-and-file (new-name)
   "Renames both current buffer and file it's visiting to NEW-NAME."
   (interactive "sNew name: ")
   (let ((name (buffer-name))
@@ -851,7 +851,7 @@ respectively."
         (set-buffer-modified-p nil)))))
 
 ;; Never understood why Emacs doesn't have this function, either.
-(defun protwell-move-buffer-and-file (dir)
+(defun miken-move-buffer-and-file (dir)
   "Moves both current buffer and file it's visiting to DIR."
   (interactive "DNew directory: ")
   (let* ((name (buffer-name))
@@ -868,7 +868,7 @@ respectively."
       (set-buffer-modified-p nil))))
 
 ;; Word count
-(defun protwell-count-words-buffer ()
+(defun miken-count-words-buffer ()
   "Counts the number of words in the buffer."
   (interactive)
   (let ((count 0))
@@ -883,12 +883,12 @@ respectively."
 ;; Custom functions
 
 ;; This is the greatest and best function ever.
-(defun protwell-reload ()
+(defun miken-reload ()
   "Reloads the .emacs file"
   (interactive)
   (load-file user-init-file))
 
-(defun protwell-copy-line-below (&optional n)
+(defun miken-copy-line-below (&optional n)
   "Duplicate current line, make more than 1 copy given a numeric argument"
   (interactive "p")
   (save-excursion
@@ -901,19 +901,19 @@ respectively."
         (insert current-line)
         (decf n))))
   (forward-line))
-(global-set-key (kbd "C-c d") #'protwell-copy-line-below)
+(global-set-key (kbd "C-c d") #'miken-copy-line-below)
 
 ;; Emulate vim's half-screen scrolling
-(defun protwell-window-half-height ()
+(defun miken-window-half-height ()
   (max 1 (/ (+ 1 (window-height (selected-window))) 2)))
 (global-set-key (kbd "C-v")
                 (lambda () (interactive)
-                  (scroll-up (protwell-window-half-height))))
+                  (scroll-up (miken-window-half-height))))
 (global-set-key (kbd "M-v")
                 (lambda () (interactive)
-                  (scroll-down (protwell-window-half-height))))
+                  (scroll-down (miken-window-half-height))))
 
-(defun protwell-open-line-above ()
+(defun miken-open-line-above ()
   "Insert a newline above the current line and indent point."
   (interactive)
   (ifnot (bolp) (beginning-of-line))
@@ -921,16 +921,16 @@ respectively."
   (forward-line -1)
   (indent-according-to-mode))
 
-(global-set-key (kbd "C-c o") #'protwell-open-line-above)
+(global-set-key (kbd "C-c o") #'miken-open-line-above)
 
 ;; In the pipe, five-by-five
-(defun protwell-previous-line-five () (interactive) (forward-line -5))
-(global-set-key (kbd "M-p") #'protwell-previous-line-five)
+(defun miken-previous-line-five () (interactive) (forward-line -5))
+(global-set-key (kbd "M-p") #'miken-previous-line-five)
 
-(defun protwell-next-line-five () (interactive) (forward-line 5))
-(global-set-key (kbd "M-n") #'protwell-next-line-five)
+(defun miken-next-line-five () (interactive) (forward-line 5))
+(global-set-key (kbd "M-n") #'miken-next-line-five)
 
-(defun protwell-current-buffer-filepath ()
+(defun miken-current-buffer-filepath ()
   "Put the current file path on the clipboard"
   (interactive)
   (let ((filename (buffer-file-name)))
@@ -940,9 +940,9 @@ respectively."
         (clipboard-kill-region (point-min) (point-max)))
       (message filename))))
 
-(global-set-key (kbd "C-c `") #'protwell-current-buffer-filepath)
+(global-set-key (kbd "C-c `") #'miken-current-buffer-filepath)
 
-(defun protwell-comment-dwim-line (&optional arg)
+(defun miken-comment-dwim-line (&optional arg)
   "Replacement for the comment-dwim command. If no region is selected and current
    line is not blank, then comment current line. Replaces default behaviour of
    comment-dwim, when it inserts comment at the end of the line."
@@ -952,15 +952,15 @@ respectively."
       (comment-dwim arg)
     (comment-or-uncomment-region (line-beginning-position) (line-end-position))))
 
-(global-set-key (kbd "M-;") #'protwell-comment-dwim-line)
+(global-set-key (kbd "M-;") #'miken-comment-dwim-line)
 
-(defun protwell-comment-dwim-line-and-move-down (&optional arg)
+(defun miken-comment-dwim-line-and-move-down (&optional arg)
   "Comment the current line and move to the next line"
   (interactive)
-  (protwell-comment-dwim-line arg)
+  (miken-comment-dwim-line arg)
   (forward-line))
 
-(global-set-key (kbd "C-M-;") #'protwell-comment-dwim-line-and-move-down)
+(global-set-key (kbd "C-M-;") #'miken-comment-dwim-line-and-move-down)
 
 (defun save-macro (name)
   "save a macro. Take a name as argument
@@ -1016,14 +1016,14 @@ respectively."
 ;;------------------------------------------------------------------------------
 ;; Key binding overrides
 
-(defvar protwell-keys-minor-mode-map (make-keymap) "protwell-keys-minor-mode keymap.")
+(defvar miken-keys-minor-mode-map (make-keymap) "miken-keys-minor-mode keymap.")
 
-(define-key protwell-keys-minor-mode-map (kbd "M-n") #'protwell-next-line-five)
-(define-key protwell-keys-minor-mode-map (kbd "M-p") #'protwell-previous-line-five)
+(define-key miken-keys-minor-mode-map (kbd "M-n") #'miken-next-line-five)
+(define-key miken-keys-minor-mode-map (kbd "M-p") #'miken-previous-line-five)
 
-(define-minor-mode protwell-keys-minor-mode
+(define-minor-mode miken-keys-minor-mode
   "A minor mode so that my key settings override annoying major modes."
-  nil " mn" protwell-keys-minor-mode-map)
+  nil " mn" miken-keys-minor-mode-map)
 
 ;;------------------------------------------------------------------------------
 ;; Server
@@ -1044,19 +1044,6 @@ respectively."
                   (newline-and-indent)))
 
 ;;------------------------------------------------------------------------------
-;; Familiar key bindings
-
-(global-set-key (kbd "<home>") #'move-beginning-of-line)
-(global-set-key (kbd "<end>") #'move-end-of-line)
-(global-set-key (kbd "<next>")
-                (lambda () (interactive)
-                  (scroll-up (protwell-window-half-height))))
-(global-set-key (kbd "<prior>")
-                (lambda () (interactive)
-                  (scroll-down (protwell-window-half-height))))
-
-
-;;------------------------------------------------------------------------------
 ;; Exit
 
 (setq kill-buffer-query-functions
@@ -1068,6 +1055,7 @@ respectively."
 
 ;;------------------------------------------------------------------------------
 
-(protwell-lightsaber t)
+(miken-lightsaber t)
 
 ;;; End .emacs
+(custom-set-variables

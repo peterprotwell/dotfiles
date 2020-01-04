@@ -330,15 +330,16 @@ alias killpuma="ps aux | grep -v grep | grep puma | cut -d ' ' -f10 | xargs -n 1
 
 alias wh="which"
 
-alias tree="tree -I node_modules -I coverage "
-alias t="tree"
-alias t1="tree -L 1"
-alias t2="tree -L 2"
-alias t3="tree -L 3"
-alias t4="tree -L 4"
-alias t5="tree -L 5"
-alias t6="tree -L 6"
-alias t7="tree -L 7"
+MIKEN_TREE_FLAGS="-I 'node_modules|coverage'"
+alias tree="tree $MIKEN_TREE_FLAGS"
+alias t="tree $MIKEN_TREE_FLAGS"
+alias t1="tree -L 1 $MIKEN_TREE_FLAGS"
+alias t2="tree -L 2 $MIKEN_TREE_FLAGS"
+alias t3="tree -L 3 $MIKEN_TREE_FLAGS"
+alias t4="tree -L 4 $MIKEN_TREE_FLAGS"
+alias t5="tree -L 5 $MIKEN_TREE_FLAGS"
+alias t6="tree -L 6 $MIKEN_TREE_FLAGS"
+alias t7="tree -L 7 $MIKEN_TREE_FLAGS"
 
 # make
 alias mt="make test && unicornleap -s 1.5"
@@ -349,6 +350,8 @@ alias cdh="cd ~/code/haskell"
 alias hst="history"
 
 alias rg="rg -S"
+
+alias weather="curl -s wttr.in | head -n -2"
 
 #-------------------------------------------------------------------------------
 # machine-specific setup
