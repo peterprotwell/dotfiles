@@ -309,6 +309,7 @@ alias cdr="cd ~/code/ruby"
 alias cdra="cd ~/code/rails"
 alias cdrr="cd ~/code/ruby-refactor"
 alias cdrw="cd ~/code/rails/recursewords"
+alias cdsc="cd ~/code/scala"
 alias cdsq="cd ~/code/sendql"
 alias cdt="cd ~/thoughts"
 

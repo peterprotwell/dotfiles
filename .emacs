@@ -232,7 +232,7 @@ respectively."
 (defun miken-font-size ()
   (interactive)
   (let ((font-size (cond
-                    ((<= (display-pixel-height) 800) "14")
+                    ((<= (display-pixel-height) 800) "16")
                     ((<= (display-pixel-height) 1200) "18")
                     ((<= (display-pixel-height) 1440) "18")
                     ((<= (display-pixel-height) 1920) "18")

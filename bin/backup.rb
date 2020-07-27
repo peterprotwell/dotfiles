@@ -39,5 +39,5 @@ Dir.chdir(Dir.home) do
     system("rsync -vr --size-only --delete #{Dir.home}/#{dir}/ #{backup_dir}/#{dir}")
   end
 
-  system("cp ~/Library/Application\\ Support/Google/Chrome/Default/Bookmarks #{backup_dir}/bookmarks.json")
+  #system("cp ~/Library/Application\\ Support/Google/Chrome/Default/Bookmarks #{backup_dir}/bookmarks.json")
 end

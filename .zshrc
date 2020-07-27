@@ -1,4 +1,4 @@
-if ! type dog &>/dev/null ; then
+if [ -f ~/dotfiles/.zprofile ]; then
   source ~/dotfiles/.zprofile
 fi
 
